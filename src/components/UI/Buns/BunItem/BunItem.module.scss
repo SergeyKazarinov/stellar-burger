@@ -1,0 +1,21 @@
+.bunItem {
+  background-color: #1C1C21;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  &_type {
+    &_top{
+      border-radius: 88px 88px 40px 40px;
+    }
+
+    &_bottom {
+      border-radius: 40px 40px 88px 88px;
+    }
+  }
+
+  &__image {
+    width: 80px;
+    height: 40px;
+  }
+}

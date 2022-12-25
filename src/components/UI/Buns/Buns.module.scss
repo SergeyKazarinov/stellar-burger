@@ -1,0 +1,18 @@
+.buns {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+  }
+
+  &__flex {
+    display: flex;
+    gap: 9.5px;
+    align-items: center;
+  }
+}

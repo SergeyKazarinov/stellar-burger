@@ -3,7 +3,7 @@ import s from './IngredientContainer.module.scss';
 
 interface IIngredientContainerProps {
   title: string;
-  href?: string;
+  href: string;
   children: ReactNode;
 }
 

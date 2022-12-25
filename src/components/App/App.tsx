@@ -1,5 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import { Header } from '../Header/Header';
+import Constructor from '../../pages/constructor-page/constructor-page';
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
     <Header />
     <Switch>
       <Route exact path='/'>
+        <Constructor />
       </Route>
     </Switch>
     <div className='container'>

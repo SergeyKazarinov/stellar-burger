@@ -5,7 +5,7 @@ import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstruc
 
 const Constructor: FC = () => {
   return(
-    <section className={s.constructorContainer}>
+    <section className={`pb-10 ${s.constructorContainer}`}>
       <BurgerIngredients />
       <BurgerConstructor />
     </section>

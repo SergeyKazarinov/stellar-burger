@@ -11,10 +11,6 @@ function App() {
         <Constructor />
       </Route>
     </Switch>
-    <div className='container'>
-      <div className='item'></div>
-      <div className='item'></div>
-    </div>
     </>
   );
 }

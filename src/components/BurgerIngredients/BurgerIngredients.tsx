@@ -27,7 +27,7 @@ const BurgerIngredients: FC = () => {
     <div className={s.burgerIngredients}>
       <h2 className={`mt-10 mb-5 text text_type_main-large`}>Соберите бургер</h2>
       <Tabs />
-      <div className={`${s.burgerIngredients__ingredients}`} onScroll={handleScroll}>
+      <div className={`mt-10 ${s.burgerIngredients__ingredients}`} onScroll={handleScroll}>
         <IngredientContainer href="buns" title={BUNS}>
           {bunElements}
         </IngredientContainer>

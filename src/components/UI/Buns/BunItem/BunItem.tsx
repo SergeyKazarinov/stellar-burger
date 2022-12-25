@@ -7,17 +7,17 @@ import { IData } from '../../../../types/interface/IData';
 interface IBunItemProps {
   type: string;
   title: string;
-  ingregient: IData;
+  ingredient: IData;
 }
 
-const BunItem: FC<IBunItemProps> = ({type, title, ingregient}) => {
+const BunItem: FC<IBunItemProps> = ({type, title, ingredient}) => {
 
 
   return (
     <div className={`pl-6 pt-4 pr-8 pb-4 ${s[`bunItem_type_${type}`]} ${s.bunItem}`}>
-      <img className={s.bunItem__image} src={ingregient.image} alt={ingregient.name} />
-      <p className={`text text_type_main-default`}>{ingregient.name} ({title})</p>
-      <p className={`text text_type_digits-default`}>{ingregient.price}</p>
+      <img className={s.bunItem__image} src={ingredient.image} alt={ingredient.name} />
+      <p className={`text text_type_main-default`}>{ingredient.name} ({title})</p>
+      <p className={`text text_type_digits-default`}>{ingredient.price}</p>
       <CurrencyIcon type="primary" />
       <LockIcon type="secondary" />
     </div>

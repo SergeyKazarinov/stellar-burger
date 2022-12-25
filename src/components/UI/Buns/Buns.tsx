@@ -13,15 +13,15 @@ const Buns: FC<IBunsProps> = ({children}) => {
 
 
   return (
-    <>
-      <ul className={`list ml-8 ${s.buns}`}>
-        <li><BunItem type='top' title='верх' ingregient={buns[0]} /></li>
+    <div className={s.buns}>
+      <ul className={`list ${s.buns__list}`}>
+        <li className='ml-8 pr-4'><BunItem type='top' title='верх' ingredient={buns[0]} /></li>
         {children}
-        <li><BunItem type='bottom' title='низ' ingregient={buns[0]}/></li>
+        <li className='ml-8 pr-4'><BunItem type='bottom' title='низ' ingredient={buns[0]}/></li>
       </ul>
 
 
-      <div className={`mt-10 ${s.buns__total}`}>
+      <div className={`mt-10 pr-4 ${s.buns__total}`}>
         <div className={s.buns__flex}>
           <div className={`text text_type_digits-medium ${s.buns__price}`}>610</div>
           <CurrencyIcon type="primary" />
@@ -30,7 +30,7 @@ const Buns: FC<IBunsProps> = ({children}) => {
           Оформить заказ
         </Button>
       </div>
-    </>
+    </div>
   )
 }
 

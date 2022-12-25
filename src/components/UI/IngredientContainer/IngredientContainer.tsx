@@ -11,7 +11,7 @@ const IngredientContainer: FC<IIngredientContainerProps> = ({title, href, childr
 
   return (
     <>
-      <h3 className={`mt-10 text text_type_main-medium`} id={title}>{title}</h3>
+      <h3 className={`mt-10 text text_type_main-medium`} id={href}>{title}</h3>
       <ul className={`list mt-6 ml-4 ${s.ingredientContainer__flexContainer}`}>
         {children}
       </ul>

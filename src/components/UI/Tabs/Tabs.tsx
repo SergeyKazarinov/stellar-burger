@@ -1,8 +1,19 @@
-import {FC, useState} from 'react';
+import {FC, useState, useEffect} from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
+import { useAppSelector } from '../../../hooks/useTypedSelector';
+import { BUNS, SAUCES, TOPPINGS } from '../../../utils/constants';
 
 const Tabs: FC = () => {
-  const [current, setCurrent] = useState('Булки')
+  const [current, setCurrent] = useState<string>(BUNS)
+  const { scrollValue } = useAppSelector(state => state.scroll);
+
+  useEffect(() => {
+    scrollValue <= 330
+    ? setCurrent(BUNS)
+    : scrollValue <= 870
+    ? setCurrent(SAUCES)
+    : setCurrent(TOPPINGS)
+  }, [scrollValue])
 
   const handleClick = (value: string) => {
     setCurrent(value);
@@ -10,16 +21,20 @@ const Tabs: FC = () => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <Tab value="Булки" active={current === 'Булки'} onClick={handleClick}>
-        Булки
-      </Tab>
-      <Tab value="Соусы" active={current === 'Соусы'} onClick={handleClick}>
-        Соусы
-      </Tab>
-      <a href="#main" >
-      <Tab value="Начинки" active={current === 'Начинки'} onClick={handleClick}>
-        Начинки
-      </Tab>
+      <a href="#buns" className='link'>
+        <Tab value={BUNS} active={current === BUNS} onClick={handleClick}>
+          Булки
+        </Tab>
+      </a>
+      <a href="#sauces" className='link'>
+        <Tab value={SAUCES} active={current === SAUCES} onClick={handleClick}>
+          Соусы
+        </Tab>
+      </a>
+      <a href="#mains" className='link'>
+        <Tab value={TOPPINGS} active={current === TOPPINGS} onClick={handleClick}>
+          Начинки
+        </Tab>
       </a>
     </div>
   )

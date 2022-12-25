@@ -31,12 +31,13 @@
   &__link {
     display: flex;
     align-items: center;
-    gap: 8px; 
+    gap: 8px;
   }
 
   &__logo {
+    width: min-content;
     position: absolute;
-    left: calc(50% - 144px); 
+    left: calc(50% - 144px);
     right: 0;
   }
 }

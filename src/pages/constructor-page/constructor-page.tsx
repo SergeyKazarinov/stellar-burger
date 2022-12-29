@@ -3,11 +3,14 @@ import s from './constructor-page.module.scss';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 
-const Constructor: FC = () => {
+interface IConstructorProps {
+  onClick: () => void;
+}
+const Constructor: FC<IConstructorProps> = ({onClick}) => {
   return(
     <section className={`pb-10 ${s.constructorContainer}`}>
       <BurgerIngredients />
-      <BurgerConstructor />
+      <BurgerConstructor onClick={onClick}/>
     </section>
   )
 }

@@ -1,29 +1,54 @@
 import {FC} from 'react';
 import s from './BurgerConstructor.module.scss';
-import Buns from '../UI/Buns/Buns';
+import Buns from '../Buns/Buns';
 import { data } from '../../utils/data';
-import IngredientConstructor from '../UI/IngredientConstructor/IngredientConstructor';
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerConstructor: FC = () => {
+interface IBurgerConstructorProps {
+  onClick: () => void;
+}
+const BurgerConstructor: FC<IBurgerConstructorProps> = ({onClick}) => {
   const ingredient = data.filter((item) => item.type === "main");
 
   return (
     <section className={`pt-25 pl-4 ${s.burgerConstructor}`}>
-      <Buns>
+      <Buns onClick={onClick}>
         <li>
           <ul className={`list ${s.burgerConstructor__ingredients}`}>
-            <li className='pr-2'><IngredientConstructor ingredient={ingredient[0]} /></li>
-            <li className='pr-2'><IngredientConstructor ingredient={ingredient[1]} /></li>
-            <li className='pr-2'><IngredientConstructor ingredient={ingredient[2]} /></li>
-            <li className='pr-2'><IngredientConstructor ingredient={ingredient[3]} /></li>
-            <li className='pr-2'><IngredientConstructor ingredient={ingredient[4]} /></li>
-            <li className='pr-2'><IngredientConstructor ingredient={ingredient[5]} /></li>
-            <li className='pr-2'><IngredientConstructor ingredient={ingredient[5]} /></li>
-            <li className='pr-2'><IngredientConstructor ingredient={ingredient[5]} /></li>
+            <li className={`pr-2 ${s.burgerConstructor__item}`}>
+              <DragIcon type="primary" />
+              <ConstructorElement
+                text="Краторная булка N-200i (верх)"
+                price={ingredient[0].price}
+                thumbnail={ingredient[0].image}
+              />
+            </li>
+            <li className={`pr-2 ${s.burgerConstructor__item}`}>
+              <DragIcon type="primary" />
+              <ConstructorElement
+                text="Краторная булка N-200i (верх)"
+                price={ingredient[0].price}
+                thumbnail={ingredient[0].image}
+              />
+            </li>
+            <li className={`pr-2 ${s.burgerConstructor__item}`}>
+              <DragIcon type="primary" />
+              <ConstructorElement
+                text="Краторная булка N-200i (верх)"
+                price={ingredient[0].price}
+                thumbnail={ingredient[0].image}
+              />
+            </li>
+            <li className={`pr-2 ${s.burgerConstructor__item}`}>
+              <DragIcon type="primary" />
+              <ConstructorElement
+                text="Краторная булка N-200i (верх)"
+                price={ingredient[0].price}
+                thumbnail={ingredient[0].image}
+              />
+            </li>
           </ul>
         </li>
-
       </Buns>
     </section>
   )

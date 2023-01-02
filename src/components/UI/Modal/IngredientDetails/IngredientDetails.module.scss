@@ -1,0 +1,26 @@
+.image {
+  width: 480px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.subtitle {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__item {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+}

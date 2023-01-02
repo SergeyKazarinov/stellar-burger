@@ -1,0 +1,43 @@
+.header {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:nth-child(2) {
+      justify-self: flex-start;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__listItem {
+    border-radius: 40px;
+    align-items: center;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__logo {
+    width: min-content;
+    position: absolute;
+    left: calc(50% - 144px);
+    right: 0;
+  }
+}

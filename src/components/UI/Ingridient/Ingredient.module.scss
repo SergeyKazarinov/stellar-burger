@@ -1,0 +1,16 @@
+.ingredient {
+  max-width: 272px;
+  position: relative;
+
+  &__price {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  &__subtitle {
+    margin: 0;
+    text-align: center;
+    height: 48px;
+  }
+}

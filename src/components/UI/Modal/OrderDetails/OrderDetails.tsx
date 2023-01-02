@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import s from './ModalWithOrder.module.scss';
+import s from './OrderDetails.module.scss';
 import done from '../../../../images/done.svg';
 
-const ModalWithOrder: FC = () => {
+const OrderDetails: FC = () => {
   return (
     <>
-      <h3 className={`pt-30 text text_type_digits-large ${s.textAlign}`}>034536</h3>
+      <h3 className={`pt-20 text text_type_digits-large ${s.textAlign}`}>034536</h3>
       <p className={`mt-8 text text_type_main-default ${s.textAlign}`}>идентификатор заказа</p>
       <img className={`${s.image}`} src={done} alt='Картинка галочки' />
       <p className={`text text_type_main-default ${s.textAlign}`}>Ваш заказ начали готовить</p>
@@ -14,4 +14,4 @@ const ModalWithOrder: FC = () => {
   )
 }
 
-export default ModalWithOrder;
+export default OrderDetails;

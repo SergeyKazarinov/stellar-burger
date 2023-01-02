@@ -1,9 +1,11 @@
 import { combineReducers,configureStore } from "@reduxjs/toolkit";
 import scrollSlice from "./slices/scrollSlice";
+import portalSlice from "./slices/portalSlice";
 
 
 const rootReducer = combineReducers({
   scroll: scrollSlice,
+  modal: portalSlice,
 });
 
 export const store = configureStore({

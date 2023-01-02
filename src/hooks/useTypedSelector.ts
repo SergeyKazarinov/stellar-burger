@@ -1,5 +1,5 @@
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../servises";
+import { AppDispatch, RootState } from "../services";
 import { useSelector } from "react-redux";
 
 

@@ -24,9 +24,19 @@
   }
 
   &__header {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+
+  }
+
+  &__title {
+    position: static;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     height: 64px;
     align-items: center;
+    align-items: center;
+    z-index: 1;
   }
 }

@@ -4,13 +4,13 @@ import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredie
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 
 interface IConstructorProps {
-  onClick: () => void;
+
 }
-const Constructor: FC<IConstructorProps> = ({onClick}) => {
+const Constructor: FC<IConstructorProps> = () => {
   return(
     <section className={`pb-10 ${s.constructorContainer}`}>
       <BurgerIngredients />
-      <BurgerConstructor onClick={onClick}/>
+      <BurgerConstructor/>
     </section>
   )
 }

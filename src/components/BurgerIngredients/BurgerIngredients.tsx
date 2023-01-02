@@ -1,11 +1,11 @@
-import {FC, UIEvent} from 'react';
+import React, {FC, UIEvent} from 'react';
 import s from './BurgerIngredients.module.scss';
 import Tabs from '../UI/Tabs/Tabs';
 import Ingredient from '../UI/Ingridient/Ingredient';
 import IngredientContainer from '../UI/IngredientContainer/IngredientContainer';
 import { data } from '../../utils/data';
 import { useAppDispatch } from '../../hooks/useTypedSelector';
-import { setScrollValue } from '../../servises/slices/scrollSlice';
+import { setScrollValue } from '../../services/slices/scrollSlice';
 import { BUNS, SAUCES, TOPPINGS } from '../../utils/constants';
 
 const BurgerIngredients: FC = () => {

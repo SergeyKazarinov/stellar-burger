@@ -1,16 +1,21 @@
 import React, {FC} from 'react';
 import s from './Buns.module.scss';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
+import { useAppDispatch } from '../../hooks/useTypedSelector';
+import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
 
 interface IBunsProps {
   children?: React.ReactNode;
-  onClick: () => void;
 }
 
-const Buns: FC<IBunsProps> = ({children, onClick}) => {
+const Buns: FC<IBunsProps> = ({children}) => {
   const buns = data.filter((item) => item.type === 'bun');
+  const dispatch = useAppDispatch();
 
+  const handleSendOrder = () => {
+    dispatch(setIsOpenOrderDetails(true))
+  }
 
   return (
     <div className={s.buns}>
@@ -44,7 +49,7 @@ const Buns: FC<IBunsProps> = ({children, onClick}) => {
           <div className={`text text_type_digits-medium ${s.buns__price}`}>610</div>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
+        <Button htmlType="button" type="primary" size="large" onClick={handleSendOrder}>
           Оформить заказ
         </Button>
       </div>

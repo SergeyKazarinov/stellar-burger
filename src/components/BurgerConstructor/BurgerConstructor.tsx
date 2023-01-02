@@ -5,14 +5,14 @@ import { data } from '../../utils/data';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 interface IBurgerConstructorProps {
-  onClick: () => void;
+
 }
-const BurgerConstructor: FC<IBurgerConstructorProps> = ({onClick}) => {
+const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   const ingredient = data.filter((item) => item.type === "main");
 
   return (
     <section className={`pt-25 pl-4 ${s.burgerConstructor}`}>
-      <Buns onClick={onClick}>
+      <Buns>
         <li>
           <ul className={`list ${s.burgerConstructor__ingredients}`}>
             <li className={`pr-2 ${s.burgerConstructor__item}`}>

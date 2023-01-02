@@ -1,4 +1,4 @@
-export interface IData {
+export interface IIngredient {
   _id: string;
   name: string,
   type: string;
@@ -7,8 +7,8 @@ export interface IData {
   carbohydrates: number
   calories: number;
   price: number;
-  image: string; 
+  image: string;
   image_mobile: string;
   image_large: string;
-  __v: number; 
+  __v: number;
 }

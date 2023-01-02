@@ -1,11 +1,10 @@
 import React, {FC} from 'react';
 import s from './IngredientDetails.module.scss';
-import { IData } from '../../../../types/interface/IData';
-import { data } from '../../../../utils/data';
+import { IIngredient } from '../../../../types/interface/IIngredient';
 import { useAppSelector } from '../../../../hooks/useTypedSelector';
 
 interface IIngredientDetailsProps {
-  ingredient: IData;
+  ingredient: IIngredient;
 }
 
 const IngredientDetails: FC = () => {

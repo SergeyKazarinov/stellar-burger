@@ -1,12 +1,12 @@
 import {FC} from 'react';
 import s from './Ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IData } from '../../../types/interface/IData';
+import { IIngredient } from '../../../types/interface/IIngredient';
 import { useAppDispatch } from '../../../hooks/useTypedSelector';
 import { setIsOpenIngredientDetail } from '../../../services/slices/portalSlice';
 
 interface IIngredientProps {
-  ingredient: IData;
+  ingredient: IIngredient;
 }
 
 const Ingredient: FC<IIngredientProps> = ({ingredient}) => {

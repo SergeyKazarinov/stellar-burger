@@ -3,17 +3,17 @@ import s from './BurgerIngredients.module.scss';
 import Tabs from '../UI/Tabs/Tabs';
 import Ingredient from '../UI/Ingridient/Ingredient';
 import IngredientContainer from '../UI/IngredientContainer/IngredientContainer';
-import { data } from '../../utils/data';
-import { useAppDispatch } from '../../hooks/useTypedSelector';
+import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { setScrollValue } from '../../services/slices/scrollSlice';
 import { BUNS, SAUCES, TOPPINGS } from '../../utils/constants';
 
 const BurgerIngredients: FC = () => {
+  const { ingredients } = useAppSelector(store => store.ingredients)
   const dispatch = useAppDispatch();
 
-  const buns = data.filter((item) => item.type === 'bun');
-  const sauces = data.filter((item) => item.type === 'sauce');
-  const mains = data.filter((item) => item.type === 'main');
+  const buns = ingredients.filter((item) => item.type === 'bun');
+  const sauces = ingredients.filter((item) => item.type === 'sauce');
+  const mains = ingredients.filter((item) => item.type === 'main');
 
   const bunElements = buns.map((item) => <li key={item._id}><Ingredient ingredient={item} /></li>);
   const sauceElements = sauces.map((item) => <li key={item._id}><Ingredient ingredient={item} /></li>)

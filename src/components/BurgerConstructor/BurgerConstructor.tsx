@@ -1,14 +1,15 @@
 import {FC} from 'react';
 import s from './BurgerConstructor.module.scss';
 import Buns from '../Buns/Buns';
-import { data } from '../../utils/data';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useAppSelector } from '../../hooks/useTypedSelector';
 
 interface IBurgerConstructorProps {
 
 }
 const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
-  const ingredient = data.filter((item) => item.type === "main");
+  const { ingredients } = useAppSelector(store => store.ingredients)
+  const ingredient = ingredients.filter((item) => item.type === "main");
 
   return (
     <section className={`pt-25 pl-4 ${s.burgerConstructor}`}>

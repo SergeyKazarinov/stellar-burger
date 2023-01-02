@@ -1,8 +1,7 @@
 import React, {FC} from 'react';
 import s from './Buns.module.scss';
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { data } from '../../utils/data';
-import { useAppDispatch } from '../../hooks/useTypedSelector';
+import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
 
 interface IBunsProps {
@@ -10,7 +9,8 @@ interface IBunsProps {
 }
 
 const Buns: FC<IBunsProps> = ({children}) => {
-  const buns = data.filter((item) => item.type === 'bun');
+  const { ingredients } = useAppSelector(store => store.ingredients)
+  const buns = ingredients.filter((item) => item.type === 'bun');
   const dispatch = useAppDispatch();
 
   const handleSendOrder = () => {

@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IData } from "../../types/interface/IData";
+import { IIngredient } from "../../types/interface/IIngredient";
 
 interface IPortalSliceInitialState {
-  ingredient: IData;
+  ingredient: IIngredient;
   isOpenOrderDetails: boolean;
   isOpenIngredientDetail: boolean;
 }
@@ -17,7 +17,7 @@ const portalSlice = createSlice({
     setIsOpenOrderDetails(state, action: PayloadAction<boolean>) {
       state.isOpenOrderDetails = action.payload
     },
-    setIsOpenIngredientDetail(state, action: PayloadAction<{isOpen: boolean, ingredient: IData}>) {
+    setIsOpenIngredientDetail(state, action: PayloadAction<{isOpen: boolean, ingredient: IIngredient}>) {
       state.isOpenIngredientDetail = action.payload.isOpen;
       state.ingredient = action.payload.ingredient;
     },

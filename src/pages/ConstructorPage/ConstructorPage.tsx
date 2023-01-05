@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import s from './constructor-page.module.scss';
+import s from './ConstructorPage.module.scss';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Header } from '../Header/Header';
-import Constructor from '../../pages/constructor-page/constructor-page';
+import Constructor from '../../pages/ConstructorPage/ConstructorPage';
 import Modal from '../UI/Modal/Modal';
 import IngredientDetails from '../UI/Modal/IngredientDetails/IngredientDetails';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';

@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import s from './Ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IIngredient } from '../../../types/interface/IIngredient';
+import { IIngredient } from '../../../types/interfaces/IIngredient';
 import { useAppDispatch } from '../../../hooks/useTypedSelector';
 import { setIsOpenIngredientDetail } from '../../../services/slices/portalSlice';
 

@@ -8,7 +8,6 @@ interface IBunsProps {
 }
 
 const Buns: FC<IBunsProps> = ({children}) => {
-  const { ingredients } = useAppSelector(store => store.ingredients)
   const { bunsForTheBurgerConstructor } = useAppSelector(store => store.burgerConstructor);
 
   return (

@@ -3,15 +3,16 @@ import s from './BurgerConstructor.module.scss';
 import Buns from '../Buns/Buns';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
-import { setBunsForTheBurgerConstructor, setIngredientsForTheBurgerConstructor, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
+import { setBunsForTheBurgerConstructor, setIngredientsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
 import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
+import { sendOrderThunk } from '../../services/asyncThunk/orders';
 
 interface IBurgerConstructorProps {
 
 }
 const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   const { ingredients } = useAppSelector(store => store.ingredients);
-  const { bunsForTheBurgerConstructor, ingredientsForTheBurgerConstructor, totalPrice } = useAppSelector(store => store.burgerConstructor)
+  const { bunsForTheBurgerConstructor, ingredientsForTheBurgerConstructor, totalPrice, ingredientsForTheOrder, order } = useAppSelector(store => store.burgerConstructor)
   const dispatch = useAppDispatch();
   const burgerConstructorIngredients = ingredients.filter((item) => item.type !== 'bun');
   const burgerConstructorBuns = ingredients.filter((item) => item.type === 'bun' && item.price === 1255);
@@ -23,6 +24,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
 
   useEffect(() => {
     dispatch(setTotalPrice());
+    dispatch(setIngredientsForTheOrder());
   }, [ingredientsForTheBurgerConstructor, bunsForTheBurgerConstructor])
 
   const ingredientElements = ingredientsForTheBurgerConstructor.map((item) => <li className={`pr-2 ${s.burgerConstructor__item}`} key={item._id}>
@@ -35,8 +37,12 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
                                                                               </li>)
 
   const handleSendOrder = () => {
-    dispatch(setIsOpenOrderDetails(true))
+    dispatch(sendOrderThunk(ingredientsForTheOrder))
   }
+
+  useEffect(() => {
+    order?.order.number && dispatch(setIsOpenOrderDetails(true));
+  }, [order]);
 
   return (
     <section className={`pt-25 pl-4 ${s.burgerConstructor}`}>

@@ -16,7 +16,6 @@ const ModalOverlay: FC = () => {
 
   const handleEscClose = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
-      console.log(e.key)
       dispatch(closeAllModal())
     }
   }

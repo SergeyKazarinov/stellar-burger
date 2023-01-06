@@ -39,6 +39,10 @@ const burgerConstructorSlice = createSlice({
       state.ingredientsForTheBurgerConstructor = [action.payload, ...state.ingredientsForTheBurgerConstructor ]
     },
 
+    removeIngredientForTheBurgerConstructor(state, action: PayloadAction<number>) {
+      state.ingredientsForTheBurgerConstructor = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload)
+    },
+
     setTotalPrice(state) {
       const ingredientTotalPrice = state.ingredientsForTheBurgerConstructor.reduce((sum: number, item: IIngredient) => sum += item.price, 0);
       const bunsTotalPrice = state.bunsForTheBurgerConstructor.reduce((sum: number, item: IIngredient) => sum += (item.price * 2), 0);
@@ -72,7 +76,8 @@ const burgerConstructorSlice = createSlice({
 export default burgerConstructorSlice.reducer;
 export const {
   setBunsForTheBurgerConstructor,
+  addIngredientsForTheBurgerConstructor,
+  removeIngredientForTheBurgerConstructor,
   setTotalPrice,
   setIngredientsForTheOrder,
-  addIngredientsForTheBurgerConstructor,
 } = burgerConstructorSlice.actions;

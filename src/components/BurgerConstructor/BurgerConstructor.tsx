@@ -3,7 +3,7 @@ import s from './BurgerConstructor.module.scss';
 import Buns from '../Buns/Buns';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
-import { addIngredientsForTheBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
+import { addIngredientsForTheBurgerConstructor, removeIngredientForTheBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
 import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
 import { sendOrderThunk } from '../../services/asyncThunk/orders';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
@@ -48,14 +48,20 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
     : dispatch(addIngredientsForTheBurgerConstructor(item));
   }
 
-  const ingredientElements = ingredientsForTheBurgerConstructor.map((item) => <li className={`pr-2 ${s.burgerConstructor__item}`} key={item._id}>
-                                                                                <DragIcon type="primary" />
-                                                                                <ConstructorElement
-                                                                                  text={item.name}
-                                                                                  price={item.price}
-                                                                                  thumbnail={item.image}
-                                                                                />
-                                                                              </li>)
+  const ingredientElements = ingredientsForTheBurgerConstructor.map((item, index) => {
+    const handleDeleteIngredient = () => {
+      dispatch(removeIngredientForTheBurgerConstructor(index))
+    }
+
+  return <li className={`pr-2 ${s.burgerConstructor__item}`} key={index}>
+    <DragIcon type="primary" />
+    <ConstructorElement
+      text={item.name}
+      price={item.price}
+      thumbnail={item.image}
+      handleClose={handleDeleteIngredient}
+    />
+  </li>})
 
   return (
     <section className={`pt-25 pl-4 ${s.burgerConstructor}`} style={{backgroundColor}}ref={dropTarget}>

@@ -1,19 +1,19 @@
 import {FC, useEffect} from 'react';
 import s from './BurgerConstructor.module.scss';
 import Buns from '../Buns/Buns';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
-import { addIngredientsForTheBurgerConstructor, removeIngredientForTheBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
+import { addIngredientsForTheBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
 import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
 import { sendOrderThunk } from '../../services/asyncThunk/orders';
-import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { IIngredient } from '../../types/interfaces/IIngredient';
+import { useDrop } from 'react-dnd';
+import IngredientElement from '../UI/IngredientElement/IngredientElement';
 
 interface IBurgerConstructorProps {
 
 }
 const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
-  const { ingredients } = useAppSelector(store => store.ingredients);
   const { bunsForTheBurgerConstructor, ingredientsForTheBurgerConstructor, totalPrice, ingredientsForTheOrder, order } = useAppSelector(store => store.burgerConstructor)
   const dispatch = useAppDispatch();
   const [{isHover}, dropTarget] = useDrop({
@@ -24,9 +24,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
     collect: monitor => ({
       isHover: monitor.isOver(),
     })
-  })
-
-  const backgroundColor = isHover ? '#ffffff05' : '#131316'
+  });
 
   useEffect(() => {
     dispatch(setTotalPrice());
@@ -39,7 +37,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   }
 
   useEffect(() => {
-    order?.order.number && dispatch(setIsOpenOrderDetails(true));
+    order?.order?.number && dispatch(setIsOpenOrderDetails(true));
   }, [order]);
 
   const handleDrop = (item: IIngredient) => {
@@ -48,26 +46,13 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
     : dispatch(addIngredientsForTheBurgerConstructor(item));
   }
 
-  const ingredientElements = ingredientsForTheBurgerConstructor.map((item, index) => {
-    const handleDeleteIngredient = () => {
-      dispatch(removeIngredientForTheBurgerConstructor(index))
-    }
-
-  return <li className={`pr-2 ${s.burgerConstructor__item}`} key={index}>
-    <DragIcon type="primary" />
-    <ConstructorElement
-      text={item.name}
-      price={item.price}
-      thumbnail={item.image}
-      handleClose={handleDeleteIngredient}
-    />
-  </li>})
+  const ingredientElements = ingredientsForTheBurgerConstructor.map((item, index) => <IngredientElement item={item} index={index} key={index}/>)
 
   return (
-    <section className={`pt-25 pl-4 ${s.burgerConstructor}`} style={{backgroundColor}}ref={dropTarget}>
+    <section className={`pt-25 pl-4 ${s.burgerConstructor} ${isHover && s.burgerConstructor_hover}`} ref={dropTarget}>
       <Buns>
         <li>
-          <ul className={`list ${s.burgerConstructor__ingredients}`}>
+          <ul className={`list ${s.burgerConstructor__ingredients}`} >
             {ingredientElements}
           </ul>
         </li>

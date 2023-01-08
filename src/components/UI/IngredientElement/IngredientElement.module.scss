@@ -1,0 +1,15 @@
+.ingredientElement {
+  max-width: 584px;
+  width: 100%;
+
+
+  &__flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &_hover {
+      background-color: #ffffff05;
+    }
+  }
+}

@@ -8,7 +8,7 @@ const OrderDetails: FC = () => {
 
   return (
     <>
-      <h3 className={`pt-20 text text_type_digits-large ${s.textAlign}`}>{order?.order.number}</h3>
+      <h3 className={`pt-20 text text_type_digits-large ${s.textAlign}`}>{order?.order?.number}</h3>
       <p className={`mt-8 text text_type_main-default ${s.textAlign}`}>идентификатор заказа</p>
       <img className={`${s.image}`} src={done} alt='Картинка галочки' />
       <p className={`text text_type_main-default ${s.textAlign}`}>Ваш заказ начали готовить</p>

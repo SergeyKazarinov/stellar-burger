@@ -4,7 +4,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import { IIngredient } from '../../../types/interfaces/IIngredient';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { setIsOpenIngredientDetail } from '../../../services/slices/portalSlice';
-import { useDrag } from 'react-dnd/dist/hooks';
+import { useDrag } from 'react-dnd';
 
 interface IIngredientProps {
   ingredient: IIngredient;

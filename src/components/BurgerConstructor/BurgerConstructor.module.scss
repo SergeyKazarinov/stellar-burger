@@ -8,20 +8,16 @@
   // gap: 10px;
   position: relative;
 
+  &_hover {
+    background-color: #ffffff05;
+  }
+
   &__ingredients {
     max-height: calc(100vh - 324px - 200px);
     display: flex;
     flex-direction: column;
     gap: 16px;
     overflow-y: auto;
-  }
-
-  &__item {
-    max-width: 584px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
   &__total {

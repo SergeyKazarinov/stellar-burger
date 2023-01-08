@@ -7,6 +7,7 @@ import IngredientDetails from '../UI/Modal/IngredientDetails/IngredientDetails';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import OrderDetails from '../UI/Modal/OrderDetails/OrderDetails';
 import { fetchIngredients } from '../../services/asyncThunk/ingredients';
+import Login from '../../pages/Login/Login';
 
 function App() {
   const { isOpenIngredientDetail, isOpenOrderDetails} = useAppSelector(store => store.modal);
@@ -23,6 +24,9 @@ function App() {
     <Switch>
       <Route exact path='/'>
         {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
+      </Route>
+      <Route path='/login'>
+        <Login />
       </Route>
     </Switch>
 

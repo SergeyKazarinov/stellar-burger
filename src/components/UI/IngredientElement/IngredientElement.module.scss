@@ -1,6 +1,12 @@
 .ingredientElement {
   max-width: 584px;
   width: 100%;
+  transition: .2s;
+
+  &_dragging {
+    transform: scale(0);
+    height: 0;
+  }
 
 
   &__flex {

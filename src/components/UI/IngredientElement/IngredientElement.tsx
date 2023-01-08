@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import s from './IngredientElement.module.scss';
 import { IIngredient } from "../../../types/interfaces/IIngredient";
 import { useAppDispatch } from "../../../hooks/useTypedSelector";
@@ -18,11 +18,12 @@ interface IIngredientDrop {
 
 const IngredientElement: FC<IngredientElementProps> = ({item, index}) => {
   const dispatch = useAppDispatch();
-  const [{isDrag}, refDrag] = useDrag({
+  const [{isDrag, getItem}, refDrag] = useDrag({
     type: 'ingredientSort',
     item: {item, index},
     collect: monitor => ({
       isDrag: monitor.isDragging(),
+      getItem: monitor.getItem()
     })
   })
 
@@ -45,8 +46,7 @@ const IngredientElement: FC<IngredientElementProps> = ({item, index}) => {
   }
 
   return (
-    <li className={`pr-2 ${s.ingredientElement}`} ref={refDrag}>
-      {!isDrag &&
+    <li className={`pr-2 ${s.ingredientElement} ${isDrag && s.ingredientElement_dragging}`} ref={refDrag}>
       <div className={`${s.ingredientElement__flex} ${isHover && s.ingredientElement__flex_hover}`} ref={refDrop}>
         <DragIcon type="primary"/>
         <ConstructorElement
@@ -55,7 +55,7 @@ const IngredientElement: FC<IngredientElementProps> = ({item, index}) => {
           thumbnail={item.image}
           handleClose={handleDeleteIngredient}
         />
-      </div>}
+      </div>
   </li>);
 }
 

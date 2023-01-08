@@ -65,6 +65,11 @@ const burgerConstructorSlice = createSlice({
       const bunID = state.bunsForTheBurgerConstructor.map(item => item._id);
       const ingredientID = state.ingredientsForTheBurgerConstructor.map(item => item._id);
       state.ingredientsForTheOrder = [...bunID, ...ingredientID, ...bunID];
+    },
+
+    clearBurgerConstructor(state) {
+      state.bunsForTheBurgerConstructor = [];
+      state.ingredientsForTheBurgerConstructor = [];
     }
   },
   extraReducers(builder) {
@@ -92,4 +97,5 @@ export const {
   sortIngredients,
   setTotalPrice,
   setIngredientsForTheOrder,
+  clearBurgerConstructor,
 } = burgerConstructorSlice.actions;

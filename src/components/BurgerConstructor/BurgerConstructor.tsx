@@ -3,7 +3,7 @@ import s from './BurgerConstructor.module.scss';
 import Buns from '../Buns/Buns';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
-import { addIngredientsForTheBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
+import { addIngredientsForTheBurgerConstructor, clearBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
 import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
 import { sendOrderThunk } from '../../services/asyncThunk/orders';
 import { IIngredient } from '../../types/interfaces/IIngredient';
@@ -31,14 +31,14 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
     dispatch(setIngredientsForTheOrder());
   }, [ingredientsForTheBurgerConstructor, bunsForTheBurgerConstructor])
 
-
-  const handleSendOrder = () => {
-    dispatch(sendOrderThunk(ingredientsForTheOrder))
-  }
-
   useEffect(() => {
     order?.order?.number && dispatch(setIsOpenOrderDetails(true));
   }, [order]);
+
+  const handleSendOrder = () => {
+    dispatch(sendOrderThunk(ingredientsForTheOrder));
+    dispatch(clearBurgerConstructor())
+  }
 
   const handleDrop = (item: IIngredient) => {
     item.type === "bun"
@@ -50,20 +50,30 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
 
   return (
     <section className={`pt-25 pl-4 ${s.burgerConstructor} ${isHover && s.burgerConstructor_hover}`} ref={dropTarget}>
-      <Buns>
-        <li>
-          <ul className={`list ${s.burgerConstructor__ingredients}`} >
-            {ingredientElements}
-          </ul>
-        </li>
-      </Buns>
+      {bunsForTheBurgerConstructor.length === 0 && ingredientsForTheBurgerConstructor.length === 0
+      ? <p className={`text text_type_main-medium`}>Перетащите ингредиенты и булки для составления бургера</p>
+      : <Buns>
+          <li>
+            <ul className={`list ${s.burgerConstructor__ingredients}`} >
+              {ingredientElements}
+            </ul>
+          </li>
+        </Buns>
+      }
 
       <div className={`mt-10 pr-4 ${s.burgerConstructor__total}`}>
         <div className={s.burgerConstructor__flex}>
           <div className={`text text_type_digits-medium ${s.burgerConstructor__price}`}>{totalPrice}</div>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={handleSendOrder}>
+
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          disabled={bunsForTheBurgerConstructor.length === 0 || ingredientsForTheBurgerConstructor.length === 0}
+          onClick={handleSendOrder}
+        >
           Оформить заказ
         </Button>
       </div>

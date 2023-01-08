@@ -5,7 +5,6 @@
   width: 600px;
   display: flex;
   flex-direction: column;
-  // gap: 10px;
   position: relative;
 
   &_hover {
@@ -28,12 +27,18 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    // margin-bottom: 52px;
   }
 
   &__flex {
     display: flex;
     gap: 9.5px;
     align-items: center;
+  }
+
+  &__button {
+    &_inactive {
+      background-color: #ffffff;
+      cursor: auto;
+    }
   }
 }

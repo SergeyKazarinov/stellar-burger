@@ -27,7 +27,7 @@ const Modal: FC<IModalProps> = ({children, title}) => {
       <ModalOverlay />
       <div className={`p-10 ${s.modal__container}`}>
         <header className={`${s.modal__header} ${isOpenIngredientDetail && s.modal__title}`}>
-          <h2 className={`text text_type_main-large`}>{isOpenIngredientDetail && ingredient.name}</h2>
+          <h2 className={`text text_type_main-large`}>{isOpenIngredientDetail && ingredient?.name}</h2>
           <CloseIcon type='primary' onClick={handleClose}/>
         </header>
         {children}

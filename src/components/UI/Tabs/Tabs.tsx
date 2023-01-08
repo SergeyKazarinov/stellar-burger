@@ -8,9 +8,9 @@ const Tabs: FC = () => {
   const { scrollValue } = useAppSelector(state => state.scroll);
 
   useEffect(() => {
-    scrollValue <= 330
+    scrollValue <= 290
     ? setCurrent(BUNS)
-    : scrollValue <= 870
+    : scrollValue <= 820
     ? setCurrent(SAUCES)
     : setCurrent(TOPPINGS)
   }, [scrollValue])

@@ -1,11 +1,14 @@
 import React, {FC} from 'react';
 import s from './OrderDetails.module.scss';
 import done from '../../../../images/done.svg';
+import { useAppSelector } from '../../../../hooks/useTypedSelector';
 
 const OrderDetails: FC = () => {
+  const {order} = useAppSelector(store => store.burgerConstructor);
+
   return (
     <>
-      <h3 className={`pt-20 text text_type_digits-large ${s.textAlign}`}>034536</h3>
+      <h3 className={`pt-20 text text_type_digits-large ${s.textAlign}`}>{order?.order?.number}</h3>
       <p className={`mt-8 text text_type_main-default ${s.textAlign}`}>идентификатор заказа</p>
       <img className={`${s.image}`} src={done} alt='Картинка галочки' />
       <p className={`text text_type_main-default ${s.textAlign}`}>Ваш заказ начали готовить</p>

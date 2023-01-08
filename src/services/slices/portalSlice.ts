@@ -1,15 +1,15 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IIngredient } from "../../types/interface/IIngredient";
+import { IIngredient } from "../../types/interfaces/IIngredient";
 
 interface IPortalSliceInitialState {
-  ingredient: IIngredient;
+  ingredient: IIngredient | null;
   isOpenOrderDetails: boolean;
   isOpenIngredientDetail: boolean;
 }
 const portalSlice = createSlice({
   name: 'portalSlice',
   initialState: {
-    ingredient: {},
+    ingredient: null,
     isOpenOrderDetails: false,
     isOpenIngredientDetail: false
   } as IPortalSliceInitialState,
@@ -25,6 +25,7 @@ const portalSlice = createSlice({
     closeAllModal(state) {
       state.isOpenIngredientDetail = false;
       state.isOpenOrderDetails = false;
+      state.ingredient = null;
     }
   }
 });

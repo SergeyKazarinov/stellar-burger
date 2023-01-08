@@ -1,0 +1,21 @@
+.ingredientElement {
+  max-width: 584px;
+  width: 100%;
+  transition: .2s;
+
+  &_dragging {
+    transform: scale(0);
+    height: 0;
+  }
+
+
+  &__flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &_hover {
+      background-color: #ffffff05;
+    }
+  }
+}

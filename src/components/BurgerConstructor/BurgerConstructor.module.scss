@@ -5,8 +5,11 @@
   width: 600px;
   display: flex;
   flex-direction: column;
-  // gap: 10px;
   position: relative;
+
+  &_hover {
+    background-color: #ffffff05;
+  }
 
   &__ingredients {
     max-height: calc(100vh - 324px - 200px);
@@ -16,11 +19,26 @@
     overflow-y: auto;
   }
 
-  &__item {
-    max-width: 584px;
-    width: 100%;
+  &__total {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  &__flex {
+    display: flex;
+    gap: 9.5px;
+    align-items: center;
+  }
+
+  &__button {
+    &_inactive {
+      background-color: #ffffff;
+      cursor: auto;
+    }
   }
 }

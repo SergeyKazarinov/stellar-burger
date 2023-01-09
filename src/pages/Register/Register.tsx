@@ -20,7 +20,7 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
   return (
     <section className={register.register}>
       <div className={register.container}>
-        <h2 className={`text text_type_main-large ${register.title}`}>Регистрация</h2>
+        <h2 className={`text text_type_main-medium ${register.title}`}>Регистрация</h2>
         <form className={register.form}>
           <Input
             type={'text'}
@@ -34,7 +34,7 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
             extraClass="mt-6"
           />
           <Input
-            type={'text'}
+            type={'email'}
             placeholder={'E-mail'}
             onChange={e => setEmail(e.target.value)}
             value={email}
@@ -50,7 +50,7 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
             onChange={e => setPassword(e.target.value)}
             icon={isVisiblePassword ? 'HideIcon' : 'ShowIcon'}
             value={password}
-            name={'email'}
+            name={'password'}
             error={false}
             onIconClick={onIconClick}
             errorText={'Ошибка'}

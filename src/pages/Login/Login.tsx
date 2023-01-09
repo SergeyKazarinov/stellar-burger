@@ -16,13 +16,17 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
     history.push('/register')
   }
 
+  const handleMoveToForgotPassword = () => {
+    history.push('/forgot-password')
+  }
+
   return (
     <section className={login.login}>
       <div className={login.container}>
-        <h2 className={`text text_type_main-large ${login.title}`}>Вход</h2>
+        <h2 className={`text text_type_main-medium ${login.title}`}>Вход</h2>
         <form className={login.form}>
           <Input
-            type={'text'}
+            type={'email'}
             placeholder={'E-mail'}
             onChange={e => setValue(e.target.value)}
             value={value}
@@ -38,7 +42,7 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
             onChange={e => setPassword(e.target.value)}
             icon={isVisiblePassword ? 'HideIcon' : 'ShowIcon'}
             value={password}
-            name={'email'}
+            name={'password'}
             error={false}
             onIconClick={onIconClick}
             errorText={'Ошибка'}
@@ -61,7 +65,7 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
         </p>
         <p className={`mt-4 text text_type_main-default text_color_inactive`}>
           Забыли пароль?&#8194;
-          <Button htmlType="button" type="secondary" size="medium" extraClass={login.button}>
+          <Button htmlType="button" type="secondary" size="medium" extraClass={login.button} onClick={handleMoveToForgotPassword}>
             Восстановить пароль
           </Button>
         </p>

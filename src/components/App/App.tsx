@@ -9,6 +9,8 @@ import OrderDetails from '../UI/Modal/OrderDetails/OrderDetails';
 import { fetchIngredients } from '../../services/asyncThunk/ingredients';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
+import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 
 function App() {
   const { isOpenIngredientDetail, isOpenOrderDetails} = useAppSelector(store => store.modal);
@@ -31,6 +33,12 @@ function App() {
       </Route>
       <Route path='/register'>
         <Register />
+      </Route>
+      <Route path='/forgot-password'>
+        <ForgotPassword />
+      </Route>
+      <Route path='/reset-password'>
+        <ResetPassword />
       </Route>
     </Switch>
 

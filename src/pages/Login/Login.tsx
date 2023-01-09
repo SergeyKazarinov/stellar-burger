@@ -1,12 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import login from './Login.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { RouteComponentProps, withRouter } from "react-router";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
+import { EMAIL_PATTERN } from "../../utils/constants";
 
 const Login = ({history}: RouteComponentProps): JSX.Element => {
-  const [value, setValue] = React.useState('');
-  const [password, setPassword] = useState('');
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+
+  useEffect(() => {
+    resetForm();
+  }, [resetForm])
 
   const onIconClick = () => {
     setIsVisiblePassword(!isVisiblePassword)
@@ -28,31 +33,37 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
           <Input
             type={'email'}
             placeholder={'E-mail'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
+            onChange={handleChange}
+            value={values.email}
             name={'email'}
-            error={false}
-            errorText={'Ошибка'}
+            error={!!errors.email}
+            errorText={errors.email}
             size={'default'}
             extraClass="mt-6"
+            pattern={EMAIL_PATTERN}
+            required
           />
           <Input
             type={isVisiblePassword ? 'text' : 'password'}
             placeholder={'Пароль'}
-            onChange={e => setPassword(e.target.value)}
+            onChange={handleChange}
             icon={isVisiblePassword ? 'HideIcon' : 'ShowIcon'}
-            value={password}
+            value={values.password}
             name={'password'}
-            error={false}
+            error={!!errors.password}
             onIconClick={onIconClick}
-            errorText={'Ошибка'}
+            errorText={errors.password}
             size={'default'}
             extraClass="mt-6"
+            minLength={8}
+            maxLength={20}
+            required
           />
           <Button
             htmlType="submit"
             type="primary"
             extraClass="mt-6"
+            disabled={!isValid}
           >
             Войти
           </Button>

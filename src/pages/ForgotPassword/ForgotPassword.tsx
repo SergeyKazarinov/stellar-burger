@@ -1,10 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import forgotPassword from './ForgotPassword.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { RouteComponentProps, withRouter } from "react-router";
+import { EMAIL_PATTERN } from "../../utils/constants";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 
 const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
-  const [email, setEmail] = useState('');
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+
+  useEffect(() => {
+    resetForm();
+  }, [resetForm])
 
   const handleMoveToLogin = () => {
     history.push('/login')
@@ -16,20 +22,23 @@ const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
         <h2 className={`text text_type_main-medium ${forgotPassword.title}`}>Восстановление пароля</h2>
         <form className={forgotPassword.form}>
           <Input
-            type={'text'}
-            placeholder={'Укажите e-mail'}
-            onChange={e => setEmail(e.target.value)}
-            value={email}
+            type={'email'}
+            placeholder={'E-mail'}
+            onChange={handleChange}
+            value={values.email}
             name={'email'}
-            error={false}
-            errorText={'Ошибка'}
+            error={!!errors.email}
+            errorText={errors.email}
             size={'default'}
             extraClass="mt-6"
+            pattern={EMAIL_PATTERN}
+            required
           />
           <Button
             htmlType="submit"
             type="primary"
             extraClass="mt-6"
+            disabled={!isValid}
           >
             Восстановить
           </Button>

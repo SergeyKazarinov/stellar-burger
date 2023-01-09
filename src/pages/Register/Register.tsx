@@ -1,21 +1,25 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import register from './Register.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { RouteComponentProps, withRouter } from "react-router";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
+import { EMAIL_PATTERN } from "../../utils/constants";
 
 const Register = ({history}: RouteComponentProps): JSX.Element => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   const onIconClick = () => {
     setIsVisiblePassword(!isVisiblePassword)
-  }
+  };
 
   const handleMoveToLogin = () => {
     history.push('/login')
-  }
+  };
 
   return (
     <section className={register.register}>
@@ -25,42 +29,51 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
           <Input
             type={'text'}
             placeholder={'Имя'}
-            onChange={e => setName(e.target.value)}
-            value={name}
+            onChange={handleChange}
+            value={values.name}
             name={'name'}
-            error={false}
-            errorText={'Ошибка'}
+            error={!!errors.name}
+            errorText={errors.name}
             size={'default'}
             extraClass="mt-6"
+            minLength={2}
+            maxLength={20}
+            required
           />
           <Input
             type={'email'}
             placeholder={'E-mail'}
-            onChange={e => setEmail(e.target.value)}
-            value={email}
+            onChange={handleChange}
+            value={values.email}
             name={'email'}
-            error={false}
-            errorText={'Ошибка'}
+            error={!!errors.email}
+            errorText={errors.email}
             size={'default'}
             extraClass="mt-6"
+            pattern={EMAIL_PATTERN}
+            required
           />
           <Input
             type={isVisiblePassword ? 'text' : 'password'}
             placeholder={'Пароль'}
-            onChange={e => setPassword(e.target.value)}
+            onChange={handleChange}
             icon={isVisiblePassword ? 'HideIcon' : 'ShowIcon'}
-            value={password}
+            value={values.password}
             name={'password'}
-            error={false}
+            error={!!errors.password}
             onIconClick={onIconClick}
-            errorText={'Ошибка'}
+            errorText={errors.password}
             size={'default'}
             extraClass="mt-6"
+            minLength={8}
+            maxLength={20}
+            required
           />
           <Button
             htmlType="submit"
             type="primary"
             extraClass="mt-6"
+            disabled={!isValid}
           >
             Зарегистрироваться
           </Button>

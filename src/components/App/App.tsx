@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import OrderDetails from '../UI/Modal/OrderDetails/OrderDetails';
 import { fetchIngredients } from '../../services/asyncThunk/ingredients';
 import Login from '../../pages/Login/Login';
+import Register from '../../pages/Register/Register';
 
 function App() {
   const { isOpenIngredientDetail, isOpenOrderDetails} = useAppSelector(store => store.modal);
@@ -27,6 +28,9 @@ function App() {
       </Route>
       <Route path='/login'>
         <Login />
+      </Route>
+      <Route path='/register'>
+        <Register />
       </Route>
     </Switch>
 

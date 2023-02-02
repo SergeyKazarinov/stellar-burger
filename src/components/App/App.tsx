@@ -11,6 +11,8 @@ import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import Profile from '../../pages/Profile/Profile';
+import Feed from '../../pages/Feed/Feed';
 
 function App() {
   const { isOpenIngredientDetail, isOpenOrderDetails} = useAppSelector(store => store.modal);
@@ -40,6 +42,12 @@ function App() {
       <Route path='/reset-password'>
         <ResetPassword />
       </Route>
+      <Route path='/profile'>
+        <Profile />
+      </Route>
+      <Route path='/feed'>
+        <Feed />
+      </Route>
     </Switch>
 
     {isOpenIngredientDetail && (
@@ -51,8 +59,6 @@ function App() {
     <Modal>
       <OrderDetails />
     </Modal>)}
-
-
     </>
   );
 }

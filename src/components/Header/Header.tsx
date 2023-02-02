@@ -21,7 +21,7 @@ export const Header: FC = () => {
                   </Link>
                 </li>
                 <li className={`pt-4 pb-4 pr-5 pl-5 mt-4 mb-4 ${s.header__listItem}`}>
-                  <Link to='/orders' className={`link text text_type_main-default ${url.pathname !== '/orders' && 'text_color_inactive'} ${s.header__link}`}>
+                  <Link to='/feed' className={`link text text_type_main-default ${url.pathname !== '/orders' && 'text_color_inactive'} ${s.header__link}`}>
                     <ListIcon type={`${url.pathname === '/orders' ? 'primary' : 'secondary'}`}/>
                     Лента заказов
                   </Link>

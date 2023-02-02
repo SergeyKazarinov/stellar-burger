@@ -4,8 +4,8 @@ import { IIngredient } from "../../../types/interfaces/IIngredient";
 
 interface IFeedIngredientOrder {
   item: IIngredient;
-  index: number;
-  leftIngredients: number;
+  index?: number;
+  leftIngredients?: number;
 }
 
 const FeedIngredientOrder: FC<IFeedIngredientOrder> = ({item, index, leftIngredients}) => {

@@ -1,27 +1,27 @@
 import React, {FC} from "react";
 import profile from './ProfileNavigation.module.scss';
-import { NavLink, useRouteMatch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface IProfileNavigationProps {
 
 }
 
 const ProfileNavigation: FC<IProfileNavigationProps> = () => {
-  const { url } = useRouteMatch();
 
   return (
     <div className={profile.navContainer}>
       <nav className={`text text_type_main-medium ${profile.navigation}`}>
         <NavLink
-          to={url}
+          to={'/profile'}
           exact={true}
           className={`link text_color_inactive ${profile.link}`}
           activeClassName={profile.link_active}
         >
           Профиль
         </NavLink>
+
         <NavLink
-          to={`${url}/orders`}
+          to={`/profile/orders`}
           className={`link text_color_inactive ${profile.link}`}
           activeClassName={profile.link_active}
         >

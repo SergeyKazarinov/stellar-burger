@@ -3,7 +3,6 @@ import s from './OrderIngredientItem.module.scss'
 import FeedIngredientOrder from "../UI/FeedIngredientOrder/FeedIngredientOrder";
 import { useAppSelector } from "../../hooks/useTypedSelector";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import TotalPrice from "../TotalPrice/TotalPrice";
 
 interface IOrderIngredientItemProps {
 

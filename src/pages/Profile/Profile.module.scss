@@ -2,9 +2,8 @@
 
 .profile {
   max-width: 1280px;
-  margin: 100px auto 0;
+  margin: 0 auto;
   padding: 20px;
   display: flex;
   gap: 60px;
-  @include scrollbar();
 }

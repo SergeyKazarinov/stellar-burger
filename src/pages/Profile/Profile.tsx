@@ -1,10 +1,9 @@
 import React, {FC} from "react";
 import profile from './Profile.module.scss'
 import ProfileNavigation from "./ProfileNavigation/ProfileNavigation";
-import { Route, Switch, useLocation, useRouteMatch } from "react-router-dom";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 import ProfileContainer from "./ProfileContainer/ProfileContainer";
 import ProfileOrders from "./ProfileOrders/ProfileOrders";
-import OrderPage from "./ProfileOrders/OrderPage/OrderPage";
 import { URL_FOR_PROFILE_NAVIGATION } from "../../utils/constants";
 
 interface IProfileProps {

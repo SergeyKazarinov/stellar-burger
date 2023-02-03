@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import s from './Feed.module.scss';
 import Orders from '../../components/Orders/Orders';
 import OrderStatistics from '../../components/OrderStatistics/OrderStatistics';
+import { Route, Switch } from 'react-router-dom';
+import OrderPage from '../Profile/ProfileOrders/OrderPage/OrderPage';
 
 interface IFeedProps {
 

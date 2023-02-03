@@ -1,4 +1,5 @@
 @import './styles/constants.scss';
+@import './styles/mixins.scss';
 
 * {
   box-sizing: border-box;
@@ -11,6 +12,7 @@ body {
     sans-serif;
   max-width: 1920px;
   background: $backgroundPage;
+  @include scrollbar();
 }
 
 code {

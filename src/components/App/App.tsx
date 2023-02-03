@@ -11,6 +11,9 @@ import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import Profile from '../../pages/Profile/Profile';
+import Feed from '../../pages/Feed/Feed';
+import OrderPage from '../../pages/Profile/ProfileOrders/OrderPage/OrderPage';
 
 function App() {
   const { isOpenIngredientDetail, isOpenOrderDetails} = useAppSelector(store => store.modal);
@@ -23,36 +26,43 @@ function App() {
 
   return (
     <>
-    <Header />
-    <Switch>
-      <Route exact path='/'>
-        {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
-      </Route>
-      <Route path='/login'>
-        <Login />
-      </Route>
-      <Route path='/register'>
-        <Register />
-      </Route>
-      <Route path='/forgot-password'>
-        <ForgotPassword />
-      </Route>
-      <Route path='/reset-password'>
-        <ResetPassword />
-      </Route>
-    </Switch>
+      <Header />
+      <Switch>
+        <Route exact path='/'>
+          {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
+        </Route>
+        <Route path='/login'>
+          <Login />
+        </Route>
+        <Route path='/register'>
+          <Register />
+        </Route>
+        <Route path='/forgot-password'>
+          <ForgotPassword />
+        </Route>
+        <Route path='/reset-password'>
+          <ResetPassword />
+        </Route>
+        <Route path='/profile'>
+          <Profile />
+        </Route>
+        <Route exact path='/feed'>
+          <Feed />
+        </Route>
+        <Route path='/feed/:orderId'>
+          <OrderPage />
+        </Route>
+      </Switch>
 
-    {isOpenIngredientDetail && (
-    <Modal>
-      <IngredientDetails />
-    </Modal>)}
+      {isOpenIngredientDetail && (
+      <Modal>
+        <IngredientDetails />
+      </Modal>)}
 
-    {isOpenOrderDetails && (
-    <Modal>
-      <OrderDetails />
-    </Modal>)}
-
-
+      {isOpenOrderDetails && (
+      <Modal>
+        <OrderDetails />
+      </Modal>)}
     </>
   );
 }

@@ -1,7 +1,6 @@
 @import '../../styles/mixins.scss';
 
 .burgerConstructor {
-  @include scrollbar();
   width: 600px;
   display: flex;
   flex-direction: column;

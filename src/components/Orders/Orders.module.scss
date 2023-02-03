@@ -1,0 +1,11 @@
+@import '../../styles/mixins.scss';
+
+.orders {
+  width: 600px;
+  max-height: 852px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  margin-top: 20px;
+}

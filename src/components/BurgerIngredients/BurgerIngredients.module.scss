@@ -4,7 +4,6 @@
 
 .burgerIngredients {
   width: 600px;
-  @include scrollbar();
 
   &__ingredients {
     max-height: $max-height;

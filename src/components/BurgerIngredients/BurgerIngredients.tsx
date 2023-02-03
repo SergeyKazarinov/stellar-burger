@@ -8,7 +8,7 @@ import { setScrollValue } from '../../services/slices/scrollSlice';
 import { BUNS, SAUCES, TOPPINGS } from '../../utils/constants';
 
 const BurgerIngredients: FC = () => {
-  const { ingredients } = useAppSelector(store => store.ingredients)
+  const ingredients = useAppSelector(store => store.ingredients.ingredients)
   const dispatch = useAppDispatch();
 
   const buns = ingredients.filter((item) => item.type === 'bun');

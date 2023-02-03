@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import s from './Feed.module.scss';
 import Orders from '../../components/Orders/Orders';
+import OrderStatistics from '../../components/OrderStatistics/OrderStatistics';
 
 interface IFeedProps {
 
@@ -12,6 +13,7 @@ const Feed: FC<IFeedProps> = () => {
       <h2 className={`text text_type_main-medium ${s.title}`}>Лента заказов</h2>
       <div className={s.feedContainer}>
         <Orders />
+        <OrderStatistics />
       </div>
     </section>
   );

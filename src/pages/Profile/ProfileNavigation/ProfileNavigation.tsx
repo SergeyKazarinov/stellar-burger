@@ -1,12 +1,19 @@
 import React, {FC} from "react";
 import profile from './ProfileNavigation.module.scss';
 import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
+import { fetchLogout } from "../../../services/asyncThunk/profileThunk";
 
 interface IProfileNavigationProps {
 
 }
 
 const ProfileNavigation: FC<IProfileNavigationProps> = () => {
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(fetchLogout())
+  }
 
   return (
     <div className={profile.navContainer}>
@@ -28,7 +35,13 @@ const ProfileNavigation: FC<IProfileNavigationProps> = () => {
           История заказов
         </NavLink>
       </nav>
-      <button type='button' className={`button text_type_main-medium text_color_inactive ${profile.link}`}>Выход</button>
+      <button
+        type='button'
+        className={`button text_type_main-medium text_color_inactive ${profile.link}`}
+        onClick={handleLogout}
+      >
+        Выход
+      </button>
       <p className={`mt-20 text text_type_main-default text_color_inactive ${profile.description}`}>
         В этом разделе вы можете изменить&#160;свои персональные данные
       </p>

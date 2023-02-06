@@ -5,7 +5,7 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { addIngredientsForTheBurgerConstructor, clearBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
 import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
-import { sendOrderThunk } from '../../services/asyncThunk/orders';
+import { sendOrderThunk } from '../../services/asyncThunk/ordersThunk';
 import { IIngredient } from '../../types/interfaces/IIngredient';
 import { useDrop } from 'react-dnd';
 import IngredientElement from '../UI/IngredientElement/IngredientElement';

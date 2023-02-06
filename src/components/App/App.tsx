@@ -6,7 +6,7 @@ import Modal from '../UI/Modal/Modal';
 import IngredientDetails from '../UI/Modal/IngredientDetails/IngredientDetails';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import OrderDetails from '../UI/Modal/OrderDetails/OrderDetails';
-import { fetchIngredients } from '../../services/asyncThunk/ingredients';
+import { fetchIngredients } from '../../services/asyncThunk/ingredientsThunk';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IIngredient } from "../../types/interfaces/IIngredient";
-import { sendOrderThunk } from "../asyncThunk/orders";
+import { sendOrderThunk } from "../asyncThunk/ordersThunk";
 import { TOrderArray } from "../../types/types/TOrderArray";
 import { IOrder } from "../../types/interfaces/IOrder";
 

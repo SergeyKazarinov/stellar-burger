@@ -3,6 +3,7 @@ import scrollSlice from "./slices/scrollSlice";
 import portalSlice from "./slices/portalSlice";
 import ingredientsSlice from "./slices/ingredientsSlice";
 import ingredientsForTheConstructorSlice from "./slices/burgerConstructorSlice";
+import profileSlice from "./slices/profileSlice";
 
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   modal: portalSlice,
   ingredients: ingredientsSlice,
   burgerConstructor: ingredientsForTheConstructorSlice,
+  profile: profileSlice,
 });
 
 export const store = configureStore({

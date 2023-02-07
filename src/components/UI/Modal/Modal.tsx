@@ -3,8 +3,9 @@ import s from './Modal.module.scss';
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
-import { closeAllModal } from '../../../services/slices/portalSlice';
+// import { closeAllModal } from '../../../services/slices/portalSlice';
 import ModalOverlay from './ModalOverlay/ModalOverlay';
+import { modalActions } from '../../../services/slices/portalSlice';
 
 interface IModalProps {
   children: React.ReactNode;
@@ -18,7 +19,7 @@ const Modal: FC<IModalProps> = ({children, title}) => {
   const dispatch = useAppDispatch();
 
   const handleClose = () => {
-    dispatch(closeAllModal());
+    dispatch(modalActions.closeAllModal())
   }
 
   return ReactDOM.createPortal((

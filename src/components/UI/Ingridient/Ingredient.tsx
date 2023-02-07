@@ -3,7 +3,7 @@ import s from './Ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IIngredient } from '../../../types/interfaces/IIngredient';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
-import { setIsOpenIngredientDetail } from '../../../services/slices/portalSlice';
+import { modalActions } from '../../../services/slices/portalSlice';
 import { useDrag } from 'react-dnd';
 
 interface IIngredientProps {
@@ -28,7 +28,7 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
   }, [ingredientsForTheOrder])
 
   const handleOpenIngredientDetails = () => {
-    dispatch(setIsOpenIngredientDetail({isOpen: true, ingredient}))
+    dispatch(modalActions.setIsOpenIngredientDetail({isOpen: true, ingredient}))
   }
 
   return (

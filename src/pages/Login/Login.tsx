@@ -1,13 +1,14 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import login from './Login.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RouteComponentProps, withRouter } from "react-router";
+import { Redirect, RouteComponentProps, withRouter } from "react-router";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { EMAIL_PATTERN } from "../../utils/constants";
-import { useAppDispatch } from "../../hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
 import { fetchLogin } from "../../services/asyncThunk/profileThunk";
 
 const Login = ({history}: RouteComponentProps): JSX.Element => {
+  const isLogin = useAppSelector(store => store.profile.isLogin);
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const dispatch = useAppDispatch();
@@ -35,6 +36,12 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
       email: values.email,
       password: values.password
     }))
+  }
+
+  if (isLogin) {
+    return (
+      <Redirect to={{pathname: '/'}} />
+    )
   }
 
   return (

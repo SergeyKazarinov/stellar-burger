@@ -7,6 +7,7 @@ export const TOPPINGS: 'Начинки' = 'Начинки';
 export const URL_FOR_INGREDIENTS: string = 'https://norma.nomoreparties.space/api/ingredients';
 export const URL_FOR_ORDERS: string = 'https://norma.nomoreparties.space/api/orders';
 export const URL_FOR_AUTH: string = 'https://norma.nomoreparties.space/api/auth';
+export const URL_FOR_RESET_PASSWORD: string = 'https://norma.nomoreparties.space/api';
 
 //LINKS
 export const URL_FOR_PROFILE_NAVIGATION: string[] = ['/profile', '/profile/orders'];

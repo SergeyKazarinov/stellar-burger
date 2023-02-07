@@ -1,61 +1,100 @@
-import React, {FC, useState} from "react";
+import React, {ChangeEvent, FC, FormEvent, MutableRefObject, useEffect, useState} from "react";
 import profile from './ProfileContainer.module.scss';
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
+import { fetchGetUser } from "../../../services/asyncThunk/profileThunk";
 
 interface IProfileContainerProps {
 
 }
 
 const ProfileContainer: FC<IProfileContainerProps> = () => {
+  const dispatch = useAppDispatch();
+  const email = useAppSelector(store => store.profile.email);
+  const name = useAppSelector(store => store.profile.name);
+  const [value, setValue] = useState({name, email, password: ''});
+  const [isEdit, setIsEdit] = useState({name: true, email: true, password: true});
+  const inputNameRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const inputLoginRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const inputPasswordRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
 
-  const [value, setValue] = React.useState('Марк');
-  const [isEdit, setIsEdit] = useState(false);
-  const onIconClick = () => {
-    setIsEdit(!isEdit);
-    console.log(isEdit)
+  useEffect(() => {
+    dispatch(fetchGetUser())
+  }, [])
+
+  const onIconNameClick = () => {
+    setIsEdit({...isEdit, name: false});
+    inputNameRef.current!.focus();
   };
+
+  const onIconLoginClick = () => {
+    setIsEdit({...isEdit, email: false});
+    inputLoginRef.current!.focus();
+  };
+
+  const onIconPasswordClick = () => {
+    setIsEdit({...isEdit, password: false});
+    inputPasswordRef.current!.focus();
+  };
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue({...value, [e.target.name]: e.target.value})
+  }
+
+  const handleBlur = () => {
+    setIsEdit({name: true, email: true, password: true})
+  }
 
 
   return (
     <div className={profile.profileContainer}>
       <Input
         type={'text'}
+        id={'name'}
         placeholder={'Имя'}
-        onChange={e => setValue(e.target.value)}
+        onChange={onChange}
         icon={'EditIcon'}
-        value={value}
+        value={value.name}
         name={'name'}
         error={false}
-        onIconClick={onIconClick}
+        onIconClick={onIconNameClick}
         errorText={'Ошибка'}
         size={'default'}
-        readOnly={true}
+        readOnly={isEdit.name}
+        ref={inputNameRef}
+        onBlur={handleBlur}
       />
       <Input
         type={'email'}
         placeholder={'Логин'}
-        onChange={e => setValue(e.target.value)}
+        onChange={onChange}
         icon={'EditIcon'}
-        value={value}
+        value={value.email}
         name={'email'}
         error={false}
-        onIconClick={onIconClick}
+        onIconClick={onIconLoginClick}
         errorText={'Ошибка'}
         size={'default'}
         extraClass="mt-6"
+        readOnly={isEdit.email}
+        ref={inputLoginRef}
+        onBlur={handleBlur}
       />
       <Input
         type={'password'}
         placeholder={'Пароль'}
-        onChange={e => setValue(e.target.value)}
+        onChange={onChange}
         icon={'EditIcon'}
-        value={value}
+        value={value.password}
         name={'password'}
         error={false}
-        onIconClick={onIconClick}
+        onIconClick={onIconPasswordClick}
         errorText={'Ошибка'}
         size={'default'}
         extraClass="mt-6"
+        ref={inputPasswordRef}
+        readOnly={isEdit.password}
+        onBlur={handleBlur}
       />
   </div>
     );

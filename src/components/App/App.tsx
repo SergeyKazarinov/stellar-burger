@@ -14,14 +14,17 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import Feed from '../../pages/Feed/Feed';
 import OrderPage from '../../pages/Profile/ProfileOrders/OrderPage/OrderPage';
+import { fetchGetUser } from '../../services/asyncThunk/profileThunk';
+import ModalWithMessage from '../UI/Modal/ModalWithMessage/ModalWithMessage';
 
 function App() {
-  const { isOpenIngredientDetail, isOpenOrderDetails} = useAppSelector(store => store.modal);
+  const { isOpenIngredientDetail, isOpenOrderDetails, isOpenModalWithMessage} = useAppSelector(store => store.modal);
   const { ingredients, fetchIngredientsPending } = useAppSelector(store => store.ingredients);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(fetchGetUser());
   }, [])
 
   return (
@@ -63,6 +66,12 @@ function App() {
       <Modal>
         <OrderDetails />
       </Modal>)}
+
+      {isOpenModalWithMessage && (
+        <Modal>
+          <ModalWithMessage message={isOpenModalWithMessage} />
+        </Modal>
+      )}
     </>
   );
 }

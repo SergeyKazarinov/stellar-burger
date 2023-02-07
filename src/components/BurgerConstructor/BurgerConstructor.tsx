@@ -4,7 +4,7 @@ import Buns from '../Buns/Buns';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { addIngredientsForTheBurgerConstructor, clearBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
-import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
+import { modalActions } from '../../services/slices/portalSlice';
 import { sendOrderThunk } from '../../services/asyncThunk/ordersThunk';
 import { IIngredient } from '../../types/interfaces/IIngredient';
 import { useDrop } from 'react-dnd';
@@ -32,7 +32,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   }, [ingredientsForTheBurgerConstructor, bunsForTheBurgerConstructor])
 
   useEffect(() => {
-    order?.order?.number && dispatch(setIsOpenOrderDetails(true));
+    order?.order?.number && dispatch(modalActions.setIsOpenOrderDetails(true));
   }, [order]);
 
   const handleSendOrder = () => {

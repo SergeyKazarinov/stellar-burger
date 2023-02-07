@@ -16,6 +16,7 @@ import Feed from '../../pages/Feed/Feed';
 import OrderPage from '../../pages/Profile/ProfileOrders/OrderPage/OrderPage';
 import { fetchGetUser } from '../../services/asyncThunk/profileThunk';
 import ModalWithMessage from '../UI/Modal/ModalWithMessage/ModalWithMessage';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const { isOpenIngredientDetail, isOpenOrderDetails, isOpenModalWithMessage} = useAppSelector(store => store.modal);
@@ -46,9 +47,9 @@ function App() {
         <Route path='/reset-password'>
           <ResetPassword />
         </Route>
-        <Route path='/profile'>
+        <ProtectedRoute path='/profile'>
           <Profile />
-        </Route>
+        </ProtectedRoute>
         <Route exact path='/feed'>
           <Feed />
         </Route>

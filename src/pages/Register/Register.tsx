@@ -1,16 +1,19 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import register from './Register.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RouteComponentProps, withRouter } from "react-router";
+import { Redirect, RouteComponentProps, withRouter } from "react-router";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { EMAIL_PATTERN } from "../../utils/constants";
-import { useAppDispatch } from "../../hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
 import { fetchRegister } from "../../services/asyncThunk/profileThunk";
+import { TLocation } from "../../types/types/TLocation";
 
 const Register = ({history}: RouteComponentProps): JSX.Element => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const dispatch = useAppDispatch();
+  const isLogin = useAppSelector(store => store.profile.isLogin);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+  const { state } = history.location as TLocation;
 
   useEffect(() => {
     resetForm();
@@ -32,6 +35,12 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
       password: values.password,
       name: values.name,
     }))
+  }
+
+  if (isLogin) {
+    return (
+      <Redirect to={ state?.from || '/' } />
+    )
   }
 
   return (

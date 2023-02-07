@@ -1,7 +1,7 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import forgotPassword from './ForgotPassword.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RouteComponentProps, withRouter } from "react-router";
+import { Redirect, RouteComponentProps, withRouter } from "react-router";
 import { EMAIL_PATTERN } from "../../utils/constants";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
@@ -13,6 +13,7 @@ const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const dispatch = useAppDispatch();
   const message = useAppSelector(store => store.profile.message);
+  const isLogin = useAppSelector(store => store.profile.isLogin);
 
   useEffect(() => {
     resetForm();
@@ -36,6 +37,9 @@ const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
     }
   }, [message])
 
+  if(isLogin) {
+    <Redirect to={{pathname: '/'}} />;
+  }
   return (
     <section className={forgotPassword.forgotPassword}>
       <div className={forgotPassword.container}>

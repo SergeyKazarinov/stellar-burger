@@ -6,6 +6,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 interface IProfileSliceInitialState {
   profilePending: boolean;
   isLogin: boolean;
+  isSentEmailForResetPassword: boolean;
   email: string;
   name: string;
   accessToken: string;
@@ -19,6 +20,7 @@ const profileSlice = createSlice({
   initialState: {
     profilePending: false,
     isLogin: false,
+    isSentEmailForResetPassword: false,
     email: '',
     name: '',
     accessToken: '',
@@ -130,6 +132,7 @@ const profileSlice = createSlice({
         state.message = '';
       })
       .addCase(fetchForgotPassword.fulfilled, (state, action: PayloadAction<IMessageResponse>) => {
+        state.isSentEmailForResetPassword = true;
         state.message = action.payload.message;
         state.profilePending = false;
       })
@@ -143,6 +146,7 @@ const profileSlice = createSlice({
       })
       .addCase(fetchResetPassword.fulfilled, (state, action: PayloadAction<IMessageResponse>) => {
         state.profilePending = false;
+        state.isSentEmailForResetPassword = false;
         state.message = action.payload.message;
       })
       .addCase(fetchResetPassword.rejected, (state, action) => {

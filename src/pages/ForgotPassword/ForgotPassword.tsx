@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
 import { fetchForgotPassword } from "../../services/asyncThunk/profileThunk";
 import { modalActions } from "../../services/slices/portalSlice";
 import { profileActions } from "../../services/slices/profileSlice";
+import { TLocation } from "../../types/types/TLocation";
 
 const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
@@ -27,19 +28,21 @@ const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
     e.preventDefault();
     dispatch(fetchForgotPassword(values.email));
   };
-
+// В настоящей реализации - костыль. Исправить
   useEffect(() => {
     if(message) {
-      console.log(message)
       dispatch(modalActions.setIsOpenModalWithMessage(message));
       history.push('/reset-password');
       dispatch(profileActions.setMessage(''));
     }
   }, [message])
 
-  if(isLogin) {
-    <Redirect to={{pathname: '/'}} />;
+  if (isLogin) {
+    return (
+      <Redirect to='/' />
+    )
   }
+
   return (
     <section className={forgotPassword.forgotPassword}>
       <div className={forgotPassword.container}>

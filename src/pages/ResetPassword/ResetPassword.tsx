@@ -1,7 +1,7 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import forgotPassword from './ResetPassword.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RouteComponentProps, withRouter } from "react-router";
+import { Redirect, RouteComponentProps, withRouter } from "react-router";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
 import { fetchResetPassword } from "../../services/asyncThunk/profileThunk";
@@ -13,6 +13,7 @@ const ResetPassword = ({history}: RouteComponentProps): JSX.Element => {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const dispatch = useAppDispatch();
   const message = useAppSelector(store => store.profile.message);
+  const isSentEmailForResetPassword = useAppSelector(store => store.profile.isSentEmailForResetPassword)
 
   useEffect(() => {
     resetForm();
@@ -40,6 +41,12 @@ const ResetPassword = ({history}: RouteComponentProps): JSX.Element => {
       dispatch(profileActions.setMessage(''));
     }
   }, [message])
+
+  if (!isSentEmailForResetPassword) {
+    return (
+      <Redirect to='/forgot-password' />
+    )
+  }
 
   return (
     <section className={forgotPassword.forgotPassword}>

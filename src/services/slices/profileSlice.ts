@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { fetchForgotPassword, fetchGetUser, fetchLogin, fetchLogout, fetchRegister, fetchResetPassword, fetchUpdateToken } from "../asyncThunk/profileThunk";
+import { fetchForgotPassword, fetchGetUser, fetchLogin, fetchLogout, fetchRegister, fetchResetPassword } from "../asyncThunk/profileThunk";
 import { IGetUserSuccess, ILoginAnswerSuccess, IMessageResponse, IRegisterAnswerSuccess, IUpdateTokenSuccess } from "../../types/interfaces/IAuthorization";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 
@@ -9,8 +9,6 @@ interface IProfileSliceInitialState {
   isSentEmailForResetPassword: boolean;
   email: string;
   name: string;
-  accessToken: string;
-  refreshToken: string;
   message: string;
 }
 
@@ -23,8 +21,6 @@ const profileSlice = createSlice({
     isSentEmailForResetPassword: false,
     email: '',
     name: '',
-    accessToken: '',
-    refreshToken: '',
     message: '',
   } as IProfileSliceInitialState,
   reducers: {
@@ -44,8 +40,6 @@ const profileSlice = createSlice({
         state.isLogin = true;
         state.email = action.payload.user.email;
         state.name = action.payload.user.name;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
         localStorage.setItem(REFRESH_TOKEN, action.payload.refreshToken)
         localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken)
       })
@@ -63,30 +57,11 @@ const profileSlice = createSlice({
         state.profilePending = false;
         state.email = action.payload.user.email;
         state.name = action.payload.user.name;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
         localStorage.setItem(REFRESH_TOKEN, action.payload.refreshToken)
         localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken)
         console.log(action.payload)
       })
       .addCase(fetchLogin.rejected, (state, action) => {
-        console.log(action.payload);
-        state.profilePending = false;
-      })
-
-      .addCase(fetchUpdateToken.pending, (state) => {
-        state.profilePending = true;
-        state.message = '';
-      })
-      .addCase(fetchUpdateToken.fulfilled, (state, action: PayloadAction<IUpdateTokenSuccess>) => {
-        console.log(action.payload);
-        state.profilePending = false;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        localStorage.setItem(REFRESH_TOKEN, action.payload.refreshToken);
-        localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken)
-      })
-      .addCase(fetchUpdateToken.rejected, (state, action) => {
         console.log(action.payload);
         state.profilePending = false;
       })
@@ -101,8 +76,6 @@ const profileSlice = createSlice({
         state.isLogin = false;
         state.email = '';
         state.name = '';
-        state.accessToken = '';
-        state.refreshToken = '';
         localStorage.removeItem(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN);
       })
@@ -116,7 +89,6 @@ const profileSlice = createSlice({
         state.message = '';
       })
       .addCase(fetchGetUser.fulfilled, (state, action: PayloadAction<IGetUserSuccess>) => {
-        console.log(action.payload);
         state.profilePending = false;
         state.isLogin = true;
         state.email = action.payload.user.email;

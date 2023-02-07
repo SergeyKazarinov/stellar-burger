@@ -1,5 +1,6 @@
 import { ILogin, IRegister } from "../../types/interfaces/IAuthorization"
 import { ACCESS_TOKEN, REFRESH_TOKEN, URL_FOR_AUTH, URL_FOR_RESET_PASSWORD } from "../../utils/constants"
+import { fetchWithAuth } from "./fetchWithAuth";
 
 const checkAnswer = (res: Response) => {
   if(res.ok) {
@@ -46,25 +47,6 @@ export const loginUser = async({email, password}: ILogin ) => {
   }
 }
 
-export const updateToken = async() => {
-  try {
-    const token = localStorage.getItem(REFRESH_TOKEN);
-    console.log(token)
-    const res: Response = await fetch(`${URL_FOR_AUTH}/token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({token})
-    })
-
-    const data = checkAnswer(res);
-    return data;
-  } catch(e) {
-    return Promise.reject(e);
-  }
-};
-
 export const logoutUser = async () => {
   try {
     const token = localStorage.getItem(REFRESH_TOKEN);
@@ -87,18 +69,17 @@ export const logoutUser = async () => {
 
 export const getUser = async () => {
   try {
-    const res: Response = await fetch(`${URL_FOR_AUTH}/user`, {
+    const res = fetchWithAuth(`${URL_FOR_AUTH}/user`, {
       headers: {
-        'Content-Type': 'application/json',
-        authorization: `${localStorage.getItem(ACCESS_TOKEN)}`
+        'Content-Type': 'application/json'
       }
-    });
+    })
 
-    const data = await checkAnswer(res);
-    return data;
+    return res;
   } catch(e) {
     return Promise.reject(e);
   }
+
 }
 
 export const forgotPasswordApi = async (email: string) => {

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { forgotPasswordApi, getUser, loginUser, logoutUser, registerUser, resetPasswordApi, updateToken } from "../api/profileApi";
+import { forgotPasswordApi, getUser, loginUser, logoutUser, registerUser, resetPasswordApi } from "../api/profileApi";
 import { ILogin, IRegister } from "../../types/interfaces/IAuthorization";
 
 
@@ -20,18 +20,6 @@ export const fetchLogin = createAsyncThunk(
   async({email, password}: ILogin, thunkApi) => {
     try {
       const res = await loginUser({email, password});
-      return res;
-    } catch(e) {
-      return thunkApi.rejectWithValue(e);
-    }
-  }
-)
-
-export const fetchUpdateToken = createAsyncThunk(
-  'profile/fetchUpdateToken',
-  async(_, thunkApi) => {
-    try {
-      const res = await updateToken();
       return res;
     } catch(e) {
       return thunkApi.rejectWithValue(e);

@@ -1,4 +1,4 @@
-import { ILogin, IRegister } from "../../types/interfaces/IAuthorization"
+import { ILogin, IRegister, IUpdateUser } from "../../types/interfaces/IAuthorization"
 import { ACCESS_TOKEN, REFRESH_TOKEN, URL_FOR_AUTH, URL_FOR_RESET_PASSWORD } from "../../utils/constants"
 import { fetchWithAuth } from "./fetchWithAuth";
 
@@ -79,7 +79,22 @@ export const getUser = async () => {
   } catch(e) {
     return Promise.reject(e);
   }
+}
 
+export const patchUser = async (data: IUpdateUser) => {
+  try {
+    const res = fetchWithAuth(`${URL_FOR_AUTH}/user`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    return res;
+  } catch(e) {
+    return Promise.reject(e);
+  }
 }
 
 export const forgotPasswordApi = async (email: string) => {

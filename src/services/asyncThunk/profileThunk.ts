@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { forgotPasswordApi, getUser, loginUser, logoutUser, registerUser, resetPasswordApi } from "../api/profileApi";
-import { ILogin, IRegister } from "../../types/interfaces/IAuthorization";
+import { forgotPasswordApi, getUser, loginUser, logoutUser, patchUser, registerUser, resetPasswordApi } from "../api/profileApi";
+import { ILogin, IRegister, IUpdateUser } from "../../types/interfaces/IAuthorization";
 
 
 export const fetchRegister = createAsyncThunk(
@@ -44,6 +44,18 @@ export const fetchGetUser = createAsyncThunk(
   async(_, thunkApi) => {
     try {
       const res = await getUser();
+      return res;
+    } catch(e) {
+      return thunkApi.rejectWithValue(e);
+    }
+  }
+)
+
+export const fetchUpdateUser = createAsyncThunk(
+  'profile/fetchUpdateUser',
+  async(data: IUpdateUser, thunkApi) => {
+    try {
+      const res = await patchUser(data);
       return res;
     } catch(e) {
       return thunkApi.rejectWithValue(e);

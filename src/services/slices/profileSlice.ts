@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { fetchForgotPassword, fetchGetUser, fetchLogin, fetchLogout, fetchRegister, fetchResetPassword } from "../asyncThunk/profileThunk";
+import { fetchForgotPassword, fetchGetUser, fetchLogin, fetchLogout, fetchRegister, fetchResetPassword, fetchUpdateUser } from "../asyncThunk/profileThunk";
 import { IGetUserSuccess, ILoginAnswerSuccess, IMessageResponse, IRegisterAnswerSuccess, IUpdateTokenSuccess } from "../../types/interfaces/IAuthorization";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 
@@ -97,6 +97,20 @@ const profileSlice = createSlice({
       .addCase(fetchGetUser.rejected, (state, action) => {
         console.log(action.payload);
         state.profilePending = false;
+      })
+
+      .addCase(fetchUpdateUser.pending, (state) => {
+        state.profilePending = true;
+        state.message = '';
+      })
+      .addCase(fetchUpdateUser.fulfilled, (state, action: PayloadAction<IGetUserSuccess>) => {
+        state.name = action.payload.user.name;
+        state.email = action.payload.user.email;
+        state.profilePending = false;
+      })
+      .addCase(fetchUpdateUser.rejected, (state, action ) => {
+        state.profilePending = false;
+        console.log(action.payload);
       })
 
       .addCase(fetchForgotPassword.pending, (state) => {

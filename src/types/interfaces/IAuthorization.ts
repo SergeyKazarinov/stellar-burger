@@ -12,6 +12,12 @@ export interface IRegister extends ILogin{
   name: string;
 }
 
+export interface IUpdateUser {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
 export interface IRegisterAnswerSuccess {
   success: boolean;
   accessToken: string;

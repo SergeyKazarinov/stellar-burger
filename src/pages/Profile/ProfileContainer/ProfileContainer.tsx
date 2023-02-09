@@ -1,8 +1,10 @@
-import React, {ChangeEvent, FC, FormEvent, MutableRefObject, useEffect, useState} from "react";
-import profile from './ProfileContainer.module.scss';
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {ChangeEvent, FC, FormEvent, MutableRefObject, useEffect, useMemo, useState} from "react";
+import s from './ProfileContainer.module.scss';
+import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
-import { fetchGetUser } from "../../../services/asyncThunk/profileThunk";
+import { fetchGetUser, fetchUpdateUser } from "../../../services/asyncThunk/profileThunk";
+import { useFormWithValidation } from "../../../hooks/useFormWithValidation";
+import { EMAIL_PATTERN } from "../../../utils/constants";
 
 interface IProfileContainerProps {
 
@@ -12,15 +14,23 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(store => store.profile.email);
   const name = useAppSelector(store => store.profile.name);
-  const [value, setValue] = useState({name, email, password: ''});
+  const {values, handleChange, errors, isValid, resetForm, setValues} = useFormWithValidation();
   const [isEdit, setIsEdit] = useState({name: true, email: true, password: true});
   const inputNameRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const inputLoginRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const inputPasswordRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const isButtonActive = useMemo(
+    () => (
+      isValid && (name !== values.name || email !== values.email || values.password.length >= 8)
+    ), [isValid, name, email, values]);
 
   useEffect(() => {
     dispatch(fetchGetUser())
   }, [])
+
+  useEffect(() => {
+    resetForm({name, email, password: ''})
+  }, [resetForm])
 
   const onIconNameClick = () => {
     setIsEdit({...isEdit, name: false});
@@ -37,24 +47,37 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
     inputPasswordRef.current!.focus();
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue({...value, [e.target.name]: e.target.value})
+  const handleBlur = () => {
+    setIsEdit({name: true, email: true, password: true});
+    if (values.password.length < 8) {
+      setValues({...values, password: ''})
+    }
   }
 
-  const handleBlur = () => {
-    setIsEdit({name: true, email: true, password: true})
+  const handleResetValue = () => {
+    resetForm({name, email, password: ''})
+  }
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (values.password.length < 8) {
+      dispatch(fetchUpdateUser({name: values.name, email: values.email}))
+    } else {
+      dispatch(fetchUpdateUser({name: values.name, email: values.email, password: values.password}))
+    }
   }
 
 
   return (
-    <div className={profile.profileContainer}>
+    <form className={s.profileContainer} onSubmit={handleSubmit}>
       <Input
         type={'text'}
         id={'name'}
         placeholder={'Имя'}
-        onChange={onChange}
+        onChange={handleChange}
         icon={'EditIcon'}
-        value={value.name}
+        value={values.name || ''}
         name={'name'}
         error={false}
         onIconClick={onIconNameClick}
@@ -67,10 +90,11 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
       <Input
         type={'email'}
         placeholder={'Логин'}
-        onChange={onChange}
+        onChange={handleChange}
         icon={'EditIcon'}
-        value={value.email}
+        value={values.email || ''}
         name={'email'}
+        pattern={EMAIL_PATTERN}
         error={false}
         onIconClick={onIconLoginClick}
         errorText={'Ошибка'}
@@ -83,9 +107,9 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
       <Input
         type={'password'}
         placeholder={'Пароль'}
-        onChange={onChange}
+        onChange={handleChange}
         icon={'EditIcon'}
-        value={value.password}
+        value={values.password || ''}
         name={'password'}
         error={false}
         onIconClick={onIconPasswordClick}
@@ -94,9 +118,32 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
         extraClass="mt-6"
         ref={inputPasswordRef}
         readOnly={isEdit.password}
+        minLength={8}
+        maxLength={20}
         onBlur={handleBlur}
+        required
       />
-  </div>
+      <div className={`mt-10 ${s.buttonContainer}`}>
+        <Button
+          htmlType="submit"
+          type="primary"
+          size="medium"
+          extraClass={s.button}
+          disabled={!isButtonActive}
+        >
+          Сохранить
+        </Button>
+        <Button
+          htmlType="button"
+          type="primary"
+          size="medium"
+          extraClass={s.button}
+          onClick={handleResetValue}
+        >
+          Отмена
+        </Button>
+      </div>
+  </form>
     );
 }
 

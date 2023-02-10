@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, memo} from 'react';
 import s from './ConstructorPage.module.scss';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
@@ -19,4 +19,4 @@ const Constructor: FC<IConstructorProps> = () => {
   )
 }
 
-export default Constructor;
+export default memo(Constructor);

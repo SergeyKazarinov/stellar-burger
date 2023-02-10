@@ -1,34 +1,37 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useMemo} from 'react';
 import s from './Ingredient.module.scss';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IIngredient } from '../../../types/interfaces/IIngredient';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { modalActions } from '../../../services/slices/portalSlice';
 import { useDrag } from 'react-dnd';
+import { useHistory } from 'react-router-dom';
 
 interface IIngredientProps {
   ingredient: IIngredient;
 }
 
 const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
-  const [counter, setCounter] = useState(0)
-  const { ingredientsForTheOrder } = useAppSelector(store => store.burgerConstructor)
+  const ingredientsForTheOrder = useAppSelector(store => store.burgerConstructor.ingredientsForTheOrder)
   const dispatch = useAppDispatch();
+  const history = useHistory();
+
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: ingredient
   })
 
-  useEffect(() => {
-    const counter = ingredientsForTheOrder.reduce((value, item) => {
+  const counter = useMemo(() => {
+    return ingredientsForTheOrder.reduce((value, item) => {
       ingredient._id === item && (value += 1)
       return value;
     }, 0)
-    setCounter(counter);
   }, [ingredientsForTheOrder])
 
   const handleOpenIngredientDetails = () => {
     dispatch(modalActions.setIsOpenIngredientDetail({isOpen: true, ingredient}))
+
+    history.push(`/ingredients/${ingredient._id}`, {from: history.location})
   }
 
   return (

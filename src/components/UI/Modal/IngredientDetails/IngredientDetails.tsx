@@ -4,11 +4,10 @@ import { IIngredient } from '../../../../types/interfaces/IIngredient';
 import { useAppSelector } from '../../../../hooks/useTypedSelector';
 
 interface IIngredientDetailsProps {
-  ingredient: IIngredient;
+  ingredient?: IIngredient | null;
 }
 
-const IngredientDetails: FC = () => {
-  const { ingredient } = useAppSelector(store => store.modal)
+const IngredientDetails: FC<IIngredientDetailsProps> = ({ingredient}) => {
 
   return (
     <>

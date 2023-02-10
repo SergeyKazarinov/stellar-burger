@@ -1,10 +1,13 @@
 import React, {FC, MouseEvent, useEffect} from 'react';
 import s from './ModalOverlay.module.scss';
-import { useAppDispatch } from '../../../../hooks/useTypedSelector';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/useTypedSelector';
 import { modalActions } from '../../../../services/slices/portalSlice';
+import { useHistory } from 'react-router-dom';
 
 const ModalOverlay: FC = () => {
   const dispatch = useAppDispatch();
+  const isOpenIngredientDetail = useAppSelector(store => store.modal.isOpenIngredientDetail);
+  const history = useHistory();
 
   useEffect(() => {
     document.addEventListener('keydown', handleEscClose);
@@ -14,15 +17,20 @@ const ModalOverlay: FC = () => {
     }
   }, [])
 
+  const closeModal = () => {
+    dispatch(modalActions.closeAllModal());
+    isOpenIngredientDetail && history.push('/');
+  }
+
   const handleEscClose = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
-      dispatch(modalActions.closeAllModal())
+      closeModal();
     }
   }
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      dispatch(modalActions.closeAllModal())
+      closeModal();
     }
   }
   return (

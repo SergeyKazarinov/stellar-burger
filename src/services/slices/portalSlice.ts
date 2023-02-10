@@ -30,7 +30,7 @@ const portalSlice = createSlice({
     closeAllModal(state) {
       state.isOpenIngredientDetail = false;
       state.isOpenOrderDetails = false;
-      state.ingredient = null;
+      // state.ingredient = null;
       state.isOpenModalWithMessage = '';
     }
   }

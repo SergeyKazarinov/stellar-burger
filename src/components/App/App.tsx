@@ -17,10 +17,12 @@ import OrderPage from '../../pages/Profile/ProfileOrders/OrderPage/OrderPage';
 import { fetchGetUser } from '../../services/asyncThunk/profileThunk';
 import ModalWithMessage from '../UI/Modal/ModalWithMessage/ModalWithMessage';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 
 function App() {
   const { isOpenIngredientDetail, isOpenOrderDetails, isOpenModalWithMessage} = useAppSelector(store => store.modal);
   const { ingredients, fetchIngredientsPending } = useAppSelector(store => store.ingredients);
+  const ingredient = useAppSelector(store => store.modal.ingredient);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -31,36 +33,41 @@ function App() {
   return (
     <>
       <Header />
-      <Switch>
-        <Route exact path='/'>
-          {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
-        </Route>
-        <Route path='/login'>
-          <Login />
-        </Route>
-        <Route path='/register'>
-          <Register />
-        </Route>
-        <Route path='/forgot-password'>
-          <ForgotPassword />
-        </Route>
-        <Route path='/reset-password'>
-          <ResetPassword />
-        </Route>
-        <ProtectedRoute path='/profile'>
-          <Profile />
-        </ProtectedRoute>
-        <Route exact path='/feed'>
-          <Feed />
-        </Route>
-        <Route path='/feed/:orderId'>
-          <OrderPage />
-        </Route>
-      </Switch>
+      <main>
+        <Switch>
+          <Route exact path='/'>
+            {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
+          </Route>
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Route path='/register'>
+            <Register />
+          </Route>
+          <Route path='/forgot-password'>
+            <ForgotPassword />
+          </Route>
+          <Route path='/reset-password'>
+            <ResetPassword />
+          </Route>
+          <ProtectedRoute path='/profile'>
+            <Profile />
+          </ProtectedRoute>
+          <Route exact path='/feed'>
+            <Feed />
+          </Route>
+          <Route path='/feed/:orderId'>
+            <OrderPage />
+          </Route>
+          <Route path='/ingredients/:id'>
+            <IngredientPage />
+          </Route>
+        </Switch>
+      </main>
 
       {isOpenIngredientDetail && (
       <Modal>
-        <IngredientDetails />
+        <IngredientDetails ingredient={ingredient}/>
       </Modal>)}
 
       {isOpenOrderDetails && (

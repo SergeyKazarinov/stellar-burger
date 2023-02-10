@@ -1,7 +1,7 @@
-import { TOrderArray } from "../types/types/TOrderArray";
-import { URL_FOR_INGREDIENTS, URL_FOR_ORDERS } from "../utils/constants"
+import { TOrderArray } from "../../types/types/TOrderArray";
+import { URL_FOR_INGREDIENTS, URL_FOR_ORDERS } from "../../utils/constants"
 
-const checkAnswer = (res: any) => {
+const checkAnswer = (res: Response) => {
   if(res.ok) {
     return res.json();
   }
@@ -13,7 +13,7 @@ const checkAnswer = (res: any) => {
 
 export const getIngredients = async () => {
   try {
-    const res = await fetch(URL_FOR_INGREDIENTS);
+    const res: Response = await fetch(URL_FOR_INGREDIENTS);
     const data = await checkAnswer(res);
     return data;
   } catch (e) {
@@ -23,7 +23,7 @@ export const getIngredients = async () => {
 
 export const postOrders = async (order: TOrderArray) => {
   try {
-    const res = await fetch(URL_FOR_ORDERS, {
+    const res: Response = await fetch(URL_FOR_ORDERS, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -1,13 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import register from './Register.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RouteComponentProps, withRouter } from "react-router";
+import { Redirect, RouteComponentProps, withRouter } from "react-router";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { EMAIL_PATTERN } from "../../utils/constants";
+import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
+import { fetchRegister } from "../../services/asyncThunk/profileThunk";
+import { TLocation } from "../../types/types/TLocation";
 
 const Register = ({history}: RouteComponentProps): JSX.Element => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const dispatch = useAppDispatch();
+  const isLogin = useAppSelector(store => store.profile.isLogin);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+  const { state } = history.location as TLocation;
 
   useEffect(() => {
     resetForm();
@@ -21,16 +27,32 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
     history.push('/login')
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(fetchRegister({
+      email: values.email,
+      password: values.password,
+      name: values.name,
+    }))
+  }
+
+  if (isLogin) {
+    return (
+      <Redirect to={ state?.from || '/' } />
+    )
+  }
+
   return (
     <section className={register.register}>
       <div className={register.container}>
         <h2 className={`text text_type_main-medium ${register.title}`}>Регистрация</h2>
-        <form className={register.form}>
+        <form className={register.form} onSubmit={handleSubmit}>
           <Input
             type={'text'}
             placeholder={'Имя'}
             onChange={handleChange}
-            value={values.name}
+            value={values.name || ''}
             name={'name'}
             error={!!errors.name}
             errorText={errors.name}
@@ -44,7 +66,7 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
             type={'email'}
             placeholder={'E-mail'}
             onChange={handleChange}
-            value={values.email}
+            value={values.email  || ''}
             name={'email'}
             error={!!errors.email}
             errorText={errors.email}
@@ -58,7 +80,7 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
             placeholder={'Пароль'}
             onChange={handleChange}
             icon={isVisiblePassword ? 'HideIcon' : 'ShowIcon'}
-            value={values.password}
+            value={values.password  || ''}
             name={'password'}
             error={!!errors.password}
             onIconClick={onIconClick}

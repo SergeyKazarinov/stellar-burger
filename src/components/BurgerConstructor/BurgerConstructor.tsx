@@ -4,11 +4,12 @@ import Buns from '../Buns/Buns';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { addIngredientsForTheBurgerConstructor, clearBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
-import { setIsOpenOrderDetails } from '../../services/slices/portalSlice';
-import { sendOrderThunk } from '../../services/asyncThunk/orders';
+import { modalActions } from '../../services/slices/portalSlice';
+import { sendOrderThunk } from '../../services/asyncThunk/ordersThunk';
 import { IIngredient } from '../../types/interfaces/IIngredient';
 import { useDrop } from 'react-dnd';
 import IngredientElement from '../UI/IngredientElement/IngredientElement';
+import { useHistory } from 'react-router-dom';
 
 interface IBurgerConstructorProps {
 
@@ -16,6 +17,8 @@ interface IBurgerConstructorProps {
 const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   const { bunsForTheBurgerConstructor, ingredientsForTheBurgerConstructor, totalPrice, ingredientsForTheOrder, order } = useAppSelector(store => store.burgerConstructor)
   const dispatch = useAppDispatch();
+  const isLogin = useAppSelector(store => store.profile.isLogin);
+  const history = useHistory();
   const [{isHover}, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item: IIngredient) {
@@ -32,12 +35,16 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   }, [ingredientsForTheBurgerConstructor, bunsForTheBurgerConstructor])
 
   useEffect(() => {
-    order?.order?.number && dispatch(setIsOpenOrderDetails(true));
+    order?.order?.number && dispatch(modalActions.setIsOpenOrderDetails(true));
   }, [order]);
 
   const handleSendOrder = () => {
-    dispatch(sendOrderThunk(ingredientsForTheOrder));
-    dispatch(clearBurgerConstructor())
+    if (isLogin) {
+      dispatch(sendOrderThunk(ingredientsForTheOrder));
+      dispatch(clearBurgerConstructor())
+    }
+
+    history.push('/login', {from: history.location})
   }
 
   const handleDrop = (item: IIngredient) => {
@@ -49,7 +56,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   const ingredientElements = ingredientsForTheBurgerConstructor.map((item, index) => <IngredientElement item={item} index={index} key={index}/>)
 
   return (
-    <section className={`pt-25 pl-4 ${s.burgerConstructor} ${isHover && s.burgerConstructor_hover}`} ref={dropTarget}>
+    <div className={`pt-25 pl-4 ${s.burgerConstructor} ${isHover && s.burgerConstructor_hover}`} ref={dropTarget}>
       {bunsForTheBurgerConstructor.length === 0 && ingredientsForTheBurgerConstructor.length === 0
       ? <p className={`text text_type_main-medium`}>Перетащите ингредиенты и булки для составления бургера</p>
       : <Buns>
@@ -77,7 +84,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
           Оформить заказ
         </Button>
       </div>
-    </section>
+    </div>
   )
 }
 

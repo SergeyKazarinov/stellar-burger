@@ -1,4 +1,4 @@
-import React, {FC, UIEvent} from 'react';
+import React, {FC, UIEvent, memo, useCallback, useMemo} from 'react';
 import s from './BurgerIngredients.module.scss';
 import Tabs from '../UI/Tabs/Tabs';
 import Ingredient from '../UI/Ingridient/Ingredient';
@@ -8,20 +8,20 @@ import { setScrollValue } from '../../services/slices/scrollSlice';
 import { BUNS, SAUCES, TOPPINGS } from '../../utils/constants';
 
 const BurgerIngredients: FC = () => {
-  const ingredients = useAppSelector(store => store.ingredients.ingredients)
+  const ingredients = useAppSelector(store => store.ingredients.ingredients);
   const dispatch = useAppDispatch();
 
-  const buns = ingredients.filter((item) => item.type === 'bun');
-  const sauces = ingredients.filter((item) => item.type === 'sauce');
-  const mains = ingredients.filter((item) => item.type === 'main');
+  const buns = useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
+  const sauces = useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
+  const mains = useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
 
-  const bunElements = buns.map((item) => <li key={item._id}><Ingredient ingredient={item} /></li>);
-  const sauceElements = sauces.map((item) => <li key={item._id}><Ingredient ingredient={item} /></li>)
-  const mainElements = mains.map((item) => <li key={item._id}><Ingredient ingredient={item} /></li>)
+  const bunElements = useMemo(() => buns.map((item) => <li key={item._id}><Ingredient ingredient={item} /></li>), [buns]);
+  const sauceElements = useMemo(() => sauces.map((item) => <li key={item._id}><Ingredient ingredient={item} /></li>), [sauces]);
+  const mainElements = useMemo(() => mains.map((item) => <li key={item._id}><Ingredient ingredient={item} /></li>), [mains]);
 
-  const handleScroll = (e: UIEvent<HTMLDivElement>) => {
+  const handleScroll = useCallback((e: UIEvent<HTMLDivElement>) => {
     dispatch(setScrollValue(e.currentTarget.scrollTop))
-  }
+  }, []);
 
   return(
     <div className={s.burgerIngredients}>
@@ -42,4 +42,4 @@ const BurgerIngredients: FC = () => {
   )
 }
 
-export default BurgerIngredients;
+export default memo(BurgerIngredients);

@@ -6,7 +6,7 @@ import Modal from '../UI/Modal/Modal';
 import IngredientDetails from '../UI/Modal/IngredientDetails/IngredientDetails';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import OrderDetails from '../UI/Modal/OrderDetails/OrderDetails';
-import { fetchIngredients } from '../../services/asyncThunk/ingredients';
+import { fetchIngredients } from '../../services/asyncThunk/ingredientsThunk';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
@@ -14,55 +14,72 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import Feed from '../../pages/Feed/Feed';
 import OrderPage from '../../pages/Profile/ProfileOrders/OrderPage/OrderPage';
+import { fetchGetUser } from '../../services/asyncThunk/profileThunk';
+import ModalWithMessage from '../UI/Modal/ModalWithMessage/ModalWithMessage';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 
 function App() {
-  const { isOpenIngredientDetail, isOpenOrderDetails} = useAppSelector(store => store.modal);
+  const { isOpenIngredientDetail, isOpenOrderDetails, isOpenModalWithMessage} = useAppSelector(store => store.modal);
   const { ingredients, fetchIngredientsPending } = useAppSelector(store => store.ingredients);
+  const ingredient = useAppSelector(store => store.modal.ingredient);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(fetchGetUser());
   }, [])
 
   return (
     <>
       <Header />
-      <Switch>
-        <Route exact path='/'>
-          {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
-        </Route>
-        <Route path='/login'>
-          <Login />
-        </Route>
-        <Route path='/register'>
-          <Register />
-        </Route>
-        <Route path='/forgot-password'>
-          <ForgotPassword />
-        </Route>
-        <Route path='/reset-password'>
-          <ResetPassword />
-        </Route>
-        <Route path='/profile'>
-          <Profile />
-        </Route>
-        <Route exact path='/feed'>
-          <Feed />
-        </Route>
-        <Route path='/feed/:orderId'>
-          <OrderPage />
-        </Route>
-      </Switch>
+      <main>
+        <Switch>
+          <Route exact path='/'>
+            {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
+          </Route>
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Route path='/register'>
+            <Register />
+          </Route>
+          <Route path='/forgot-password'>
+            <ForgotPassword />
+          </Route>
+          <Route path='/reset-password'>
+            <ResetPassword />
+          </Route>
+          <ProtectedRoute path='/profile'>
+            <Profile />
+          </ProtectedRoute>
+          <Route exact path='/feed'>
+            <Feed />
+          </Route>
+          <Route path='/feed/:orderId'>
+            <OrderPage />
+          </Route>
+          <Route path='/ingredients/:id'>
+            <IngredientPage />
+          </Route>
+        </Switch>
+      </main>
 
       {isOpenIngredientDetail && (
       <Modal>
-        <IngredientDetails />
+        <IngredientDetails ingredient={ingredient}/>
       </Modal>)}
 
       {isOpenOrderDetails && (
       <Modal>
         <OrderDetails />
       </Modal>)}
+
+      {isOpenModalWithMessage && (
+        <Modal>
+          <ModalWithMessage message={isOpenModalWithMessage} />
+        </Modal>
+      )}
     </>
   );
 }

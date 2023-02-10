@@ -1,11 +1,11 @@
-import {FC, useState, useEffect} from 'react';
+import {FC, useState, useEffect, memo, useCallback} from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useAppSelector } from '../../../hooks/useTypedSelector';
 import { BUNS, SAUCES, TOPPINGS } from '../../../utils/constants';
 
 const Tabs: FC = () => {
   const [current, setCurrent] = useState<string>(BUNS)
-  const { scrollValue } = useAppSelector(state => state.scroll);
+  const scrollValue = useAppSelector(state => state.scroll.scrollValue);
 
   useEffect(() => {
     scrollValue <= 290
@@ -15,9 +15,9 @@ const Tabs: FC = () => {
     : setCurrent(TOPPINGS)
   }, [scrollValue])
 
-  const handleClick = (value: string) => {
+  const handleClick = useCallback((value: string) => {
     setCurrent(value);
-  }
+  }, [current]);
 
   return (
     <div style={{ display: 'flex' }}>
@@ -40,4 +40,4 @@ const Tabs: FC = () => {
   )
 }
 
-export default Tabs;
+export default memo(Tabs);

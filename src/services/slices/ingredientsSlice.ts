@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { fetchIngredients } from "../asyncThunk/ingredients";
+import { fetchIngredients } from "../asyncThunk/ingredientsThunk";
 import { IIngredient } from "../../types/interfaces/IIngredient";
 
 interface IIngredientsInitialState {

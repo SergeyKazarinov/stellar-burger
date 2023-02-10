@@ -1,13 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import login from './Login.module.scss';
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RouteComponentProps, withRouter } from "react-router";
+import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { EMAIL_PATTERN } from "../../utils/constants";
+import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
+import { fetchLogin } from "../../services/asyncThunk/profileThunk";
+import { TLocation } from "../../types/types/TLocation";
+
+
 
 const Login = ({history}: RouteComponentProps): JSX.Element => {
+  const isLogin = useAppSelector(store => store.profile.isLogin);
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+  const dispatch = useAppDispatch();
+  const { state } = history.location as TLocation;
 
   useEffect(() => {
     resetForm();
@@ -25,16 +33,31 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
     history.push('/forgot-password')
   }
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(fetchLogin({
+      email: values.email,
+      password: values.password
+    }))
+  }
+
+  if (isLogin) {
+    return (
+      <Redirect to={ state?.from || '/' } />
+    )
+  }
+
   return (
     <section className={login.login}>
       <div className={login.container}>
         <h2 className={`text text_type_main-medium ${login.title}`}>Вход</h2>
-        <form className={login.form}>
+        <form className={login.form} onSubmit={handleSubmit}>
           <Input
             type={'email'}
             placeholder={'E-mail'}
             onChange={handleChange}
-            value={values.email}
+            value={values.email || ''}
             name={'email'}
             error={!!errors.email}
             errorText={errors.email}
@@ -48,7 +71,7 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
             placeholder={'Пароль'}
             onChange={handleChange}
             icon={isVisiblePassword ? 'HideIcon' : 'ShowIcon'}
-            value={values.password}
+            value={values.password || ''}
             name={'password'}
             error={!!errors.password}
             onIconClick={onIconClick}

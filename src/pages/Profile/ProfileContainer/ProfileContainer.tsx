@@ -19,9 +19,10 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
   const inputNameRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const inputLoginRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const inputPasswordRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const sameValues = (name !== values.name || email !== values.email || values.password.length >= 8)
   const isButtonActive = useMemo(
     () => (
-      isValid && (name !== values.name || email !== values.email || values.password.length >= 8)
+      isValid && sameValues
     ), [isValid, name, email, values]);
 
   useEffect(() => {
@@ -123,7 +124,7 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
         onBlur={handleBlur}
         required
       />
-      <div className={`mt-10 ${s.buttonContainer}`}>
+      {sameValues && <div className={`mt-10 ${s.buttonContainer}`}>
         <Button
           htmlType="submit"
           type="primary"
@@ -142,7 +143,7 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
         >
           Отмена
         </Button>
-      </div>
+      </div>}
   </form>
     );
 }

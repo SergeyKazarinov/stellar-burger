@@ -1,6 +1,8 @@
-import { useRef } from "react"
-import { useAppDispatch } from "./useTypedSelector";
-import { orderSliceActions } from "../services/slices/ordersSlice";
+import { useRef } from 'react';
+
+import { orderSliceActions } from '../services/slices/ordersSlice';
+
+import { useAppDispatch } from './useTypedSelector';
 
 
 export const useWebSocket = () => {
@@ -12,24 +14,24 @@ export const useWebSocket = () => {
 
     ws.current.onopen = (e: Event) => {
       console.log(e);
-    }
+    };
 
     ws.current.onmessage = (e: MessageEvent<string>) => {
       const message = JSON.parse(e.data);
 
-      dispatch(orderSliceActions.setFeedOrders(message))
-      console.log(message)
-    }
+      dispatch(orderSliceActions.setFeedOrders(message));
+      console.log(message);
+    };
 
     ws.current.onerror = (e) => {
-      console.log(e)
-    }
+      console.log(e);
+    };
 
     ws.current.onclose = (e) => {
-      console.log(e)
-    }
-  }
+      console.log(e);
+    };
+  };
 
 
-  return { connect }
-}
+  return { connect };
+};

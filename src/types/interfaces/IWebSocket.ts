@@ -1,4 +1,4 @@
-import { IFeedOrder } from "./IOrder";
+import { IFeedOrder } from './IOrder';
 
 export interface IWebSocketResolve {
   success: boolean;

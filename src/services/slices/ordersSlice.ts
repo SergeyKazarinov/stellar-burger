@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IFeedOrder } from "../../types/interfaces/IOrder";
-import { IWebSocketResolve } from "../../types/interfaces/IWebSocket";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IFeedOrder } from '../../types/interfaces/IOrder';
+import { IWebSocketResolve } from '../../types/interfaces/IWebSocket';
 
 interface IOrderSlice {
   feedOrders: IFeedOrder[];
@@ -14,8 +15,8 @@ const orderSlice = createSlice({
   reducers: {
     setFeedOrders(state, action: PayloadAction<IWebSocketResolve>) {
       state.feedOrders = action.payload.orders;
-    }
-  }
+    },
+  },
 });
 
 export default orderSlice.reducer;

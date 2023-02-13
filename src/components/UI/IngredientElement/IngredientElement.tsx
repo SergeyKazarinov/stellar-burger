@@ -1,10 +1,14 @@
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {FC, useEffect} from "react";
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, {FC, useEffect} from 'react';
+
+import { useDrag, useDrop } from 'react-dnd';
+
+import { useAppDispatch } from '../../../hooks/useTypedSelector';
+import { burgerConstructorActions } from '../../../services/slices/burgerConstructorSlice';
+import { IIngredient } from '../../../types/interfaces/IIngredient';
+
 import s from './IngredientElement.module.scss';
-import { IIngredient } from "../../../types/interfaces/IIngredient";
-import { useAppDispatch } from "../../../hooks/useTypedSelector";
-import { burgerConstructorActions } from "../../../services/slices/burgerConstructorSlice";
-import { useDrag, useDrop } from "react-dnd";
+
 
 interface IngredientElementProps {
   item: IIngredient;
@@ -23,9 +27,9 @@ const IngredientElement: FC<IngredientElementProps> = ({item, index}) => {
     item: {item, index},
     collect: monitor => ({
       isDrag: monitor.isDragging(),
-      getItem: monitor.getItem()
-    })
-  })
+      getItem: monitor.getItem(),
+    }),
+  });
 
   const [{isHover}, refDrop] = useDrop({
     accept: 'ingredientSort',
@@ -34,16 +38,16 @@ const IngredientElement: FC<IngredientElementProps> = ({item, index}) => {
     },
     collect: monitor => ({
       isHover: monitor.isOver(),
-    })
-  })
+    }),
+  });
 
   const handleDeleteIngredient = () => {
-    dispatch(burgerConstructorActions.removeIngredientForTheBurgerConstructor(index))
-  }
+    dispatch(burgerConstructorActions.removeIngredientForTheBurgerConstructor(index));
+  };
 
   const handleDrop = (ingredientDrop: IIngredientDrop) => {
-    dispatch(burgerConstructorActions.sortIngredients({ingredientDrop, index}))
-  }
+    dispatch(burgerConstructorActions.sortIngredients({ingredientDrop, index}));
+  };
 
   return (
     <li className={`pr-2 ${s.ingredientElement} ${isDrag && s.ingredientElement_dragging}`} ref={refDrag}>
@@ -56,7 +60,7 @@ const IngredientElement: FC<IngredientElementProps> = ({item, index}) => {
           handleClose={handleDeleteIngredient}
         />
       </div>
-  </li>);
-}
+    </li>);
+};
 
 export default IngredientElement;

@@ -1,5 +1,6 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IIngredient } from "../../types/interfaces/IIngredient";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IIngredient } from '../../types/interfaces/IIngredient';
 
 interface IPortalSliceInitialState {
   ingredient: IIngredient | null;
@@ -17,7 +18,7 @@ const portalSlice = createSlice({
   } as IPortalSliceInitialState,
   reducers: {
     setIsOpenOrderDetails(state, action: PayloadAction<boolean>) {
-      state.isOpenOrderDetails = action.payload
+      state.isOpenOrderDetails = action.payload;
     },
     setIsOpenIngredientDetail(state, action: PayloadAction<{isOpen: boolean, ingredient: IIngredient}>) {
       state.isOpenIngredientDetail = action.payload.isOpen;
@@ -32,8 +33,8 @@ const portalSlice = createSlice({
       state.isOpenOrderDetails = false;
       // state.ingredient = null;
       state.isOpenModalWithMessage = '';
-    }
-  }
+    },
+  },
 });
 
 export default portalSlice.reducer;

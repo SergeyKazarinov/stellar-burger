@@ -1,5 +1,6 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import {FC} from "react";
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {FC} from 'react';
+
 import s from './TotalPrice.module.scss';
 
 interface ITotalPriceProps {
@@ -13,6 +14,6 @@ const TotalPrice: FC<ITotalPriceProps> = ({ totalPrice }) => {
       <CurrencyIcon type="primary" />
     </div>
   );
-}
+};
 
 export default TotalPrice;

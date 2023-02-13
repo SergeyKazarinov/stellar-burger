@@ -1,8 +1,9 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IIngredient } from "../../types/interfaces/IIngredient";
-import { sendOrderThunk } from "../asyncThunk/ordersThunk";
-import { TOrderArray } from "../../types/types/TOrderArray";
-import { IOrder } from "../../types/interfaces/IOrder";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IIngredient } from '../../types/interfaces/IIngredient';
+import { IOrder } from '../../types/interfaces/IOrder';
+import { TOrderArray } from '../../types/types/TOrderArray';
+import { sendOrderThunk } from '../asyncThunk/ordersThunk';
 
 interface IBurgerConstructorSlice {
   bunsForTheBurgerConstructor: IIngredient[];
@@ -39,15 +40,15 @@ const burgerConstructorSlice = createSlice({
     },
 
     addIngredientsForTheBurgerConstructor(state, action: PayloadAction<IIngredient>) {
-      state.ingredientsForTheBurgerConstructor = [action.payload, ...state.ingredientsForTheBurgerConstructor ]
+      state.ingredientsForTheBurgerConstructor = [action.payload, ...state.ingredientsForTheBurgerConstructor ];
     },
 
     removeIngredientForTheBurgerConstructor(state, action: PayloadAction<number>) {
-      state.ingredientsForTheBurgerConstructor = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload)
+      state.ingredientsForTheBurgerConstructor = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload);
     },
 
     sortIngredients(state, action: PayloadAction<ISortIngredients>) {
-      const newArr = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload.ingredientDrop.index)
+      const newArr = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload.ingredientDrop.index);
       const arrStart = newArr.slice(0, action.payload.index);
       const arrEnd = newArr.slice(action.payload.index);
       state.ingredientsForTheBurgerConstructor = [...arrStart, action.payload.ingredientDrop.item, ...arrEnd];
@@ -62,7 +63,7 @@ const burgerConstructorSlice = createSlice({
     clearBurgerConstructor(state) {
       state.bunsForTheBurgerConstructor = [];
       state.ingredientsForTheBurgerConstructor = [];
-    }
+    },
   },
   extraReducers(builder) {
     builder
@@ -76,8 +77,8 @@ const burgerConstructorSlice = createSlice({
       .addCase(sendOrderThunk.rejected, (state, action) => {
         state.isLoaderOrder = false;
         console.log(action.payload);
-      })
-  }
+      });
+  },
 });
 
 export default burgerConstructorSlice.reducer;

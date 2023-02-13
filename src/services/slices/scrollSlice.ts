@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
 const scrollSlice = createSlice ({
@@ -9,9 +9,9 @@ const scrollSlice = createSlice ({
   reducers: {
     setScrollValue(state, action: PayloadAction<number>) {
       state.scrollValue = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
 export default scrollSlice.reducer;
 export const { setScrollValue } = scrollSlice.actions;

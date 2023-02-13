@@ -1,6 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { forgotPasswordApi, getUser, loginUser, logoutUser, patchUser, registerUser, resetPasswordApi } from "../api/profileApi";
-import { ILogin, IRegister, IUpdateUser } from "../../types/interfaces/IAuthorization";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { ILogin, IRegister, IUpdateUser } from '../../types/interfaces/IAuthorization';
+import { forgotPasswordApi, getUser, loginUser, logoutUser, patchUser, registerUser, resetPasswordApi } from '../api/profileApi';
 
 
 export const fetchRegister = createAsyncThunk(
@@ -12,7 +13,7 @@ export const fetchRegister = createAsyncThunk(
     } catch(e) {
       return thunkApi.rejectWithValue(e);
     }
-  }
+  },
 );
 
 export const fetchLogin = createAsyncThunk(
@@ -24,8 +25,8 @@ export const fetchLogin = createAsyncThunk(
     } catch(e) {
       return thunkApi.rejectWithValue(e);
     }
-  }
-)
+  },
+);
 
 export const fetchLogout = createAsyncThunk(
   'profile/fetchLogout',
@@ -36,8 +37,8 @@ export const fetchLogout = createAsyncThunk(
     } catch(e) {
       return thunkApi.rejectWithValue(e);
     }
-  }
-)
+  },
+);
 
 export const fetchGetUser = createAsyncThunk(
   'profile/fetchGetUser',
@@ -48,8 +49,8 @@ export const fetchGetUser = createAsyncThunk(
     } catch(e) {
       return thunkApi.rejectWithValue(e);
     }
-  }
-)
+  },
+);
 
 export const fetchUpdateUser = createAsyncThunk(
   'profile/fetchUpdateUser',
@@ -60,8 +61,8 @@ export const fetchUpdateUser = createAsyncThunk(
     } catch(e) {
       return thunkApi.rejectWithValue(e);
     }
-  }
-)
+  },
+);
 
 export const fetchForgotPassword = createAsyncThunk(
   'profile/fetchForgotPassword',
@@ -72,8 +73,8 @@ export const fetchForgotPassword = createAsyncThunk(
     } catch(e) {
       return thunkApi.rejectWithValue(e);
     }
-  }
-)
+  },
+);
 
 export const fetchResetPassword = createAsyncThunk(
   'profile/fetchResetPassword',
@@ -84,5 +85,5 @@ export const fetchResetPassword = createAsyncThunk(
     } catch(e) {
       thunkApi.rejectWithValue(e);
     }
-  }
-)
+  },
+);

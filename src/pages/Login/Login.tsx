@@ -1,12 +1,14 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, {FormEvent, useEffect, useState} from 'react';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
+
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
+import { fetchLogin } from '../../services/asyncThunk/profileThunk';
+import { TLocation } from '../../types/types/TLocation';
+import { EMAIL_PATTERN } from '../../utils/constants';
+
 import login from './Login.module.scss';
-import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
-import { useFormWithValidation } from "../../hooks/useFormWithValidation";
-import { EMAIL_PATTERN } from "../../utils/constants";
-import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
-import { fetchLogin } from "../../services/asyncThunk/profileThunk";
-import { TLocation } from "../../types/types/TLocation";
 
 
 
@@ -19,33 +21,33 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
 
   useEffect(() => {
     resetForm();
-  }, [resetForm])
+  }, [resetForm]);
 
   const onIconClick = () => {
-    setIsVisiblePassword(!isVisiblePassword)
-  }
+    setIsVisiblePassword(!isVisiblePassword);
+  };
 
   const handleMoveToRegister = () => {
-    history.push('/register')
-  }
+    history.push('/register');
+  };
 
   const handleMoveToForgotPassword = () => {
-    history.push('/forgot-password')
-  }
+    history.push('/forgot-password');
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(fetchLogin({
       email: values.email,
-      password: values.password
-    }))
-  }
+      password: values.password,
+    }));
+  };
 
   if (isLogin) {
     return (
       <Redirect to={ state?.from || '/' } />
-    )
+    );
   }
 
   return (
@@ -91,13 +93,13 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
             Войти
           </Button>
         </form>
-        <p className={`mt-20 text text_type_main-default text_color_inactive`}>
+        <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Вы — новый пользователь?&#8194;
           <Button htmlType="button" type="secondary" size="medium" extraClass={login.button} onClick={handleMoveToRegister}>
             Зарегистрироваться
           </Button>
         </p>
-        <p className={`mt-4 text text_type_main-default text_color_inactive`}>
+        <p className={'mt-4 text text_type_main-default text_color_inactive'}>
           Забыли пароль?&#8194;
           <Button htmlType="button" type="secondary" size="medium" extraClass={login.button} onClick={handleMoveToForgotPassword}>
             Восстановить пароль
@@ -106,6 +108,6 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
       </div>
     </section>
   );
-}
+};
 
 export default withRouter(Login);

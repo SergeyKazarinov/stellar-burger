@@ -1,6 +1,8 @@
-import {FC} from "react";
+import {FC} from 'react';
+
+import { IIngredient } from '../../../types/interfaces/IIngredient';
+
 import s from './FeedIngredientOrder.module.scss';
-import { IIngredient } from "../../../types/interfaces/IIngredient";
 
 interface IFeedIngredientOrder {
   item: IIngredient;
@@ -16,6 +18,6 @@ const FeedIngredientOrder: FC<IFeedIngredientOrder> = ({item, index, leftIngredi
       {index === 5 && leftIngredients !== 0 && <p className={`text text_type_digits-default ${s.leftIngredients}`}>+{leftIngredients}</p>}
     </li>
   );
-}
+};
 
 export default FeedIngredientOrder;

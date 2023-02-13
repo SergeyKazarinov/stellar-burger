@@ -1,25 +1,32 @@
-import {FC, useMemo} from 'react';
-import s from './Order.module.scss';
-import { useAppSelector } from '../../hooks/useTypedSelector';
-import FeedIngredientOrder from '../UI/FeedIngredientOrder/FeedIngredientOrder';
-import OrderStatus from './OrderStatus/OrderStatus';
-import { useLocation } from 'react-router-dom';
-import TotalPrice from '../TotalPrice/TotalPrice';
-import { IFeedOrder } from '../../types/interfaces/IOrder';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IIngredient } from '../../types/interfaces/IIngredient';
+import {FC, useMemo} from 'react';
+
+import { useLocation } from 'react-router-dom';
+
+import { useAppSelector } from '../../hooks/useTypedSelector';
+
 import { checkTotalPrice } from '../../services/helpers/checkTotalPrice';
+import { IIngredient } from '../../types/interfaces/IIngredient';
+import { IFeedOrder } from '../../types/interfaces/IOrder';
+import TotalPrice from '../TotalPrice/TotalPrice';
+import FeedIngredientOrder from '../UI/FeedIngredientOrder/FeedIngredientOrder';
+
+import s from './Order.module.scss';
+
+import OrderStatus from './OrderStatus/OrderStatus';
+
+
 
 interface IOrderProps {
   order: IFeedOrder;
 }
 
 const Order: FC<IOrderProps> = ({order}) => {
-  const ingredients = useAppSelector(store => store.ingredients.ingredients)
+  const ingredients = useAppSelector(store => store.ingredients.ingredients);
   const url = useLocation();
   const date = new Date(order.createdAt);
   const ingredientsOfTheOrders: IIngredient[] = order.ingredients.map((i) => {
-    const item = ingredients.find(item => item._id === i)
+    const item = ingredients.find(item => item._id === i);
     return item ? item : ingredients[0];
   });
 
@@ -27,9 +34,9 @@ const Order: FC<IOrderProps> = ({order}) => {
     () => {
       return order.ingredients.slice(0, 6).map((item, index) => {
         const ingredientsItem = ingredients.filter((i) => i._id === item)[0];
-        return <FeedIngredientOrder key={index} item={ingredientsItem} index={index} leftIngredients={order.ingredients.slice(6).length} />
-      })
-    }, [order, ingredients])
+        return <FeedIngredientOrder key={index} item={ingredientsItem} index={index} leftIngredients={order.ingredients.slice(6).length} />;
+      });
+    }, [order, ingredients]);
 
   return (
     <button className={`button p-6 ${s.container}`}>
@@ -48,6 +55,6 @@ const Order: FC<IOrderProps> = ({order}) => {
       </div>
     </button>
   );
-}
+};
 
 export default Order;

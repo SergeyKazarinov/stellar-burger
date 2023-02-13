@@ -1,8 +1,11 @@
-import React, {FC} from "react";
+import React, {FC} from 'react';
+
+import { NavLink } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
+import { fetchLogout } from '../../../services/asyncThunk/profileThunk';
+
 import profile from './ProfileNavigation.module.scss';
-import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
-import { fetchLogout } from "../../../services/asyncThunk/profileThunk";
 
 interface IProfileNavigationProps {
 
@@ -12,8 +15,8 @@ const ProfileNavigation: FC<IProfileNavigationProps> = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    dispatch(fetchLogout())
-  }
+    dispatch(fetchLogout());
+  };
 
   return (
     <div className={profile.navContainer}>
@@ -28,7 +31,7 @@ const ProfileNavigation: FC<IProfileNavigationProps> = () => {
         </NavLink>
 
         <NavLink
-          to={`/profile/orders`}
+          to={'/profile/orders'}
           className={`link text_color_inactive ${profile.link}`}
           activeClassName={profile.link_active}
         >
@@ -47,6 +50,6 @@ const ProfileNavigation: FC<IProfileNavigationProps> = () => {
       </p>
     </div>
   );
-}
+};
 
 export default ProfileNavigation;

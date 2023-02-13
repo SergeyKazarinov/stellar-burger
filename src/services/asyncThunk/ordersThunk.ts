@@ -1,6 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { TOrderArray } from "../../types/types/TOrderArray";
-import { postOrders } from "../api/ingredientsApi";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { TOrderArray } from '../../types/types/TOrderArray';
+import { postOrders } from '../api/ingredientsApi';
 
 
 export const sendOrderThunk = createAsyncThunk(
@@ -12,5 +13,5 @@ export const sendOrderThunk = createAsyncThunk(
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
-  }
-)
+  },
+);

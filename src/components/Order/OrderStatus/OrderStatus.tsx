@@ -1,6 +1,8 @@
-import {FC} from "react";
+import {FC} from 'react';
+
+import { IOrderStatus } from '../../../types/interfaces/IOrder';
+
 import s from './OrderStatus.module.scss';
-import { IOrderStatus } from "../../../types/interfaces/IOrder";
 
 interface IOrderStatusProps {
   orderStatus: IOrderStatus;
@@ -12,6 +14,6 @@ const OrderStatus: FC<IOrderStatusProps> = ({orderStatus}) => {
       Готовится
     </p>
   );
-}
+};
 
 export default OrderStatus;

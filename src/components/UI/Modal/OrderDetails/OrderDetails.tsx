@@ -1,7 +1,9 @@
 import React, {FC} from 'react';
-import s from './OrderDetails.module.scss';
-import done from '../../../../images/done.svg';
+
 import { useAppSelector } from '../../../../hooks/useTypedSelector';
+import done from '../../../../images/done.svg';
+
+import s from './OrderDetails.module.scss';
 
 const OrderDetails: FC = () => {
   const {order} = useAppSelector(store => store.burgerConstructor);
@@ -14,7 +16,7 @@ const OrderDetails: FC = () => {
       <p className={`text text_type_main-default ${s.textAlign}`}>Ваш заказ начали готовить</p>
       <p className={`mt-2 pb-20 text text_type_main-default text_color_inactive ${s.textAlign}`}>Дождитесь готовности на орбитальнйо станции</p>
     </>
-  )
-}
+  );
+};
 
 export default OrderDetails;

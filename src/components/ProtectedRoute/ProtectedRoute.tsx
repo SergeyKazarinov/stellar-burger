@@ -1,6 +1,7 @@
-import React, {FC, ReactNode} from "react";
-import { Redirect, Route, RouteComponentProps } from "react-router-dom";
-import { useAppSelector } from "../../hooks/useTypedSelector";
+import React, {FC, ReactNode} from 'react';
+import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
+
+import { useAppSelector } from '../../hooks/useTypedSelector';
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -14,11 +15,11 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({children, ...rest}) => {
       {...rest}
       render={({ location }: RouteComponentProps) => {
         return (isLogin
-        ? children
-        : <Redirect to={{ pathname: '/login', state: { from: location } }}/>)}
+          ? children
+          : <Redirect to={{ pathname: '/login', state: { from: location } }}/>);}
       }
     />
   );
-}
+};
 
 export default ProtectedRoute;

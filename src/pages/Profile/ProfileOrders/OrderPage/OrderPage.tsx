@@ -1,7 +1,9 @@
-import {FC} from "react";
+import {FC} from 'react';
+
+import OrderIngredientItem from '../../../../components/OrderIngredientItem/OrderIngredientItem';
+import TotalPrice from '../../../../components/TotalPrice/TotalPrice';
+
 import s from './OrderPage.module.scss';
-import OrderIngredientItem from "../../../../components/OrderIngredientItem/OrderIngredientItem";
-import TotalPrice from "../../../../components/TotalPrice/TotalPrice";
 
 interface IOrderPageProps {
 
@@ -24,11 +26,11 @@ const OrderPage: FC<IOrderPageProps> = () => {
         <li><OrderIngredientItem /></li>
       </ul>
       <div className={`mt-10 ${s.totalPrice}`}>
-        <p className={`text text_type_main-default text_color_inactive`}>Вчера, 13:50 i-GMT+3</p>
+        <p className={'text text_type_main-default text_color_inactive'}>Вчера, 13:50 i-GMT+3</p>
         <TotalPrice totalPrice={510} />
       </div>
     </section>
   );
-}
+};
 
 export default OrderPage;

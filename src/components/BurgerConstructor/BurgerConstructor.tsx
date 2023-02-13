@@ -3,19 +3,20 @@ import s from './BurgerConstructor.module.scss';
 import Buns from '../Buns/Buns';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
-import { addIngredientsForTheBurgerConstructor, clearBurgerConstructor, setBunsForTheBurgerConstructor, setIngredientsForTheOrder, setTotalPrice } from '../../services/slices/burgerConstructorSlice';
+import {burgerConstructorActions} from '../../services/slices/burgerConstructorSlice';
 import { modalActions } from '../../services/slices/portalSlice';
 import { sendOrderThunk } from '../../services/asyncThunk/ordersThunk';
 import { IIngredient } from '../../types/interfaces/IIngredient';
 import { useDrop } from 'react-dnd';
 import IngredientElement from '../UI/IngredientElement/IngredientElement';
 import { useHistory } from 'react-router-dom';
+import { checkTotalPrice } from '../../services/helpers/checkTotalPrice';
 
 interface IBurgerConstructorProps {
 
 }
 const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
-  const { bunsForTheBurgerConstructor, ingredientsForTheBurgerConstructor, totalPrice, ingredientsForTheOrder, order } = useAppSelector(store => store.burgerConstructor)
+  const { bunsForTheBurgerConstructor, ingredientsForTheBurgerConstructor, ingredientsForTheOrder, order } = useAppSelector(store => store.burgerConstructor)
   const dispatch = useAppDispatch();
   const isLogin = useAppSelector(store => store.profile.isLogin);
   const history = useHistory();
@@ -30,8 +31,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   });
 
   useEffect(() => {
-    dispatch(setTotalPrice());
-    dispatch(setIngredientsForTheOrder());
+    dispatch(burgerConstructorActions.setIngredientsForTheOrder());
   }, [ingredientsForTheBurgerConstructor, bunsForTheBurgerConstructor])
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   const handleSendOrder = () => {
     if (isLogin) {
       dispatch(sendOrderThunk(ingredientsForTheOrder));
-      dispatch(clearBurgerConstructor())
+      dispatch(burgerConstructorActions.clearBurgerConstructor())
     }
 
     history.push('/login', {from: history.location})
@@ -49,8 +49,8 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
 
   const handleDrop = (item: IIngredient) => {
     item.type === "bun"
-    ? dispatch(setBunsForTheBurgerConstructor(item))
-    : dispatch(addIngredientsForTheBurgerConstructor(item));
+    ? dispatch(burgerConstructorActions.setBunsForTheBurgerConstructor(item))
+    : dispatch(burgerConstructorActions.addIngredientsForTheBurgerConstructor(item));
   }
 
   const ingredientElements = ingredientsForTheBurgerConstructor.map((item, index) => <IngredientElement item={item} index={index} key={index}/>)
@@ -70,7 +70,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
 
       <div className={`mt-10 pr-4 ${s.burgerConstructor__total}`}>
         <div className={s.burgerConstructor__flex}>
-          <div className={`text text_type_digits-medium ${s.burgerConstructor__price}`}>{totalPrice}</div>
+          <div className={`text text_type_digits-medium ${s.burgerConstructor__price}`}>{checkTotalPrice([...bunsForTheBurgerConstructor, ...ingredientsForTheBurgerConstructor, ...bunsForTheBurgerConstructor])}</div>
           <CurrencyIcon type="primary" />
         </div>
 

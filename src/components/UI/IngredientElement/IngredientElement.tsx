@@ -3,7 +3,7 @@ import React, {FC, useEffect} from "react";
 import s from './IngredientElement.module.scss';
 import { IIngredient } from "../../../types/interfaces/IIngredient";
 import { useAppDispatch } from "../../../hooks/useTypedSelector";
-import { removeIngredientForTheBurgerConstructor, sortIngredients } from "../../../services/slices/burgerConstructorSlice";
+import { burgerConstructorActions } from "../../../services/slices/burgerConstructorSlice";
 import { useDrag, useDrop } from "react-dnd";
 
 interface IngredientElementProps {
@@ -38,11 +38,11 @@ const IngredientElement: FC<IngredientElementProps> = ({item, index}) => {
   })
 
   const handleDeleteIngredient = () => {
-    dispatch(removeIngredientForTheBurgerConstructor(index))
+    dispatch(burgerConstructorActions.removeIngredientForTheBurgerConstructor(index))
   }
 
   const handleDrop = (ingredientDrop: IIngredientDrop) => {
-    dispatch(sortIngredients({ingredientDrop, index}))
+    dispatch(burgerConstructorActions.sortIngredients({ingredientDrop, index}))
   }
 
   return (

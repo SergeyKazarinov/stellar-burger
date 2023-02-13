@@ -81,7 +81,7 @@ function App() {
         </Modal>
       )}
     </>
-  );
+  )
 }
 
 export default App;

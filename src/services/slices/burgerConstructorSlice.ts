@@ -7,7 +7,6 @@ import { IOrder } from "../../types/interfaces/IOrder";
 interface IBurgerConstructorSlice {
   bunsForTheBurgerConstructor: IIngredient[];
   ingredientsForTheBurgerConstructor: IIngredient[];
-  totalPrice: number;
   ingredientsForTheOrder: TOrderArray;
   order: IOrder | null
   isLoaderOrder: boolean;
@@ -26,7 +25,6 @@ const burgerConstructorSlice = createSlice({
   initialState: {
     bunsForTheBurgerConstructor: [],
     ingredientsForTheBurgerConstructor: [],
-    totalPrice: 0,
     ingredientsForTheOrder: [],
     order: null,
     isLoaderOrder: false,
@@ -55,12 +53,6 @@ const burgerConstructorSlice = createSlice({
       state.ingredientsForTheBurgerConstructor = [...arrStart, action.payload.ingredientDrop.item, ...arrEnd];
     },
 
-    setTotalPrice(state) {
-      const ingredientTotalPrice = state.ingredientsForTheBurgerConstructor.reduce((sum: number, item: IIngredient) => sum += item.price, 0);
-      const bunsTotalPrice = state.bunsForTheBurgerConstructor.reduce((sum: number, item: IIngredient) => sum += (item.price * 2), 0);
-      state.totalPrice = ingredientTotalPrice + bunsTotalPrice;
-    },
-
     setIngredientsForTheOrder(state) {
       const bunID = state.bunsForTheBurgerConstructor.map(item => item._id);
       const ingredientID = state.ingredientsForTheBurgerConstructor.map(item => item._id);
@@ -78,7 +70,6 @@ const burgerConstructorSlice = createSlice({
         state.isLoaderOrder = true;
       })
       .addCase(sendOrderThunk.fulfilled, (state, action: PayloadAction<IOrder>) => {
-        console.log(action.payload)
         state.isLoaderOrder = false;
         state.order = action.payload;
       })
@@ -90,12 +81,4 @@ const burgerConstructorSlice = createSlice({
 });
 
 export default burgerConstructorSlice.reducer;
-export const {
-  setBunsForTheBurgerConstructor,
-  addIngredientsForTheBurgerConstructor,
-  removeIngredientForTheBurgerConstructor,
-  sortIngredients,
-  setTotalPrice,
-  setIngredientsForTheOrder,
-  clearBurgerConstructor,
-} = burgerConstructorSlice.actions;
+export const burgerConstructorActions = burgerConstructorSlice.actions;

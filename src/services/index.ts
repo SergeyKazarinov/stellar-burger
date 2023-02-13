@@ -4,6 +4,7 @@ import portalSlice from "./slices/portalSlice";
 import ingredientsSlice from "./slices/ingredientsSlice";
 import ingredientsForTheConstructorSlice from "./slices/burgerConstructorSlice";
 import profileSlice from "./slices/profileSlice";
+import ordersSlice from "./slices/ordersSlice";
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   ingredients: ingredientsSlice,
   burgerConstructor: ingredientsForTheConstructorSlice,
   profile: profileSlice,
+  feedOrders: ordersSlice,
 });
 
 export const store = configureStore({

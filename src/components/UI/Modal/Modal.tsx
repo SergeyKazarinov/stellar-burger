@@ -15,7 +15,7 @@ interface IModalProps {
 
 const Modal: FC<IModalProps> = ({children}) => {
   const divPortal = useMemo(() => document.getElementById('modal'), []) as Element;
-  const { ingredient, isOpenIngredientDetail } = useAppSelector(store => store.modal);
+  const isOpenIngredientDetail = useAppSelector(store => store.modal.isOpenIngredientDetail);
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { state } = history.location as TLocation;
@@ -23,7 +23,7 @@ const Modal: FC<IModalProps> = ({children}) => {
   const handleClose = () => {
     dispatch(modalActions.closeAllModal())
 
-    isOpenIngredientDetail && history.push({...state.from, state: {from: null}});
+    isOpenIngredientDetail && history.push({...state?.from, state: {from: null}});
   }
 
   return ReactDOM.createPortal((

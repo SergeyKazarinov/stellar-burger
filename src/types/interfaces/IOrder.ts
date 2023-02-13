@@ -6,3 +6,17 @@ export interface IOrder {
   },
   success: boolean
 }
+
+export interface IFeedOrder {
+  _id: number;
+  ingredients: string[];
+  name: string;
+  number: number;
+  status: IOrderStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IOrderStatus {
+  status: 'done' | 'pending';
+}

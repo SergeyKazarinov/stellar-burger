@@ -1,6 +1,6 @@
 import { IFeedOrder } from './IOrder';
 
-export interface IWebSocketResolve {
+export interface IWSMessage {
   success: boolean;
   orders: IFeedOrder[];
   total: number;

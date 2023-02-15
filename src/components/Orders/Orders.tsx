@@ -10,9 +10,11 @@ interface IOrdersProps {
 }
 
 const Orders: FC<IOrdersProps> = () => {
-  const feedOrders = useAppSelector(store => store.feedOrders.feedOrders);
+  const feedOrders = useAppSelector(store => store.wsReducers.wsMessage?.orders);
 
-  const orders = useMemo(() => feedOrders.map((item) => <li key={item._id}><Order order={item} /> </li>), [feedOrders]);
+  const orders = useMemo(
+    () => feedOrders?.map((item) => <li key={item._id}><Order order={item} /> </li>)
+    , [feedOrders]);
 
   return (
     <ul className={`list pr-2 ${s.orders}`}>

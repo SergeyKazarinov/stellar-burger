@@ -2,10 +2,6 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {FC, useMemo} from 'react';
 
 import ReactDOM from 'react-dom';
-
-
-
-
 import { useHistory } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
@@ -40,7 +36,9 @@ const Modal: FC<IModalProps> = ({children}) => {
       <ModalOverlay />
       <div className={`p-10 ${s.modal__container}`}>
         <header className={`${s.modal__header} ${isOpenIngredientDetail && s.modal__title}`}>
-          <h2 className={'text text_type_main-large'}>{isOpenIngredientDetail && 'Детали ингредиента'}</h2>
+          <h2 className={'text text_type_main-large'}>
+            {isOpenIngredientDetail && 'Детали ингредиента'}
+          </h2>
           <CloseIcon type='primary' onClick={handleClose}/>
         </header>
         {children}

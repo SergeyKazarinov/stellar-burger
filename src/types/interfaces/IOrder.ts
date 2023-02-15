@@ -17,6 +17,7 @@ export interface IFeedOrder {
   updatedAt: string;
 }
 
-export interface IOrderStatus {
-  status: 'done' | 'pending';
+export enum IOrderStatus {
+  done = 'done',
+  pending = 'pending',
 }

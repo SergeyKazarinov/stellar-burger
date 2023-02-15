@@ -26,8 +26,8 @@ function App() {
     isOpenOrderDetails,
     isOpenModalWithMessage,
   } = useAppSelector((store) => store.modal);
-  const { ingredients, fetchIngredientsPending } = useAppSelector(store => store.ingredients);
-  const ingredient = useAppSelector(store => store.modal.ingredient);
+  const { ingredients, fetchIngredientsPending } = useAppSelector((store) => store.ingredients);
+  const ingredient = useAppSelector((store) => store.modal.ingredient);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

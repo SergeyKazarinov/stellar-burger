@@ -15,7 +15,7 @@ interface IFeedProps {
 
 const Feed: FC<IFeedProps> = () => {
   const { connect } = useWebSocket();
-  const feedOrders = useAppSelector(store => store.feedOrders.feedOrders);
+  const feedOrders = useAppSelector(store => store.wsReducers.wsMessage?.orders);
 
   useEffect(() => {
     connect(WSS_FOR_ALL_ORDERS);
@@ -23,7 +23,7 @@ const Feed: FC<IFeedProps> = () => {
 
 
   return (
-    !feedOrders.length
+    !feedOrders?.length
       ? <Loader/>
       : (
         <section className={s.feed}>

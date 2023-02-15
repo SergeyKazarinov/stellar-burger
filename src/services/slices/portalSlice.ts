@@ -20,7 +20,9 @@ const portalSlice = createSlice({
     setIsOpenOrderDetails(state, action: PayloadAction<boolean>) {
       state.isOpenOrderDetails = action.payload;
     },
-    setIsOpenIngredientDetail(state, action: PayloadAction<{isOpen: boolean, ingredient: IIngredient}>) {
+    setIsOpenIngredientDetail(
+      state, action: PayloadAction<{isOpen: boolean, ingredient: IIngredient}>,
+    ) {
       state.isOpenIngredientDetail = action.payload.isOpen;
       state.ingredient = action.payload.ingredient;
     },

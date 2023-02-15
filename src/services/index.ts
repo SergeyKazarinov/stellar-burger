@@ -2,10 +2,10 @@ import { combineReducers,configureStore } from '@reduxjs/toolkit';
 
 import ingredientsForTheConstructorSlice from './slices/burgerConstructorSlice';
 import ingredientsSlice from './slices/ingredientsSlice';
-import ordersSlice from './slices/ordersSlice';
 import portalSlice from './slices/portalSlice';
 import profileSlice from './slices/profileSlice';
 import scrollSlice from './slices/scrollSlice';
+import wsSlice from './slices/wsSlice';
 
 
 const rootReducer = combineReducers({
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   ingredients: ingredientsSlice,
   burgerConstructor: ingredientsForTheConstructorSlice,
   profile: profileSlice,
-  feedOrders: ordersSlice,
+  wsReducers: wsSlice,
 });
 
 export const store = configureStore({

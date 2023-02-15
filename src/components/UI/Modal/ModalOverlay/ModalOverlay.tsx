@@ -6,6 +6,8 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/useTypedSelect
 
 import { modalActions } from '../../../../services/slices/portalSlice';
 
+import { TLocation } from '../../../../types/types/TLocation';
+
 import s from './ModalOverlay.module.scss';
 
 
@@ -13,6 +15,7 @@ const ModalOverlay: FC = () => {
   const dispatch = useAppDispatch();
   const isOpenIngredientDetail = useAppSelector(store => store.modal.isOpenIngredientDetail);
   const history = useHistory();
+  const { state } = history.location as TLocation;
 
   useEffect(() => {
     document.addEventListener('keydown', handleEscClose);
@@ -24,7 +27,7 @@ const ModalOverlay: FC = () => {
 
   const closeModal = () => {
     dispatch(modalActions.closeAllModal());
-    isOpenIngredientDetail && history.push('/');
+    isOpenIngredientDetail && history.push({...state?.from, state: {from: null}});
   };
 
   const handleEscClose = (e: KeyboardEvent) => {

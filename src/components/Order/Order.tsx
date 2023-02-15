@@ -34,7 +34,12 @@ const Order: FC<IOrderProps> = ({order}) => {
     () => {
       return order.ingredients.slice(0, 6).map((item, index) => {
         const ingredientsItem = ingredients.filter((i) => i._id === item)[0];
-        return <FeedIngredientOrder key={index} item={ingredientsItem} index={index} leftIngredients={order.ingredients.slice(6).length} />;
+        return <FeedIngredientOrder
+          key={index}
+          item={ingredientsItem}
+          index={index}
+          leftIngredients={order.ingredients.slice(6).length}
+        />;
       });
     }, [order, ingredients]);
 
@@ -42,8 +47,13 @@ const Order: FC<IOrderProps> = ({order}) => {
     <button className={`button p-6 ${s.container}`}>
       <div className={s.numberOrder}>
         <span className={`text text_type_digits-default ${s.number}`}>{`#${order.number}`}</span>
-        <FormattedDate className={`text text_type_main-default text_color_inactive ${s.date}`} date={date} />
-        {/* <span className={`text text_type_main-default text_color_inactive ${s.date}`}>Сегодня, 16:20 i-GMT+3</span> */}
+        <FormattedDate
+          className={`text text_type_main-default text_color_inactive ${s.date}`}
+          date={date}
+        />
+        {/* <span className={`text text_type_main-default text_color_inactive ${s.date}`}>
+          Сегодня, 16:20 i-GMT+3
+        </span> */}
       </div>
       <h3 className={`mt-6 text text_type_main-medium ${s.titleBurger}`}>{order.name}</h3>
       {url.pathname.includes('profile') && <OrderStatus orderStatus={order.status}/>}

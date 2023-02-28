@@ -1,5 +1,5 @@
 import { TOrderArray } from '../../types/types/TOrderArray';
-import { URL_FOR_INGREDIENTS, URL_FOR_ORDERS } from '../../utils/constants';
+import { ACCESS_TOKEN, URL_FOR_INGREDIENTS, URL_FOR_ORDERS } from '../../utils/constants';
 
 const checkAnswer = (res: Response) => {
   if(res.ok) {
@@ -27,6 +27,7 @@ export const postOrders = async (order: TOrderArray) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `${localStorage.getItem(ACCESS_TOKEN)}`,
       },
       body: JSON.stringify({ingredients: order}),
     });

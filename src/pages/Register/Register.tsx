@@ -5,7 +5,7 @@ import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { fetchRegister } from '../../services/asyncThunk/profileThunk';
-import { TLocation } from '../../types/types/TLocation';
+import { TLocation } from '../../types/types/types';
 import { EMAIL_PATTERN } from '../../utils/constants';
 
 import register from './Register.module.scss';

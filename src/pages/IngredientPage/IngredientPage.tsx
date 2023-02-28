@@ -14,7 +14,6 @@ interface IngredientPageProps {
 const IngredientPage: FC<IngredientPageProps> = () => {
   const params: {id: string} = useParams();
   const ingredients = useAppSelector(store => store.ingredients.ingredients);
-  const history = useHistory();
 
   const ingredient = useMemo(() => {
     return ingredients.find((item) => item._id === params.id);
@@ -22,12 +21,10 @@ const IngredientPage: FC<IngredientPageProps> = () => {
 
 
   return (
-    history.action === 'POP'
-      ? <section className={s.ingredientPage}>
-        <h2 className={`text text_type_main-large ${s.title}`}>Детали ингредиента</h2>
-        <IngredientDetails ingredient={ingredient} />
-      </section>
-      : <Constructor />
+    <section className={s.ingredientPage}>
+      <h2 className={`text text_type_main-large ${s.title}`}>Детали ингредиента</h2>
+      <IngredientDetails ingredient={ingredient} />
+    </section>
   );
 };
 

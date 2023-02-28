@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/useTypedSelect
 
 import { modalActions } from '../../../../services/slices/portalSlice';
 
-import { TLocation } from '../../../../types/types/TLocation';
+import { TLocation } from '../../../../types/types/types';
 
 import s from './ModalOverlay.module.scss';
 

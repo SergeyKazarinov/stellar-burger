@@ -2,7 +2,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import {FC, useMemo} from 'react';
 
 import { useDrag } from 'react-dnd';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { modalActions } from '../../../services/slices/portalSlice';
@@ -18,6 +18,7 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
   const ingredientsForTheOrder = useAppSelector(store => store.burgerConstructor.ingredientsForTheOrder);
   const dispatch = useAppDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   const [, dragRef] = useDrag({
     type: 'ingredient',
@@ -34,7 +35,7 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
   const handleOpenIngredientDetails = () => {
     dispatch(modalActions.setIsOpenIngredientDetail({isOpen: true, ingredient}));
 
-    history.push(`/ingredients/${ingredient._id}`, {from: history.location});
+    history.push({ pathname: `/ingredients/${ingredient._id}`, state: {from: location}});
   };
 
   return (

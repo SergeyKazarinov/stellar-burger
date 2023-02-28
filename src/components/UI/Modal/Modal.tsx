@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { modalActions } from '../../../services/slices/portalSlice';
 
-import { TLocation } from '../../../types/types/TLocation';
+import { TLocation } from '../../../types/types/types';
 
 import s from './Modal.module.scss';
 import ModalOverlay from './ModalOverlay/ModalOverlay';
@@ -27,7 +27,8 @@ const Modal: FC<IModalProps> = ({children}) => {
   const handleClose = () => {
     dispatch(modalActions.closeAllModal());
 
-    isOpenIngredientDetail && history.push({...state?.from, state: {from: null}});
+    isOpenIngredientDetail && history.replace({...state?.from, state: {from: null}});
+    // isOpenIngredientDetail && history.goBack();
   };
 
   return ReactDOM.createPortal((

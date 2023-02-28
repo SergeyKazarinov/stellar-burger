@@ -5,7 +5,7 @@ import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { fetchLogin } from '../../services/asyncThunk/profileThunk';
-import { TLocation } from '../../types/types/TLocation';
+import { TLocation } from '../../types/types/types';
 import { EMAIL_PATTERN } from '../../utils/constants';
 
 import login from './Login.module.scss';
@@ -95,13 +95,24 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
         </form>
         <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Вы — новый пользователь?&#8194;
-          <Button htmlType="button" type="secondary" size="medium" extraClass={login.button} onClick={handleMoveToRegister}>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass={login.button}
+            onClick={handleMoveToRegister}
+          >
             Зарегистрироваться
           </Button>
         </p>
         <p className={'mt-4 text text_type_main-default text_color_inactive'}>
           Забыли пароль?&#8194;
-          <Button htmlType="button" type="secondary" size="medium" extraClass={login.button} onClick={handleMoveToForgotPassword}>
+          <Button
+            htmlType="button" type="secondary"
+            size="medium"
+            extraClass={login.button}
+            onClick={handleMoveToForgotPassword}
+          >
             Восстановить пароль
           </Button>
         </p>

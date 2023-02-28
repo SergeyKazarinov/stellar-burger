@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { fetchForgotPassword } from '../../services/asyncThunk/profileThunk';
 import { modalActions } from '../../services/slices/portalSlice';
 import { profileActions } from '../../services/slices/profileSlice';
-import { TLocation } from '../../types/types/TLocation';
 import { EMAIL_PATTERN } from '../../utils/constants';
 
 import forgotPassword from './ForgotPassword.module.scss';

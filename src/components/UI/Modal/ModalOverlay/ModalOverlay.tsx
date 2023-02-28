@@ -13,7 +13,7 @@ import s from './ModalOverlay.module.scss';
 
 const ModalOverlay: FC = () => {
   const dispatch = useAppDispatch();
-  const isOpenIngredientDetail = useAppSelector(store => store.modal.isOpenIngredientDetail);
+  const ingredientForModal = useAppSelector(store => store.modal.ingredientForModal);
   const history = useHistory();
   const { state } = history.location as TLocation;
 
@@ -27,7 +27,7 @@ const ModalOverlay: FC = () => {
 
   const closeModal = () => {
     dispatch(modalActions.closeAllModal());
-    isOpenIngredientDetail && history.push({...state?.from, state: {from: null}});
+    ingredientForModal && history.replace({...state?.from, state: {from: null}});
   };
 
   const handleEscClose = (e: KeyboardEvent) => {

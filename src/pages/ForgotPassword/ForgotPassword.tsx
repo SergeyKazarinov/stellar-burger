@@ -47,7 +47,9 @@ const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
   return (
     <section className={forgotPassword.forgotPassword}>
       <div className={forgotPassword.container}>
-        <h2 className={`text text_type_main-medium ${forgotPassword.title}`}>Восстановление пароля</h2>
+        <h2 className={`text text_type_main-medium ${forgotPassword.title}`}>
+          Восстановление пароля
+        </h2>
         <form className={forgotPassword.form} onSubmit={handleSubmit}>
           <Input
             type={'email'}
@@ -73,7 +75,13 @@ const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
         </form>
         <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Вспомнили пароль?&#8194;
-          <Button htmlType="button" type="secondary" size="medium" extraClass={forgotPassword.button} onClick={handleMoveToLogin}>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass={forgotPassword.button}
+            onClick={handleMoveToLogin}
+          >
             Войти
           </Button>
         </p>

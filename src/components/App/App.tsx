@@ -24,17 +24,16 @@ import ModalWithOrder from '../UI/Modal/ModalWithOrder/ModalWithOrder';
 
 const App: FC = () => {
   const {
-    isOpenIngredientDetail,
+    ingredientForModal,
     isOpenModalWithOrder,
     isOpenModalWithMessage,
     isOpenModalWithOrderDetails,
   } = useAppSelector((store) => store.modal);
   const { ingredients, fetchIngredientsPending } = useAppSelector((store) => store.ingredients);
-  const ingredient = useAppSelector((store) => store.modal.ingredient);
   const order = useAppSelector(store => store.modal.order);
   const dispatch = useAppDispatch();
   const location = useLocation<TLocationState>();
-  const background = isOpenIngredientDetail ? location.state.from : null;
+  const background = ingredientForModal ? location.state.from : null;
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -76,9 +75,9 @@ const App: FC = () => {
         </Switch>
       </main>
 
-      {isOpenIngredientDetail && (
+      {ingredientForModal && (
         <Modal>
-          <IngredientDetails ingredient={ingredient}/>
+          <IngredientDetails ingredient={ingredientForModal}/>
         </Modal>)}
 
       {isOpenModalWithOrder && (

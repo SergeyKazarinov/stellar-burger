@@ -5,11 +5,10 @@ import { IFeedOrder } from '../../types/interfaces/IOrder';
 import { TLocationState } from '../../types/types/types';
 
 interface IPortalSliceInitialState {
-  ingredient: IIngredient;
   order: IFeedOrder;
   isOpenModalWithOrder: boolean;
   isOpenModalWithOrderDetails: boolean;
-  isOpenIngredientDetail: boolean;
+  ingredientForModal: IIngredient | null;
   isOpenModalWithMessage: string | null;
   location: TLocationState | null;
 }
@@ -17,11 +16,10 @@ interface IPortalSliceInitialState {
 const portalSlice = createSlice({
   name: 'portalSlice',
   initialState: {
-    ingredient: {},
     order: {},
     isOpenModalWithOrder: false,
     isOpenModalWithOrderDetails: false,
-    isOpenIngredientDetail: false,
+    ingredientForModal: null,
     isOpenModalWithMessage: null,
     location: null,
   } as IPortalSliceInitialState,
@@ -38,20 +36,18 @@ const portalSlice = createSlice({
       state.isOpenModalWithOrder = action.payload;
     },
     setIsOpenIngredientDetail(
-      state, action: PayloadAction<{isOpen: boolean, ingredient: IIngredient}>,
+      state, action: PayloadAction<IIngredient>,
     ) {
-      state.isOpenIngredientDetail = action.payload.isOpen;
-      state.ingredient = action.payload.ingredient;
+      state.ingredientForModal = action.payload;
     },
     setIsOpenModalWithMessage(state, action: PayloadAction<string>) {
       state.isOpenModalWithMessage = action.payload;
     },
 
     closeAllModal(state) {
-      state.isOpenIngredientDetail = false;
+      state.ingredientForModal = null;
       state.isOpenModalWithOrder = false;
       state.isOpenModalWithOrderDetails = false;
-      // state.ingredient = null;
       state.isOpenModalWithMessage = '';
     },
   },

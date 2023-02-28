@@ -33,7 +33,7 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
   }, [ingredientsForTheOrder]);
 
   const handleOpenIngredientDetails = () => {
-    dispatch(modalActions.setIsOpenIngredientDetail({isOpen: true, ingredient}));
+    dispatch(modalActions.setIsOpenIngredientDetail(ingredient));
 
     history.push({ pathname: `/ingredients/${ingredient._id}`, state: {from: location}});
   };

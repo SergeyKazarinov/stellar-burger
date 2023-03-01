@@ -7,6 +7,6 @@ export type TLocationState = {
 
 export type TLocation = {
   state: {
-    from: Location;
+    [key: string]: Location;
   }
 }

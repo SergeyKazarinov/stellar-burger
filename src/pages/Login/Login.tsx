@@ -46,7 +46,7 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
 
   if (isLogin) {
     return (
-      <Redirect to={ state?.from || '/' } />
+      <Redirect to={ state?.background || '/' } />
     );
   }
 

@@ -27,13 +27,12 @@ const App: FC = () => {
     ingredientForModal,
     isOpenModalWithOrder,
     isOpenModalWithMessage,
-    isOpenModalWithOrderDetails,
   } = useAppSelector((store) => store.modal);
   const { ingredients, fetchIngredientsPending } = useAppSelector((store) => store.ingredients);
-  const order = useAppSelector(store => store.modal.order);
+  const orderForModal = useAppSelector(store => store.modal.orderForModal);
   const dispatch = useAppDispatch();
   const location = useLocation<TLocationState>();
-  const background = ingredientForModal ? location.state.from : null;
+  const background = ingredientForModal || orderForModal ? location.state.background : null;
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -85,9 +84,9 @@ const App: FC = () => {
           <ModalWithOrder />
         </Modal>)}
 
-      {isOpenModalWithOrderDetails && (
+      {orderForModal && (
         <Modal>
-          <OrderDetails order={order}/>
+          <OrderDetails order={orderForModal!}/>
         </Modal>)}
 
       {isOpenModalWithMessage && (

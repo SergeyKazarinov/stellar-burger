@@ -20,6 +20,7 @@ interface IModalProps {
 const Modal: FC<IModalProps> = ({children}) => {
   const divPortal = useMemo(() => document.getElementById('modal'), []) as Element;
   const ingredientForModal = useAppSelector(store => store.modal.ingredientForModal);
+  const orderForModal = useAppSelector(store => store.modal.orderForModal);
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { state } = history.location as TLocation;
@@ -27,7 +28,7 @@ const Modal: FC<IModalProps> = ({children}) => {
   const handleClose = () => {
     dispatch(modalActions.closeAllModal());
 
-    ingredientForModal && history.replace({...state?.from, state: {from: null}});
+    ingredientForModal || orderForModal && history.replace({...state?.background, state: {background: null}});
   };
 
   return ReactDOM.createPortal((

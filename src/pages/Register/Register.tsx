@@ -41,7 +41,7 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
 
   if (isLogin) {
     return (
-      <Redirect to={ state?.from || '/' } />
+      <Redirect to={ state?.background || '/' } />
     );
   }
 
@@ -104,7 +104,13 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
         </form>
         <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Уже зарегистрированы?&#8194;
-          <Button htmlType="button" type="secondary" size="medium" extraClass={register.button} onClick={handleMoveToLogin}>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass={register.button}
+            onClick={handleMoveToLogin}
+          >
             Войти
           </Button>
         </p>

@@ -1,10 +1,15 @@
-import {FC} from 'react';
+import {FC, useEffect, useMemo} from 'react';
+
+import { useParams } from 'react-router-dom';
 
 import OrderDetails from '../../components/OrderDetails/OrderDetails';
-import OrderIngredientItem from '../../components/OrderIngredientItem/OrderIngredientItem';
-import TotalPrice from '../../components/TotalPrice/TotalPrice';
 
+import Loader from '../../components/UI/Loader/Loader';
 import { useAppSelector } from '../../hooks/useTypedSelector';
+
+import { useWebSocket } from '../../hooks/useWebSocket';
+
+import { WSS_FOR_ALL_ORDERS } from '../../utils/constants';
 
 import s from './OrderDetailsPage.module.scss';
 
@@ -13,31 +18,27 @@ interface IOrderDetailsPageProps {
 }
 
 const OrderDetailsPage: FC<IOrderDetailsPageProps> = () => {
-  const order = useAppSelector(store => store.modal.order);
+  const { connect, closeWs } = useWebSocket();
+  const feedOrders = useAppSelector(store => store.wsReducers.wsMessage?.orders);
+  const params: {orderId: string} = useParams();
+  const order = useMemo(() => feedOrders?.find((item) => item._id === params.orderId), [feedOrders]);
+
+  useEffect(() => {
+    connect(WSS_FOR_ALL_ORDERS);
+
+    return () => {
+      closeWs();
+    };
+  }, []);
 
   return (
-    <section className={s.OrderDetailsPage}>
-      <OrderDetails order={order}/>
-      {/* <h2 className={`text text_type_digits-default ${s.orderNumber}`}>#034533</h2>
-      <h3 className={`mt-10 text text_type_main-medium ${s.orderName}`}>
-        Black Hole Singularity острый бургер
-      </h3>
-      <p className={`text text_type_main-default mt-2 ${s.status}`}>Выполнен</p>
-      <h4 className={`mt-15 mb-6 text text_type_main-medium ${s.composition}`}>Состав:</h4>
-      <ul className={`list pr-6 ${s.compositionContainer}`}>
-        <li><OrderIngredientItem /></li>
-        <li><OrderIngredientItem /></li>
-        <li><OrderIngredientItem /></li>
-        <li><OrderIngredientItem /></li>
-        <li><OrderIngredientItem /></li>
-        <li><OrderIngredientItem /></li>
-        <li><OrderIngredientItem /></li>
-      </ul>
-      <div className={`mt-10 ${s.totalPrice}`}>
-        <p className={'text text_type_main-default text_color_inactive'}>Вчера, 13:50 i-GMT+3</p>
-        <TotalPrice totalPrice={510} />
-      </div> */}
-    </section>
+    !feedOrders?.length
+      ? <Loader />
+      : (
+        <section className={s.OrderDetailsPage}>
+          {order && <OrderDetails order={order}/>}
+        </section>
+      )
   );
 };
 

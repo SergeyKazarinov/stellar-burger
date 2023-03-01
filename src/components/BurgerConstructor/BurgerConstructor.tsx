@@ -53,7 +53,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
       dispatch(burgerConstructorActions.clearBurgerConstructor());
     }
 
-    history.push('/login', {from: history.location});
+    history.push('/login', {background: history.location});
   };
 
   const handleDrop = (item: IIngredient) => {

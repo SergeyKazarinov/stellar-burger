@@ -5,9 +5,8 @@ import { IFeedOrder } from '../../types/interfaces/IOrder';
 import { TLocationState } from '../../types/types/types';
 
 interface IPortalSliceInitialState {
-  order: IFeedOrder;
+  orderForModal: IFeedOrder | null;
   isOpenModalWithOrder: boolean;
-  isOpenModalWithOrderDetails: boolean;
   ingredientForModal: IIngredient | null;
   isOpenModalWithMessage: string | null;
   location: TLocationState | null;
@@ -16,9 +15,8 @@ interface IPortalSliceInitialState {
 const portalSlice = createSlice({
   name: 'portalSlice',
   initialState: {
-    order: {},
+    orderForModal: null,
     isOpenModalWithOrder: false,
-    isOpenModalWithOrderDetails: false,
     ingredientForModal: null,
     isOpenModalWithMessage: null,
     location: null,
@@ -26,10 +24,9 @@ const portalSlice = createSlice({
   reducers: {
     setIsOpenModalWithOrderDetails(
       state,
-      action: PayloadAction<{isOpen: boolean, order: IFeedOrder}>,
+      action: PayloadAction<IFeedOrder>,
     ) {
-      state.order = action.payload.order;
-      state.isOpenModalWithOrderDetails = action.payload.isOpen;
+      state.orderForModal = action.payload;
 
     },
     setIsOpenModalWithOrder(state, action: PayloadAction<boolean>) {
@@ -46,8 +43,8 @@ const portalSlice = createSlice({
 
     closeAllModal(state) {
       state.ingredientForModal = null;
+      state.orderForModal = null;
       state.isOpenModalWithOrder = false;
-      state.isOpenModalWithOrderDetails = false;
       state.isOpenModalWithMessage = '';
     },
   },

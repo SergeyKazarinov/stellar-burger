@@ -14,11 +14,15 @@ interface IFeedProps {
 }
 
 const Feed: FC<IFeedProps> = () => {
-  const { connect } = useWebSocket();
+  const { connect, closeWs } = useWebSocket();
   const feedOrders = useAppSelector(store => store.wsReducers.wsMessage?.orders);
 
   useEffect(() => {
     connect(WSS_FOR_ALL_ORDERS);
+
+    return () => {
+      closeWs();
+    };
   }, []);
 
 

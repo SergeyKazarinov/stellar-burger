@@ -8,7 +8,7 @@ export interface IOrder {
 }
 
 export interface IFeedOrder {
-  _id: number;
+  _id: string;
   ingredients: string[];
   name: string;
   number: number;

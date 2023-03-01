@@ -13,6 +13,10 @@
   text-align: center;
 }
 
+.readyStatus {
+  color: $readyColor;
+}
+
 .compositionContainer {
   height: 312px;
   overflow-y: auto;

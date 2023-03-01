@@ -24,17 +24,23 @@ export const useWebSocket = () => {
       console.log(message);
     };
 
-    ws.current.onerror = (e) => {
+    ws.current.onerror = (e: Event) => {
       dispatch(wsActions.setWsConnected(false));
       console.log(e);
     };
 
-    ws.current.onclose = (e) => {
+    ws.current.onclose = (e: CloseEvent) => {
       dispatch(wsActions.setWsConnected(false));
-      console.log(e);
+      if(e.wasClean) {
+        console.log(e);
+      }
+      console.log('соединение закрыто');
     };
   };
 
+  const closeWs = () => {
+    ws.current?.close();
+  };
 
-  return { connect };
+  return { connect, closeWs };
 };

@@ -14,6 +14,7 @@ import s from './ModalOverlay.module.scss';
 const ModalOverlay: FC = () => {
   const dispatch = useAppDispatch();
   const ingredientForModal = useAppSelector(store => store.modal.ingredientForModal);
+  const orderForModal = useAppSelector(store => store.modal.orderForModal);
   const history = useHistory();
   const { state } = history.location as TLocation;
 
@@ -27,7 +28,8 @@ const ModalOverlay: FC = () => {
 
   const closeModal = () => {
     dispatch(modalActions.closeAllModal());
-    ingredientForModal && history.replace({...state?.from, state: {from: null}});
+    (ingredientForModal || orderForModal)
+    && history.replace({...state?.background, state: {background: null}});
   };
 
   const handleEscClose = (e: KeyboardEvent) => {

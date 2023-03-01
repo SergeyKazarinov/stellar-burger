@@ -1,3 +1,4 @@
+import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import {FC} from 'react';
 
 import { useAppSelector } from '../../hooks/useTypedSelector';
@@ -19,6 +20,7 @@ const OrderDetails: FC<IOrderDetailsProps> = ({order}) => {
   const ingredients = useAppSelector(store => store.ingredients.ingredients);
   const ingredientArray = filterIngredients(ingredients, order.ingredients);
   const sortArray = sortIngredientsDetails(ingredientArray);
+  const date = new Date(order.createdAt);
 
   const ingredientList = sortArray.map(
     (item, index) => {
@@ -32,7 +34,7 @@ const OrderDetails: FC<IOrderDetailsProps> = ({order}) => {
       <h3 className={`mt-10 text text_type_main-medium ${s.orderName}`}>
         {order.name}
       </h3>
-      <p className={`text text_type_main-default mt-2 ${s.status}`}>
+      <p className={`text text_type_main-default mt-2 ${s.status} ${order.status === IOrderStatus.done && s.readyStatus}`}>
         {order.status === IOrderStatus.done ? 'Выполнен' : 'Готовится'}
       </p>
       <h4 className={`mt-15 mb-6 text text_type_main-medium ${s.composition}`}>Состав:</h4>
@@ -40,7 +42,10 @@ const OrderDetails: FC<IOrderDetailsProps> = ({order}) => {
         {ingredientList}
       </ul>
       <div className={`mt-10 ${s.totalPrice}`}>
-        <p className={'text text_type_main-default text_color_inactive'}>Вчера, 13:50 i-GMT+3</p>
+        <FormattedDate
+          className={'text text_type_main-default text_color_inactive'}
+          date={date}
+        />
         <TotalPrice totalPrice={checkTotalPrice(ingredientArray)} />
       </div>
     </div>

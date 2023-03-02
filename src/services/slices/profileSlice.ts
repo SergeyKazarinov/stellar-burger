@@ -12,6 +12,7 @@ interface IProfileSliceInitialState {
   email: string;
   name: string;
   message: string;
+  accessToken: string | null;
 }
 
 
@@ -25,6 +26,7 @@ const profileSlice = createSlice({
     email: '',
     name: '',
     message: '',
+    accessToken: '',
   } as IProfileSliceInitialState,
   reducers: {
     setMessage(state, action: PayloadAction<string>) {
@@ -43,6 +45,7 @@ const profileSlice = createSlice({
         state.isLogin = true;
         state.email = action.payload.user.email;
         state.name = action.payload.user.name;
+        state.accessToken = action.payload.accessToken;
         localStorage.setItem(REFRESH_TOKEN, action.payload.refreshToken);
         localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken);
       })
@@ -60,6 +63,7 @@ const profileSlice = createSlice({
         state.profilePending = false;
         state.email = action.payload.user.email;
         state.name = action.payload.user.name;
+        state.accessToken = action.payload.accessToken;
         localStorage.setItem(REFRESH_TOKEN, action.payload.refreshToken);
         localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken);
         console.log(action.payload);
@@ -79,6 +83,7 @@ const profileSlice = createSlice({
         state.isLogin = false;
         state.email = '';
         state.name = '';
+        state.accessToken = '';
         localStorage.removeItem(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN);
       })
@@ -95,6 +100,7 @@ const profileSlice = createSlice({
         state.isLoaderPage = false;
         state.profilePending = false;
         state.isLogin = true;
+        state.accessToken = localStorage.getItem(ACCESS_TOKEN);
         state.email = action.payload.user.email;
         state.name = action.payload.user.name;
       })

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useTypedSelector';
 
+import { burgerConstructorActions } from '../../../../services/slices/burgerConstructorSlice';
 import { modalActions } from '../../../../services/slices/portalSlice';
 
 import { TLocation } from '../../../../types/types/types';
@@ -28,6 +29,7 @@ const ModalOverlay: FC = () => {
 
   const closeModal = () => {
     dispatch(modalActions.closeAllModal());
+    dispatch(burgerConstructorActions.setOrder(null));
     (ingredientForModal || orderForModal)
     && history.replace({...state?.background, state: {background: null}});
   };

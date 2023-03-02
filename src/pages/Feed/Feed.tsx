@@ -33,7 +33,7 @@ const Feed: FC<IFeedProps> = () => {
         <section className={s.feed}>
           <h2 className={`text text_type_main-medium ${s.title}`}>Лента заказов</h2>
           <div className={s.feedContainer}>
-            <Orders />
+            <Orders feedOrders={feedOrders} />
             <OrderStatistics />
           </div>
         </section>)

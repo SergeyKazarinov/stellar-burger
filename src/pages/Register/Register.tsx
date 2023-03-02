@@ -14,6 +14,7 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const dispatch = useAppDispatch();
   const isLogin = useAppSelector(store => store.profile.isLogin);
+  const profilePending = useAppSelector(store => store.profile.profilePending);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const { state } = history.location as TLocation;
 
@@ -97,9 +98,9 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
             htmlType="submit"
             type="primary"
             extraClass="mt-6"
-            disabled={!isValid}
+            disabled={!isValid || profilePending}
           >
-            Зарегистрироваться
+            {profilePending ? 'Регистрация...' : 'Зарегистрироваться'}
           </Button>
         </form>
         <p className={'mt-20 text text_type_main-default text_color_inactive'}>

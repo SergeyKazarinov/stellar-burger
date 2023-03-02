@@ -25,6 +25,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
     ingredientsForTheBurgerConstructor,
     ingredientsForTheOrder,
     order,
+    isLoaderOrder,
   } = useAppSelector(store => store.burgerConstructor);
   const dispatch = useAppDispatch();
   const isLogin = useAppSelector(store => store.profile.isLogin);
@@ -103,12 +104,12 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
           size="large"
           disabled={
             bunsForTheBurgerConstructor.length === 0
-            ||
-            ingredientsForTheBurgerConstructor.length === 0
+            || ingredientsForTheBurgerConstructor.length === 0
+            || isLoaderOrder
           }
           onClick={handleSendOrder}
         >
-          Оформить заказ
+          {isLoaderOrder ? 'Готовим заказ' : 'Оформить заказ'}
         </Button>
       </div>
     </div>

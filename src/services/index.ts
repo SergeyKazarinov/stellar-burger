@@ -1,6 +1,6 @@
 import { combineReducers,configureStore } from '@reduxjs/toolkit';
 
-import ingredientsForTheConstructorSlice from './slices/burgerConstructorSlice';
+import burgerConstructorSlice from './slices/burgerConstructorSlice';
 import ingredientsSlice from './slices/ingredientsSlice';
 import portalSlice from './slices/portalSlice';
 import profileSlice from './slices/profileSlice';
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   scroll: scrollSlice,
   modal: portalSlice,
   ingredients: ingredientsSlice,
-  burgerConstructor: ingredientsForTheConstructorSlice,
+  burgerConstructor: burgerConstructorSlice,
   profile: profileSlice,
   wsReducers: wsSlice,
 });

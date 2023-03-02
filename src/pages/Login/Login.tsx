@@ -14,6 +14,7 @@ import login from './Login.module.scss';
 
 const Login = ({history}: RouteComponentProps): JSX.Element => {
   const isLogin = useAppSelector(store => store.profile.isLogin);
+  const profilePending = useAppSelector(store => store.profile.profilePending);
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const dispatch = useAppDispatch();
@@ -88,9 +89,9 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
             htmlType="submit"
             type="primary"
             extraClass="mt-6"
-            disabled={!isValid}
+            disabled={!isValid || profilePending}
           >
-            Войти
+            {profilePending ? 'Выполняется вход' : 'Войти'}
           </Button>
         </form>
         <p className={'mt-20 text text_type_main-default text_color_inactive'}>

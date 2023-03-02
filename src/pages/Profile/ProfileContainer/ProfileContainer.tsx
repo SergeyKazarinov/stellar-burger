@@ -16,6 +16,7 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(store => store.profile.email);
   const name = useAppSelector(store => store.profile.name);
+  const profilePending = useAppSelector(store => store.profile.profilePending);
   const {values, handleChange, errors, isValid, resetForm, setValues} = useFormWithValidation();
   const [isEdit, setIsEdit] = useState({name: true, email: true, password: true});
   const inputNameRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
@@ -132,9 +133,9 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
           type="primary"
           size="medium"
           extraClass={s.button}
-          disabled={!isButtonActive}
+          disabled={!isButtonActive || profilePending}
         >
-          Сохранить
+          {profilePending ? 'Сохранение...' : 'Сохранить'}
         </Button>
         <Button
           htmlType="button"

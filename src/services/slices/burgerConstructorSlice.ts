@@ -64,6 +64,9 @@ const burgerConstructorSlice = createSlice({
       state.bunsForTheBurgerConstructor = [];
       state.ingredientsForTheBurgerConstructor = [];
     },
+    setOrder(state, action: PayloadAction<null | IOrder>) {
+      state.order = action.payload;
+    },
   },
   extraReducers(builder) {
     builder

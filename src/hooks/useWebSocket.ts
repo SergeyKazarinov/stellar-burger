@@ -25,7 +25,6 @@ export const useWebSocket = () => {
         dispatch(wsActions.setWSMessage(message));
       } else {
         dispatch(fetchGetUser());
-        connect(`${WSS_FOR_PROFILE_ORDERS}?token=${localStorage.getItem(ACCESS_TOKEN)?.replace('Bearer ', '')}`);
       }
 
     };

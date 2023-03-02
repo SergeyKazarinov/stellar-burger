@@ -1,16 +1,15 @@
 import React, {FC, useMemo} from 'react';
 
-import { useAppSelector } from '../../hooks/useTypedSelector';
+import { IFeedOrder } from '../../types/interfaces/IOrder';
 import Order from '../Order/Order';
 
 import s from './Orders.module.scss';
 
 interface IOrdersProps {
-
+  feedOrders: IFeedOrder[];
 }
 
-const Orders: FC<IOrdersProps> = () => {
-  const feedOrders = useAppSelector(store => store.wsReducers.wsMessage?.orders);
+const Orders: FC<IOrdersProps> = ({feedOrders}) => {
 
   const orders = useMemo(
     () => feedOrders?.map((item) => <li key={item._id}><Order order={item} /> </li>)

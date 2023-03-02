@@ -1,10 +1,14 @@
-import React, {FC} from "react";
-import profile from './Profile.module.scss'
-import ProfileNavigation from "./ProfileNavigation/ProfileNavigation";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
-import ProfileContainer from "./ProfileContainer/ProfileContainer";
-import ProfileOrders from "./ProfileOrders/ProfileOrders";
-import { URL_FOR_PROFILE_NAVIGATION } from "../../utils/constants";
+import React, {FC} from 'react';
+
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+
+import { URL_FOR_PROFILE_NAVIGATION } from '../../utils/constants';
+
+import profile from './Profile.module.scss';
+import ProfileContainer from './ProfileContainer/ProfileContainer';
+import ProfileNavigation from './ProfileNavigation/ProfileNavigation';
+import ProfileOrders from './ProfileOrders/ProfileOrders';
+
 
 interface IProfileProps {
 
@@ -29,6 +33,6 @@ const Profile: FC<IProfileProps> = () => {
       </Switch>
     </section>
   );
-}
+};
 
 export default Profile;

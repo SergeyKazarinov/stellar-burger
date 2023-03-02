@@ -1,12 +1,14 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, {FormEvent, useEffect, useState} from 'react';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router';
+
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
+import { fetchRegister } from '../../services/asyncThunk/profileThunk';
+import { TLocation } from '../../types/types/types';
+import { EMAIL_PATTERN } from '../../utils/constants';
+
 import register from './Register.module.scss';
-import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Redirect, RouteComponentProps, withRouter } from "react-router";
-import { useFormWithValidation } from "../../hooks/useFormWithValidation";
-import { EMAIL_PATTERN } from "../../utils/constants";
-import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
-import { fetchRegister } from "../../services/asyncThunk/profileThunk";
-import { TLocation } from "../../types/types/TLocation";
 
 const Register = ({history}: RouteComponentProps): JSX.Element => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
@@ -20,11 +22,11 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
   }, [resetForm]);
 
   const onIconClick = () => {
-    setIsVisiblePassword(!isVisiblePassword)
+    setIsVisiblePassword(!isVisiblePassword);
   };
 
   const handleMoveToLogin = () => {
-    history.push('/login')
+    history.push('/login');
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -34,13 +36,13 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
       email: values.email,
       password: values.password,
       name: values.name,
-    }))
-  }
+    }));
+  };
 
   if (isLogin) {
     return (
-      <Redirect to={ state?.from || '/' } />
-    )
+      <Redirect to={ state?.background || '/' } />
+    );
   }
 
   return (
@@ -100,15 +102,21 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
             Зарегистрироваться
           </Button>
         </form>
-        <p className={`mt-20 text text_type_main-default text_color_inactive`}>
+        <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Уже зарегистрированы?&#8194;
-          <Button htmlType="button" type="secondary" size="medium" extraClass={register.button} onClick={handleMoveToLogin}>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass={register.button}
+            onClick={handleMoveToLogin}
+          >
             Войти
           </Button>
         </p>
       </div>
     </section>
   );
-}
+};
 
 export default withRouter(Register);

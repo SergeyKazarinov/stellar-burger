@@ -1,14 +1,15 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, {FormEvent, useEffect, useState} from 'react';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router';
+
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
+import { fetchForgotPassword } from '../../services/asyncThunk/profileThunk';
+import { modalActions } from '../../services/slices/portalSlice';
+import { profileActions } from '../../services/slices/profileSlice';
+import { EMAIL_PATTERN } from '../../utils/constants';
+
 import forgotPassword from './ForgotPassword.module.scss';
-import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Redirect, RouteComponentProps, withRouter } from "react-router";
-import { EMAIL_PATTERN } from "../../utils/constants";
-import { useFormWithValidation } from "../../hooks/useFormWithValidation";
-import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
-import { fetchForgotPassword } from "../../services/asyncThunk/profileThunk";
-import { modalActions } from "../../services/slices/portalSlice";
-import { profileActions } from "../../services/slices/profileSlice";
-import { TLocation } from "../../types/types/TLocation";
 
 const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
@@ -18,35 +19,37 @@ const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
 
   useEffect(() => {
     resetForm();
-  }, [resetForm])
+  }, [resetForm]);
 
   const handleMoveToLogin = () => {
-    history.push('/login')
-  }
+    history.push('/login');
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(fetchForgotPassword(values.email));
   };
-// В настоящей реализации - костыль. Исправить
+  // В настоящей реализации - костыль. Исправить
   useEffect(() => {
     if(message) {
       dispatch(modalActions.setIsOpenModalWithMessage(message));
       history.push('/reset-password');
       dispatch(profileActions.setMessage(''));
     }
-  }, [message])
+  }, [message]);
 
   if (isLogin) {
     return (
       <Redirect to='/' />
-    )
+    );
   }
 
   return (
     <section className={forgotPassword.forgotPassword}>
       <div className={forgotPassword.container}>
-        <h2 className={`text text_type_main-medium ${forgotPassword.title}`}>Восстановление пароля</h2>
+        <h2 className={`text text_type_main-medium ${forgotPassword.title}`}>
+          Восстановление пароля
+        </h2>
         <form className={forgotPassword.form} onSubmit={handleSubmit}>
           <Input
             type={'email'}
@@ -70,15 +73,21 @@ const ForgotPassword = ({history}: RouteComponentProps): JSX.Element => {
             Восстановить
           </Button>
         </form>
-        <p className={`mt-20 text text_type_main-default text_color_inactive`}>
+        <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Вспомнили пароль?&#8194;
-          <Button htmlType="button" type="secondary" size="medium" extraClass={forgotPassword.button} onClick={handleMoveToLogin}>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass={forgotPassword.button}
+            onClick={handleMoveToLogin}
+          >
             Войти
           </Button>
         </p>
       </div>
     </section>
   );
-}
+};
 
 export default withRouter(ForgotPassword);

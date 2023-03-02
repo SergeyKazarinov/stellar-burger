@@ -1,6 +1,7 @@
-import { ILogin, IRegister, IUpdateUser } from "../../types/interfaces/IAuthorization"
-import { ACCESS_TOKEN, REFRESH_TOKEN, URL_FOR_AUTH, URL_FOR_RESET_PASSWORD } from "../../utils/constants"
-import { fetchWithAuth } from "./fetchWithAuth";
+import { ILogin, IRegister, IUpdateUser } from '../../types/interfaces/IAuthorization';
+import { ACCESS_TOKEN, REFRESH_TOKEN, URL_FOR_AUTH, URL_FOR_RESET_PASSWORD } from '../../utils/constants';
+
+import { fetchWithAuth } from './fetchWithAuth';
 
 const checkAnswer = (res: Response) => {
   if(res.ok) {
@@ -10,16 +11,16 @@ const checkAnswer = (res: Response) => {
   return res.json().then((error: Error) => {
     return Promise.reject(error);
   });
-}
+};
 
 export const registerUser = async ({email, password, name}: IRegister) => {
   try {
     const res: Response = await fetch(`${URL_FOR_AUTH}/register`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({email, password, name})
+      body: JSON.stringify({email, password, name}),
     });
 
     const data = await checkAnswer(res);
@@ -35,9 +36,9 @@ export const loginUser = async({email, password}: ILogin ) => {
     const res: Response = await fetch(`${URL_FOR_AUTH}/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({email, password})
+      body: JSON.stringify({email, password}),
     });
 
     const data = checkAnswer(res);
@@ -45,7 +46,7 @@ export const loginUser = async({email, password}: ILogin ) => {
   } catch(e) {
     return Promise.reject(e);
   }
-}
+};
 
 export const logoutUser = async () => {
   try {
@@ -53,14 +54,14 @@ export const logoutUser = async () => {
     const res: Response = await fetch(`${URL_FOR_AUTH}/logout`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ token })
+      body: JSON.stringify({ token }),
     });
 
     const data = await checkAnswer(res);
-    localStorage.setItem(ACCESS_TOKEN, data.accessToken)
-    localStorage.setItem(REFRESH_TOKEN, data.refreshToken)
+    localStorage.setItem(ACCESS_TOKEN, data.accessToken);
+    localStorage.setItem(REFRESH_TOKEN, data.refreshToken);
     return data;
   } catch(e) {
     return Promise.reject(e);
@@ -71,15 +72,15 @@ export const getUser = async () => {
   try {
     const res = fetchWithAuth(`${URL_FOR_AUTH}/user`, {
       headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+        'Content-Type': 'application/json',
+      },
+    });
 
     return res;
   } catch(e) {
     return Promise.reject(e);
   }
-}
+};
 
 export const patchUser = async (data: IUpdateUser) => {
   try {
@@ -88,14 +89,14 @@ export const patchUser = async (data: IUpdateUser) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
 
     return res;
   } catch(e) {
     return Promise.reject(e);
   }
-}
+};
 
 export const forgotPasswordApi = async (email: string) => {
   try {
@@ -104,7 +105,7 @@ export const forgotPasswordApi = async (email: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email })
+      body: JSON.stringify({ email }),
     });
 
     const data = await checkAnswer(res);
@@ -121,7 +122,7 @@ export const resetPasswordApi = async ({password, token}: {password: string, tok
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({password, token})
+      body: JSON.stringify({password, token}),
     });
 
     const data = await checkAnswer(res);
@@ -129,4 +130,4 @@ export const resetPasswordApi = async ({password, token}: {password: string, tok
   } catch(e) {
     return Promise.reject(e);
   }
-}
+};

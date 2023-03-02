@@ -1,4 +1,5 @@
 import React, {FC, ReactNode, useEffect} from 'react';
+
 import s from './IngredientContainer.module.scss';
 
 interface IIngredientContainerProps {
@@ -11,12 +12,12 @@ const IngredientContainer: FC<IIngredientContainerProps> = ({title, href, childr
 
   return (
     <>
-      <h3 className={`text text_type_main-medium`} id={href}>{title}</h3>
+      <h3 className={'text text_type_main-medium'} id={href}>{title}</h3>
       <ul className={`list mt-6 ml-4 mb-10 ${s.ingredientContainer__flexContainer}`}>
         {children}
       </ul>
     </>
-  )
-}
+  );
+};
 
 export default IngredientContainer;

@@ -1,13 +1,13 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IIngredient } from "../../types/interfaces/IIngredient";
-import { sendOrderThunk } from "../asyncThunk/ordersThunk";
-import { TOrderArray } from "../../types/types/TOrderArray";
-import { IOrder } from "../../types/interfaces/IOrder";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IIngredient } from '../../types/interfaces/IIngredient';
+import { IOrder } from '../../types/interfaces/IOrder';
+import { TOrderArray } from '../../types/types/TOrderArray';
+import { sendOrderThunk } from '../asyncThunk/ordersThunk';
 
 interface IBurgerConstructorSlice {
   bunsForTheBurgerConstructor: IIngredient[];
   ingredientsForTheBurgerConstructor: IIngredient[];
-  totalPrice: number;
   ingredientsForTheOrder: TOrderArray;
   order: IOrder | null
   isLoaderOrder: boolean;
@@ -26,7 +26,6 @@ const burgerConstructorSlice = createSlice({
   initialState: {
     bunsForTheBurgerConstructor: [],
     ingredientsForTheBurgerConstructor: [],
-    totalPrice: 0,
     ingredientsForTheOrder: [],
     order: null,
     isLoaderOrder: false,
@@ -41,24 +40,18 @@ const burgerConstructorSlice = createSlice({
     },
 
     addIngredientsForTheBurgerConstructor(state, action: PayloadAction<IIngredient>) {
-      state.ingredientsForTheBurgerConstructor = [action.payload, ...state.ingredientsForTheBurgerConstructor ]
+      state.ingredientsForTheBurgerConstructor = [action.payload, ...state.ingredientsForTheBurgerConstructor ];
     },
 
     removeIngredientForTheBurgerConstructor(state, action: PayloadAction<number>) {
-      state.ingredientsForTheBurgerConstructor = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload)
+      state.ingredientsForTheBurgerConstructor = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload);
     },
 
     sortIngredients(state, action: PayloadAction<ISortIngredients>) {
-      const newArr = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload.ingredientDrop.index)
+      const newArr = state.ingredientsForTheBurgerConstructor.filter((item, index) => index !== action.payload.ingredientDrop.index);
       const arrStart = newArr.slice(0, action.payload.index);
       const arrEnd = newArr.slice(action.payload.index);
       state.ingredientsForTheBurgerConstructor = [...arrStart, action.payload.ingredientDrop.item, ...arrEnd];
-    },
-
-    setTotalPrice(state) {
-      const ingredientTotalPrice = state.ingredientsForTheBurgerConstructor.reduce((sum: number, item: IIngredient) => sum += item.price, 0);
-      const bunsTotalPrice = state.bunsForTheBurgerConstructor.reduce((sum: number, item: IIngredient) => sum += (item.price * 2), 0);
-      state.totalPrice = ingredientTotalPrice + bunsTotalPrice;
     },
 
     setIngredientsForTheOrder(state) {
@@ -70,7 +63,7 @@ const burgerConstructorSlice = createSlice({
     clearBurgerConstructor(state) {
       state.bunsForTheBurgerConstructor = [];
       state.ingredientsForTheBurgerConstructor = [];
-    }
+    },
   },
   extraReducers(builder) {
     builder
@@ -78,24 +71,15 @@ const burgerConstructorSlice = createSlice({
         state.isLoaderOrder = true;
       })
       .addCase(sendOrderThunk.fulfilled, (state, action: PayloadAction<IOrder>) => {
-        console.log(action.payload)
         state.isLoaderOrder = false;
         state.order = action.payload;
       })
       .addCase(sendOrderThunk.rejected, (state, action) => {
         state.isLoaderOrder = false;
         console.log(action.payload);
-      })
-  }
+      });
+  },
 });
 
 export default burgerConstructorSlice.reducer;
-export const {
-  setBunsForTheBurgerConstructor,
-  addIngredientsForTheBurgerConstructor,
-  removeIngredientForTheBurgerConstructor,
-  sortIngredients,
-  setTotalPrice,
-  setIngredientsForTheOrder,
-  clearBurgerConstructor,
-} = burgerConstructorSlice.actions;
+export const burgerConstructorActions = burgerConstructorSlice.actions;

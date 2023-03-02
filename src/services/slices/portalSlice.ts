@@ -1,39 +1,53 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IIngredient } from "../../types/interfaces/IIngredient";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IIngredient } from '../../types/interfaces/IIngredient';
+import { IFeedOrder } from '../../types/interfaces/IOrder';
+import { TLocationState } from '../../types/types/types';
 
 interface IPortalSliceInitialState {
-  ingredient: IIngredient | null;
-  isOpenOrderDetails: boolean;
-  isOpenIngredientDetail: boolean;
+  orderForModal: IFeedOrder | null;
+  isOpenModalWithOrder: boolean;
+  ingredientForModal: IIngredient | null;
   isOpenModalWithMessage: string | null;
+  location: TLocationState | null;
 }
+
 const portalSlice = createSlice({
   name: 'portalSlice',
   initialState: {
-    ingredient: null,
-    isOpenOrderDetails: false,
-    isOpenIngredientDetail: false,
+    orderForModal: null,
+    isOpenModalWithOrder: false,
+    ingredientForModal: null,
     isOpenModalWithMessage: null,
+    location: null,
   } as IPortalSliceInitialState,
   reducers: {
-    setIsOpenOrderDetails(state, action: PayloadAction<boolean>) {
-      state.isOpenOrderDetails = action.payload
+    setIsOpenModalWithOrderDetails(
+      state,
+      action: PayloadAction<IFeedOrder>,
+    ) {
+      state.orderForModal = action.payload;
+
     },
-    setIsOpenIngredientDetail(state, action: PayloadAction<{isOpen: boolean, ingredient: IIngredient}>) {
-      state.isOpenIngredientDetail = action.payload.isOpen;
-      state.ingredient = action.payload.ingredient;
+    setIsOpenModalWithOrder(state, action: PayloadAction<boolean>) {
+      state.isOpenModalWithOrder = action.payload;
+    },
+    setIsOpenIngredientDetail(
+      state, action: PayloadAction<IIngredient>,
+    ) {
+      state.ingredientForModal = action.payload;
     },
     setIsOpenModalWithMessage(state, action: PayloadAction<string>) {
       state.isOpenModalWithMessage = action.payload;
     },
 
     closeAllModal(state) {
-      state.isOpenIngredientDetail = false;
-      state.isOpenOrderDetails = false;
-      // state.ingredient = null;
+      state.ingredientForModal = null;
+      state.orderForModal = null;
+      state.isOpenModalWithOrder = false;
       state.isOpenModalWithMessage = '';
-    }
-  }
+    },
+  },
 });
 
 export default portalSlice.reducer;

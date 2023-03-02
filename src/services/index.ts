@@ -1,9 +1,11 @@
-import { combineReducers,configureStore } from "@reduxjs/toolkit";
-import scrollSlice from "./slices/scrollSlice";
-import portalSlice from "./slices/portalSlice";
-import ingredientsSlice from "./slices/ingredientsSlice";
-import ingredientsForTheConstructorSlice from "./slices/burgerConstructorSlice";
-import profileSlice from "./slices/profileSlice";
+import { combineReducers,configureStore } from '@reduxjs/toolkit';
+
+import ingredientsForTheConstructorSlice from './slices/burgerConstructorSlice';
+import ingredientsSlice from './slices/ingredientsSlice';
+import portalSlice from './slices/portalSlice';
+import profileSlice from './slices/profileSlice';
+import scrollSlice from './slices/scrollSlice';
+import wsSlice from './slices/wsSlice';
 
 
 const rootReducer = combineReducers({
@@ -12,11 +14,12 @@ const rootReducer = combineReducers({
   ingredients: ingredientsSlice,
   burgerConstructor: ingredientsForTheConstructorSlice,
   profile: profileSlice,
+  wsReducers: wsSlice,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
-})
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

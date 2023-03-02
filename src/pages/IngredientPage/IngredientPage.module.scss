@@ -1,7 +1,9 @@
+@import '../../styles/constants.scss';
+
 .ingredientPage {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 88px);
+  height: $height-without-header;
 }

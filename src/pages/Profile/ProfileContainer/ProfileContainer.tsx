@@ -1,10 +1,12 @@
-import React, {ChangeEvent, FC, FormEvent, MutableRefObject, useEffect, useMemo, useState} from "react";
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, {ChangeEvent, FC, FormEvent, MutableRefObject, useEffect, useMemo, useState} from 'react';
+
+import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
+import { fetchGetUser, fetchUpdateUser } from '../../../services/asyncThunk/profileThunk';
+import { EMAIL_PATTERN } from '../../../utils/constants';
+
 import s from './ProfileContainer.module.scss';
-import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
-import { fetchGetUser, fetchUpdateUser } from "../../../services/asyncThunk/profileThunk";
-import { useFormWithValidation } from "../../../hooks/useFormWithValidation";
-import { EMAIL_PATTERN } from "../../../utils/constants";
 
 interface IProfileContainerProps {
 
@@ -19,19 +21,19 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
   const inputNameRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const inputLoginRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const inputPasswordRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
-  const sameValues = (name !== values.name || email !== values.email || values.password.length >= 8)
+  const sameValues = (name !== values.name || email !== values.email || values.password.length >= 8);
   const isButtonActive = useMemo(
     () => (
       isValid && sameValues
     ), [isValid, name, email, values]);
 
   useEffect(() => {
-    dispatch(fetchGetUser())
-  }, [])
+    dispatch(fetchGetUser());
+  }, []);
 
   useEffect(() => {
-    resetForm({name, email, password: ''})
-  }, [resetForm])
+    resetForm({name, email, password: ''});
+  }, [resetForm]);
 
   const onIconNameClick = () => {
     setIsEdit({...isEdit, name: false});
@@ -51,23 +53,23 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
   const handleBlur = () => {
     setIsEdit({name: true, email: true, password: true});
     if (values.password.length < 8) {
-      setValues({...values, password: ''})
+      setValues({...values, password: ''});
     }
-  }
+  };
 
   const handleResetValue = () => {
-    resetForm({name, email, password: ''})
-  }
+    resetForm({name, email, password: ''});
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (values.password.length < 8) {
-      dispatch(fetchUpdateUser({name: values.name, email: values.email}))
+      dispatch(fetchUpdateUser({name: values.name, email: values.email}));
     } else {
-      dispatch(fetchUpdateUser({name: values.name, email: values.email, password: values.password}))
+      dispatch(fetchUpdateUser({name: values.name, email: values.email, password: values.password}));
     }
-  }
+  };
 
 
   return (
@@ -144,8 +146,8 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
           Отмена
         </Button>
       </div>}
-  </form>
-    );
-}
+    </form>
+  );
+};
 
 export default ProfileContainer;

@@ -1,51 +1,53 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, {FormEvent, useEffect, useState} from 'react';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router';
+
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
+import { fetchResetPassword } from '../../services/asyncThunk/profileThunk';
+import { modalActions } from '../../services/slices/portalSlice';
+import { profileActions } from '../../services/slices/profileSlice';
+
 import forgotPassword from './ResetPassword.module.scss';
-import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Redirect, RouteComponentProps, withRouter } from "react-router";
-import { useFormWithValidation } from "../../hooks/useFormWithValidation";
-import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
-import { fetchResetPassword } from "../../services/asyncThunk/profileThunk";
-import { modalActions } from "../../services/slices/portalSlice";
-import { profileActions } from "../../services/slices/profileSlice";
 
 const ResetPassword = ({history}: RouteComponentProps): JSX.Element => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const dispatch = useAppDispatch();
   const message = useAppSelector(store => store.profile.message);
-  const isSentEmailForResetPassword = useAppSelector(store => store.profile.isSentEmailForResetPassword)
+  const isSentEmailForResetPassword = useAppSelector(store => store.profile.isSentEmailForResetPassword);
 
   useEffect(() => {
     resetForm();
-  }, [resetForm])
+  }, [resetForm]);
 
   const onIconClick = () => {
-    setIsVisiblePassword(!isVisiblePassword)
-  }
+    setIsVisiblePassword(!isVisiblePassword);
+  };
 
   const handleMoveToLogin = () => {
-    history.push('/login')
-  }
+    history.push('/login');
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(fetchResetPassword({password: values.password, token: values.code}))
+    dispatch(fetchResetPassword({password: values.password, token: values.code}));
   };
 
   useEffect(() => {
     if(message) {
-      console.log(message)
+      console.log(message);
       dispatch(modalActions.setIsOpenModalWithMessage(message));
       history.push('/login');
       dispatch(profileActions.setMessage(''));
     }
-  }, [message])
+  }, [message]);
 
   if (!isSentEmailForResetPassword) {
     return (
       <Redirect to='/forgot-password' />
-    )
+    );
   }
 
   return (
@@ -90,7 +92,7 @@ const ResetPassword = ({history}: RouteComponentProps): JSX.Element => {
             Сохранить
           </Button>
         </form>
-        <p className={`mt-20 text text_type_main-default text_color_inactive`}>
+        <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Вспомнили пароль?&#8194;
           <Button htmlType="button" type="secondary" size="medium" extraClass={forgotPassword.button} onClick={handleMoveToLogin}>
             Войти
@@ -99,6 +101,6 @@ const ResetPassword = ({history}: RouteComponentProps): JSX.Element => {
       </div>
     </section>
   );
-}
+};
 
 export default withRouter(ResetPassword);

@@ -19,7 +19,6 @@ const OrderStatistics: FC<IOrderStatisticsProps> = () => {
   const total = useAppSelector(store => store.wsReducers.wsMessage?.total);
   const totalToday = useAppSelector(store => store.wsReducers.wsMessage?.totalToday);
   const orders = useAppSelector(store => store.wsReducers.wsMessage?.orders);
-
   const readyOrders = useMemo(() => {
     if (orders) {
       return getListNumberOrder(orders, IOrderStatus.done);
@@ -49,10 +48,10 @@ const OrderStatistics: FC<IOrderStatisticsProps> = () => {
       </div>
 
       <h3 className={'mt-15 text text_type_main-medium'}>Выполнено за все время:</h3>
-      <p className={`text text_type_digits-large ${s.number}`}>{total}</p>
+      <p className={`text text_type_digits-large ${s.number}`}>{total || ''}</p>
 
       <h3 className={'mt-15 text text_type_main-medium'}>Выполнено за сегодня:</h3>
-      <p className={`text text_type_digits-large ${s.number}`}>{totalToday}</p>
+      <p className={`text text_type_digits-large ${s.number}`}>{totalToday || ''}</p>
     </div>
   );
 };

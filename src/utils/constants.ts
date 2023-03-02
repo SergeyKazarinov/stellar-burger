@@ -11,6 +11,7 @@ export const URL_FOR_RESET_PASSWORD: string = 'https://norma.nomoreparties.space
 
 //WebSocket
 export const WSS_FOR_ALL_ORDERS = 'wss://norma.nomoreparties.space/orders/all';
+export const WSS_FOR_PROFILE_ORDERS = 'wss://norma.nomoreparties.space/orders';
 
 //LINKS
 export const URL_FOR_PROFILE_NAVIGATION: string[] = ['/profile', '/profile/orders'];

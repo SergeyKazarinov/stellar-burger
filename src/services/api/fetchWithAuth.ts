@@ -24,7 +24,6 @@ export const fetchWithAuth = async (url: string, options: any) => {
         const data: IUpdateTokenSuccess = await newTokenResolve.json();
         localStorage.setItem(ACCESS_TOKEN, data.accessToken);
         localStorage.setItem(REFRESH_TOKEN, data.refreshToken);
-        console.log(data);
         options.headers.authorization = localStorage.getItem(ACCESS_TOKEN);
         const res = await fetch(url, options);
         if (res.ok) {

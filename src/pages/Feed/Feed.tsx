@@ -27,7 +27,7 @@ const Feed: FC<IFeedProps> = () => {
 
 
   return (
-    !feedOrders?.length
+    !feedOrders
       ? <Loader/>
       : (
         <section className={s.feed}>

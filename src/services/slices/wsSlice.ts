@@ -17,7 +17,7 @@ const wsSlice = createSlice({
     setWsConnected(state, action: PayloadAction<boolean>) {
       state.wsConnected = action.payload;
     },
-    setWSMessage(state, action: PayloadAction<IWSMessage>) {
+    setWSMessage(state, action: PayloadAction<IWSMessage | null>) {
       state.wsMessage = action.payload;
     },
   },

@@ -17,9 +17,11 @@ const Orders: FC<IOrdersProps> = () => {
     , [feedOrders]);
 
   return (
-    <ul className={`list pr-2 ${s.orders}`}>
-      {orders}
-    </ul>
+    orders?.length
+      ? (<ul className={`list pr-2 ${s.orders}`}>
+        {orders}
+      </ul>)
+      : <p className={`text text_type_main-large ${s.subtitle}`}>Заказовы отсутствуют</p>
   );
 };
 

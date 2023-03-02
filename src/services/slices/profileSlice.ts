@@ -5,6 +5,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../utils/constants';
 import { fetchForgotPassword, fetchGetUser, fetchLogin, fetchLogout, fetchRegister, fetchResetPassword, fetchUpdateUser } from '../asyncThunk/profileThunk';
 
 interface IProfileSliceInitialState {
+  isLoaderPage: boolean;
   profilePending: boolean;
   isLogin: boolean;
   isSentEmailForResetPassword: boolean;
@@ -17,6 +18,7 @@ interface IProfileSliceInitialState {
 const profileSlice = createSlice({
   name: 'profileSlice',
   initialState: {
+    isLoaderPage: true,
     profilePending: false,
     isLogin: false,
     isSentEmailForResetPassword: false,
@@ -90,6 +92,7 @@ const profileSlice = createSlice({
         state.message = '';
       })
       .addCase(fetchGetUser.fulfilled, (state, action: PayloadAction<IGetUserSuccess>) => {
+        state.isLoaderPage = false;
         state.profilePending = false;
         state.isLogin = true;
         state.email = action.payload.user.email;
@@ -97,6 +100,7 @@ const profileSlice = createSlice({
       })
       .addCase(fetchGetUser.rejected, (state, action) => {
         console.log(action.payload);
+        state.isLoaderPage = false;
         state.profilePending = false;
       })
 

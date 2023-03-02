@@ -1,5 +1,5 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import {FC, useMemo} from 'react';
+import {FC, useMemo, memo} from 'react';
 
 import { useDrag } from 'react-dnd';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -51,4 +51,4 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
   );
 };
 
-export default Ingredient;
+export default memo(Ingredient);

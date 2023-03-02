@@ -1,6 +1,9 @@
 import { useRef } from 'react';
 
+import { fetchGetUser } from '../services/asyncThunk/profileThunk';
 import { wsActions } from '../services/slices/wsSlice';
+
+import { ACCESS_TOKEN, WSS_FOR_PROFILE_ORDERS } from '../utils/constants';
 
 import { useAppDispatch } from './useTypedSelector';
 
@@ -14,14 +17,17 @@ export const useWebSocket = () => {
 
     ws.current.onopen = (e: Event) => {
       dispatch(wsActions.setWsConnected(true));
-      console.log(e);
     };
 
     ws.current.onmessage = (e: MessageEvent<string>) => {
       const message = JSON.parse(e.data);
+      if (message.success) {
+        dispatch(wsActions.setWSMessage(message));
+      } else {
+        dispatch(fetchGetUser());
+        connect(`${WSS_FOR_PROFILE_ORDERS}?token=${localStorage.getItem(ACCESS_TOKEN)?.replace('Bearer ', '')}`);
+      }
 
-      dispatch(wsActions.setWSMessage(message));
-      console.log(message);
     };
 
     ws.current.onerror = (e: Event) => {
@@ -30,11 +36,11 @@ export const useWebSocket = () => {
     };
 
     ws.current.onclose = (e: CloseEvent) => {
-      dispatch(wsActions.setWsConnected(false));
       if(e.wasClean) {
         console.log(e);
+        dispatch(wsActions.setWSMessage(null));
       }
-      console.log('соединение закрыто');
+      dispatch(wsActions.setWsConnected(false));
     };
   };
 

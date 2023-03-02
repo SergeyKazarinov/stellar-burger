@@ -51,7 +51,7 @@ const Order: FC<IOrderProps> = ({order}) => {
   const handleOpenOrderDetails = () => {
     dispatch(modalActions.setIsOpenModalWithOrderDetails(order));
 
-    history.push({pathname: `/feed/${order._id}`, state: {background: location}});
+    history.push({pathname: `${location.pathname}/${order._id}`, state: {background: location}});
   };
 
   return (

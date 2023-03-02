@@ -20,4 +20,5 @@ export interface IFeedOrder {
 export enum IOrderStatus {
   done = 'done',
   pending = 'pending',
+  created = 'created',
 }

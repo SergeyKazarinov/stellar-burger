@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 
 import { useDrag, useDrop } from 'react-dnd';
 

@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 
-import { useAppSelector } from '../../../../hooks/useTypedSelector';
 import { IIngredient } from '../../../../types/interfaces/IIngredient';
 
 import s from './IngredientDetails.module.scss';

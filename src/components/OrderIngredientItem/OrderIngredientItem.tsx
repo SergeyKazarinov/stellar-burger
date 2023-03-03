@@ -1,7 +1,6 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import {FC} from 'react';
 
-import { useAppSelector } from '../../hooks/useTypedSelector';
 import { IIngredientDetails } from '../../types/interfaces/IIngredient';
 import FeedIngredientOrder from '../UI/FeedIngredientOrder/FeedIngredientOrder';
 

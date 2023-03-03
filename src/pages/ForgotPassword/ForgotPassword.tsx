@@ -1,5 +1,5 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useEffect} from 'react';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';

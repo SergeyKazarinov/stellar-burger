@@ -1,10 +1,9 @@
 import React, { FC, memo, useMemo } from 'react';
 
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import IngredientDetails from '../../components/UI/Modal/IngredientDetails/IngredientDetails';
 import { useAppSelector } from '../../hooks/useTypedSelector';
-import Constructor from '../ConstructorPage/ConstructorPage';
 
 import s from './IngredientPage.module.scss';
 

@@ -24,7 +24,6 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
     bunsForTheBurgerConstructor,
     ingredientsForTheBurgerConstructor,
     ingredientsForTheOrder,
-    order,
     isLoaderOrder,
   } = useAppSelector(store => store.burgerConstructor);
   const dispatch = useAppDispatch();
@@ -43,10 +42,6 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
   useEffect(() => {
     dispatch(burgerConstructorActions.setIngredientsForTheOrder());
   }, [ingredientsForTheBurgerConstructor, bunsForTheBurgerConstructor]);
-
-  useEffect(() => {
-    order?.order?.number && dispatch(modalActions.setIsOpenModalWithOrder(true));
-  }, [order]);
 
   const handleSendOrder = () => {
     if (isLogin) {

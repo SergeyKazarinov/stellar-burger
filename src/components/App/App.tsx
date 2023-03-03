@@ -26,9 +26,9 @@ import ModalWithOrder from '../UI/Modal/ModalWithOrder/ModalWithOrder';
 const App: FC = () => {
   const {
     ingredientForModal,
-    isOpenModalWithOrder,
     isOpenModalWithMessage,
   } = useAppSelector((store) => store.modal);
+  const order = useAppSelector(store => store.burgerConstructor.order);
   const isLoaderPage = useAppSelector(store => store.profile.isLoaderPage);
   const { ingredients, fetchIngredientsPending } = useAppSelector((store) => store.ingredients);
   const orderForModal = useAppSelector(store => store.modal.orderForModal);
@@ -83,7 +83,7 @@ const App: FC = () => {
             <IngredientDetails ingredient={ingredientForModal}/>
           </Modal>)}
 
-        {isOpenModalWithOrder && (
+        {order && (
           <Modal>
             <ModalWithOrder />
           </Modal>)}

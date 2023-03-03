@@ -6,7 +6,6 @@ import { TLocationState } from '../../types/types/types';
 
 interface IPortalSliceInitialState {
   orderForModal: IFeedOrder | null;
-  isOpenModalWithOrder: boolean;
   ingredientForModal: IIngredient | null;
   isOpenModalWithMessage: string | null;
   location: TLocationState | null;
@@ -16,7 +15,6 @@ const portalSlice = createSlice({
   name: 'portalSlice',
   initialState: {
     orderForModal: null,
-    isOpenModalWithOrder: false,
     ingredientForModal: null,
     isOpenModalWithMessage: null,
     location: null,
@@ -28,9 +26,6 @@ const portalSlice = createSlice({
     ) {
       state.orderForModal = action.payload;
 
-    },
-    setIsOpenModalWithOrder(state, action: PayloadAction<boolean>) {
-      state.isOpenModalWithOrder = action.payload;
     },
     setIsOpenIngredientDetail(
       state, action: PayloadAction<IIngredient>,
@@ -44,7 +39,6 @@ const portalSlice = createSlice({
     closeAllModal(state) {
       state.ingredientForModal = null;
       state.orderForModal = null;
-      state.isOpenModalWithOrder = false;
       state.isOpenModalWithMessage = '';
     },
   },

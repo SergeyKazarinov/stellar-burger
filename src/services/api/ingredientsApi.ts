@@ -1,5 +1,5 @@
 import { TOrderArray } from '../../types/types/TOrderArray';
-import { ACCESS_TOKEN, URL_FOR_INGREDIENTS, URL_FOR_ORDERS } from '../../utils/constants';
+import { URL_FOR_INGREDIENTS, URL_FOR_ORDERS } from '../../utils/constants';
 
 import { fetchWithAuth } from './fetchWithAuth';
 
@@ -25,15 +25,13 @@ export const getIngredients = async () => {
 
 export const postOrders = async (order: TOrderArray) => {
   try {
-    const res = fetchWithAuth(URL_FOR_ORDERS, {
+    const res = await fetchWithAuth(URL_FOR_ORDERS, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `${localStorage.getItem(ACCESS_TOKEN)}`,
       },
       body: JSON.stringify({ingredients: order}),
     });
-    console.log(res);
     return res;
   } catch (e) {
     return Promise.reject(e);

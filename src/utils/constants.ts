@@ -26,6 +26,7 @@ export const REFRESH_TOKEN = 'refreshToken';
 export const LOGIN_ERROR_MESSAGE = 'Неверное имя пользователя или пароль';
 export const EXIST_EMAIL_MESSAGE = 'Пользователь с таким Email уже существует.';
 export const USER_UPDATE_ERROR_MESSAGE = 'При обновлении профиля произошла ошибка.';
+export const ORDER_SERVER_ERROR_MESSAGE = 'При заказе бургера произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 export const SERVER_ERROR_MESSAGE = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 export const REGISTER_ERROR_MESSAGE = 'При регистрации пользователя произошла ошибка.';
 export const USER_UPDATE_MESSAGE = 'Данные успешно обновлены!';

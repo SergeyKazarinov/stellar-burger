@@ -99,7 +99,9 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
           >
             {profilePending ? 'Выполняется вход' : 'Войти'}
           </Button>
-          <span className={`text  text_type_main-default ${login.errorMessage}`}>{errorMessage}</span>
+          <span className={`text  text_type_main-default ${login.errorMessage}`}>
+            {errorMessage}
+          </span>
         </form>
         <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Вы — новый пользователь?&#8194;

@@ -24,6 +24,8 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
     ingredientsForTheBurgerConstructor,
     ingredientsForTheOrder,
     isLoaderOrder,
+    order,
+    errorMessage,
   } = useAppSelector(store => store.burgerConstructor);
   const dispatch = useAppDispatch();
   const isLogin = useAppSelector(store => store.profile.isLogin);
@@ -42,13 +44,14 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
     dispatch(burgerConstructorActions.setIngredientsForTheOrder());
   }, [ingredientsForTheBurgerConstructor, bunsForTheBurgerConstructor]);
 
-  const handleSendOrder = () => {
-    if (isLogin) {
-      dispatch(sendOrderThunk(ingredientsForTheOrder));
-      dispatch(burgerConstructorActions.clearBurgerConstructor());
-    }
+  useEffect(() => {
+    order && dispatch(burgerConstructorActions.clearBurgerConstructor());
+  }, [order]);
 
-    history.push('/login', {background: history.location});
+  const handleSendOrder = () => {
+    !isLogin
+      ? history.push('/login', {background: history.location})
+      : dispatch(sendOrderThunk(ingredientsForTheOrder));
   };
 
   const handleDrop = (item: IIngredient) => {
@@ -66,7 +69,7 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
       className={`pt-25 pl-4 ${s.burgerConstructor} ${isHover && s.burgerConstructor_hover}`}
       ref={dropTarget}
     >
-      {bunsForTheBurgerConstructor.length === 0 && ingredientsForTheBurgerConstructor.length === 0
+      {bunsForTheBurgerConstructor.length === 0 && ingredientsForTheBurgerConstructor.length === 0 && !errorMessage
         ? (
           <p className={'text text_type_main-medium'}>
             Перетащите ингредиенты и булки для составления бургера

@@ -1,5 +1,23 @@
 @import '../../styles/mixins.scss';
 
+@keyframes text {
+  0% {
+    content: 'Заказ готовится';
+  }
+
+  25% {
+    content: 'Заказ готовится.';
+  }
+
+  50% {
+    content: 'Заказ готовится..';
+  }
+
+  75% {
+    content: 'Заказ готовится...';
+  }
+}
+
 .burgerConstructor {
   width: 600px;
   display: flex;
@@ -45,28 +63,9 @@
 .button::after {
   position: absolute;
   content: 'Заказ готовится';
-  // height: 24px;
   padding: 20px 0;
   top: 0;
   left: 1.5em;
   margin: auto;
   animation: text 2s infinite;
-}
-
-@keyframes text {
-  0% {
-    content: 'Заказ готовится';
-  }
-
-  25% {
-    content: 'Заказ готовится.';
-  }
-
-  50% {
-    content: 'Заказ готовится..';
-  }
-
-  75% {
-    content: 'Заказ готовится...';
-  }
 }

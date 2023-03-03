@@ -144,7 +144,7 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
           type="primary"
           size="medium"
           extraClass={s.button}
-          disabled={!isButtonActive || profilePending}
+          disabled={!isButtonActive || profilePending || !!!values.email || values.name.length < 2}
         >
           {profilePending ? 'Сохранение...' : 'Сохранить'}
         </Button>

@@ -29,6 +29,7 @@ const Modal: FC<IModalProps> = ({children}) => {
   const handleClose = () => {
     dispatch(modalActions.closeAllModal());
     dispatch(burgerConstructorActions.setOrder(null));
+    dispatch(burgerConstructorActions.clearErrorMessage());
 
     ingredientForModal || orderForModal && history.replace({...state?.background, state: {background: null}});
   };

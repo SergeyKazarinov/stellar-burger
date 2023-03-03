@@ -64,7 +64,6 @@ const profileSlice = createSlice({
         state.errorMessage = '';
       })
       .addCase(fetchRegister.fulfilled, (state, action: PayloadAction<IRegisterAnswerSuccess>) => {
-        console.log(action.payload);
         state.profilePending = false;
         state.isLogin = true;
         state.email = action.payload.user.email;
@@ -101,7 +100,6 @@ const profileSlice = createSlice({
         state.accessToken = action.payload.accessToken;
         localStorage.setItem(REFRESH_TOKEN, action.payload.refreshToken);
         localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken);
-        console.log(action.payload);
       })
       .addCase(fetchLogin.rejected.type, (state, action: PayloadAction<IMessageResponse>) => {
         console.log(action.payload);
@@ -119,7 +117,6 @@ const profileSlice = createSlice({
         state.message = '';
       })
       .addCase(fetchLogout.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.profilePending = false;
         state.isLogin = false;
         state.email = '';

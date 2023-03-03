@@ -29,6 +29,7 @@ const App: FC = () => {
     isOpenModalWithMessage,
   } = useAppSelector((store) => store.modal);
   const order = useAppSelector(store => store.burgerConstructor.order);
+  const errorMessage = useAppSelector(store => store.burgerConstructor.errorMessage);
   const isLoaderPage = useAppSelector(store => store.profile.isLoaderPage);
   const { ingredients, fetchIngredientsPending } = useAppSelector((store) => store.ingredients);
   const orderForModal = useAppSelector(store => store.modal.orderForModal);
@@ -96,6 +97,12 @@ const App: FC = () => {
         {isOpenModalWithMessage && (
           <Modal>
             <ModalWithMessage message={isOpenModalWithMessage} />
+          </Modal>
+        )}
+
+        {errorMessage && (
+          <Modal>
+            <ModalWithMessage message={errorMessage} />
           </Modal>
         )}
       </>

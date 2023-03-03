@@ -4,6 +4,7 @@ import React, {ChangeEvent, FC, FormEvent, MutableRefObject, useEffect, useMemo,
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { fetchGetUser, fetchUpdateUser } from '../../../services/asyncThunk/profileThunk';
+import { profileActions } from '../../../services/slices/profileSlice';
 import { EMAIL_PATTERN } from '../../../utils/constants';
 
 import s from './ProfileContainer.module.scss';
@@ -17,12 +18,14 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
   const email = useAppSelector(store => store.profile.email);
   const name = useAppSelector(store => store.profile.name);
   const profilePending = useAppSelector(store => store.profile.profilePending);
-  const {values, handleChange, errors, isValid, resetForm, setValues} = useFormWithValidation();
+  const errorMessage = useAppSelector(store => store.profile.errorMessage);
+  const {values, handleChange, isValid, resetForm, setValues} = useFormWithValidation();
   const [isEdit, setIsEdit] = useState({name: true, email: true, password: true});
   const inputNameRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const inputLoginRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const inputPasswordRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
   const sameValues = (name !== values.name || email !== values.email || values.password.length >= 8);
+
   const isButtonActive = useMemo(
     () => (
       isValid && sameValues
@@ -31,6 +34,10 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
   useEffect(() => {
     dispatch(fetchGetUser());
   }, []);
+
+  useEffect(() => {
+    errorMessage && setTimeout(() => dispatch(profileActions.clearErrorMessage()), 2000);
+  }, [errorMessage]);
 
   useEffect(() => {
     resetForm({name, email, password: ''});
@@ -68,7 +75,11 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
     if (values.password.length < 8) {
       dispatch(fetchUpdateUser({name: values.name, email: values.email}));
     } else {
-      dispatch(fetchUpdateUser({name: values.name, email: values.email, password: values.password}));
+      dispatch(fetchUpdateUser({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      }));
     }
   };
 
@@ -147,6 +158,9 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
           Отмена
         </Button>
       </div>}
+      <span className={`text  text_type_main-default ${s.errorMessage}`}>
+        {errorMessage}
+      </span>
     </form>
   );
 };

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ILogin, IRegister, IUpdateUser } from '../../types/interfaces/IAuthorization';
+import { ILogin, IMessageResponse, IRegister, IUpdateUser } from '../../types/interfaces/IAuthorization';
 import { forgotPasswordApi, getUser, loginUser, logoutUser, patchUser, registerUser, resetPasswordApi } from '../api/profileApi';
 
 
@@ -23,7 +23,7 @@ export const fetchLogin = createAsyncThunk(
       const res = await loginUser({email, password});
       return res;
     } catch(e) {
-      return thunkApi.rejectWithValue(e);
+      return thunkApi.rejectWithValue(e as IMessageResponse);
     }
   },
 );

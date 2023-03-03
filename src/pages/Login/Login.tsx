@@ -5,6 +5,7 @@ import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { fetchLogin } from '../../services/asyncThunk/profileThunk';
+import { profileActions } from '../../services/slices/profileSlice';
 import { TLocation } from '../../types/types/types';
 import { EMAIL_PATTERN } from '../../utils/constants';
 
@@ -15,6 +16,7 @@ import login from './Login.module.scss';
 const Login = ({history}: RouteComponentProps): JSX.Element => {
   const isLogin = useAppSelector(store => store.profile.isLogin);
   const profilePending = useAppSelector(store => store.profile.profilePending);
+  const errorMessage = useAppSelector(store => store.profile.errorMessage);
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const dispatch = useAppDispatch();
@@ -23,6 +25,10 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
   useEffect(() => {
     resetForm();
   }, [resetForm]);
+
+  useEffect(() => {
+    errorMessage && setTimeout(() => dispatch(profileActions.clearErrorMessage()), 2000);
+  }, [errorMessage]);
 
   const onIconClick = () => {
     setIsVisiblePassword(!isVisiblePassword);
@@ -93,6 +99,7 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
           >
             {profilePending ? 'Выполняется вход' : 'Войти'}
           </Button>
+          <span className={`text  text_type_main-default ${login.errorMessage}`}>{errorMessage}</span>
         </form>
         <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Вы — новый пользователь?&#8194;

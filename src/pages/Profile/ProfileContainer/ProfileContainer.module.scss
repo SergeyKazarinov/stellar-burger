@@ -1,5 +1,6 @@
 .profileContainer {
   margin-top: 100px;
+  position: relative;
 }
 
 .buttonContainer {
@@ -10,4 +11,13 @@
 .button {
   padding: 20px;
   width: 200px;
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: red
 }

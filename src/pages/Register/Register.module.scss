@@ -20,8 +20,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .button {
   padding: 0;
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: red
 }

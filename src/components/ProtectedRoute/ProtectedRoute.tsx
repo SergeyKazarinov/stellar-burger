@@ -16,7 +16,7 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({children, ...rest}) => {
       render={({ location }: RouteComponentProps) => {
         return (isLogin
           ? children
-          : <Redirect to={{ pathname: '/login', state: { from: location } }}/>);}
+          : <Redirect to={{ pathname: '/login', state: { background: location } }}/>);}
       }
     />
   );

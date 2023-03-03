@@ -5,6 +5,7 @@ import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { fetchRegister } from '../../services/asyncThunk/profileThunk';
+import { profileActions } from '../../services/slices/profileSlice';
 import { TLocation } from '../../types/types/types';
 import { EMAIL_PATTERN } from '../../utils/constants';
 
@@ -15,12 +16,17 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const isLogin = useAppSelector(store => store.profile.isLogin);
   const profilePending = useAppSelector(store => store.profile.profilePending);
+  const errorMessage = useAppSelector(store => store.profile.errorMessage);
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const { state } = history.location as TLocation;
 
   useEffect(() => {
     resetForm();
   }, [resetForm]);
+
+  useEffect(() => {
+    errorMessage && setTimeout(() => dispatch(profileActions.clearErrorMessage()), 2000);
+  }, [errorMessage]);
 
   const onIconClick = () => {
     setIsVisiblePassword(!isVisiblePassword);
@@ -102,6 +108,9 @@ const Register = ({history}: RouteComponentProps): JSX.Element => {
           >
             {profilePending ? 'Регистрация...' : 'Зарегистрироваться'}
           </Button>
+          <span className={`text  text_type_main-default ${register.errorMessage}`}>
+            {errorMessage}
+          </span>
         </form>
         <p className={'mt-20 text text_type_main-default text_color_inactive'}>
           Уже зарегистрированы?&#8194;

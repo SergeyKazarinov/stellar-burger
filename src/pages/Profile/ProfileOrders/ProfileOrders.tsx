@@ -3,6 +3,7 @@ import {FC, useEffect, useMemo} from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Orders from '../../../components/Orders/Orders';
+import ProtectedRoute from '../../../components/ProtectedRoute/ProtectedRoute';
 import Loader from '../../../components/UI/Loader/Loader';
 import { useAppSelector } from '../../../hooks/useTypedSelector';
 import { useWebSocket } from '../../../hooks/useWebSocket';
@@ -31,9 +32,9 @@ const ProfileOrders: FC<IProfileOrdersProps> = () => {
       <Route exact path='/profile/orders'>
         {feedOrders ? <Orders feedOrders={[...feedOrders].reverse()}/> : <Loader />}
       </Route>
-      <Route path={'/profile/orders/:orderId'}>
+      <ProtectedRoute path={'/profile/orders/:orderId'}>
         <OrderDetailsPage />
-      </Route>
+      </ProtectedRoute>
     </Switch>
   );
 };

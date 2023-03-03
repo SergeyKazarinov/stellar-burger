@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { sendOrderThunk } from '../../services/asyncThunk/ordersThunk';
 import { checkTotalPrice } from '../../services/helpers/checkTotalPrice';
 import {burgerConstructorActions} from '../../services/slices/burgerConstructorSlice';
-import { modalActions } from '../../services/slices/portalSlice';
 import { IIngredient } from '../../types/interfaces/IIngredient';
 import Buns from '../Buns/Buns';
 import IngredientElement from '../UI/IngredientElement/IngredientElement';
@@ -103,8 +102,9 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
             || isLoaderOrder
           }
           onClick={handleSendOrder}
+          extraClass={`${isLoaderOrder && s.button}`}
         >
-          {isLoaderOrder ? 'Готовим заказ' : 'Оформить заказ'}
+          {isLoaderOrder ? '' : 'Оформить заказ'}
         </Button>
       </div>
     </div>

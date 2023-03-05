@@ -1,6 +1,7 @@
 {
   "name": "stellar-burger",
   "version": "0.1.0",
+  "homepage": "https://stellar-burger.ru/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",

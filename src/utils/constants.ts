@@ -15,6 +15,7 @@ export const WSS_FOR_PROFILE_ORDERS = 'wss://norma.nomoreparties.space/orders';
 
 //LINKS
 export const URL_FOR_PROFILE_NAVIGATION: string[] = ['/profile', '/profile/orders'];
+export const URL_FOR_HEADER: string[] = ['/', '/feed', '/profile', '/profile/orders/', '/feed/'];
 
 export const EMAIL_PATTERN = '^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$';
 

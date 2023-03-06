@@ -8,12 +8,14 @@ import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import Login from '../../pages/Login/Login';
 import OrderDetailsPage from '../../pages/OrderDetailsPage/OrderDetailsPage';
+import PageNotFound from '../../pages/PageNotFound/PageNotFound';
 import Profile from '../../pages/Profile/Profile';
 import Register from '../../pages/Register/Register';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import { fetchIngredients } from '../../services/asyncThunk/ingredientsThunk';
 import { fetchGetUser } from '../../services/asyncThunk/profileThunk';
 import { Location, TLocationState } from '../../types/types/types';
+import { URL_FOR_HEADER } from '../../utils/constants';
 import { Header } from '../Header/Header';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -75,6 +77,9 @@ const App: FC = () => {
             </Route>
             <Route path='/ingredients/:id' >
               <IngredientPage />
+            </Route>
+            <Route path='*'>
+              <PageNotFound />
             </Route>
           </Switch>
         </main>

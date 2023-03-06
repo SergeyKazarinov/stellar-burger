@@ -1,0 +1,18 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/constants.scss';
+
+.orders {
+  width: 600px;
+  max-height: 825px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  margin-top: 20px;
+}
+
+.subtitle {
+  width: 100%;
+  text-align: center;
+  margin: auto
+}

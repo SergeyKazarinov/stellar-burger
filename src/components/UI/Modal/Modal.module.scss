@@ -4,10 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
-
-
-
+  z-index: 1;
 
   &__container {
     width: 720px;
@@ -21,6 +18,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+
   }
 
   &__header {

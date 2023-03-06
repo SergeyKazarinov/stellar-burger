@@ -1,3 +1,6 @@
+@import './styles/constants.scss';
+@import './styles/mixins.scss';
+
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -8,7 +11,8 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   max-width: 1920px;
-  background: #131316;
+  background: $backgroundPage;
+  @include scrollbar();
 }
 
 code {

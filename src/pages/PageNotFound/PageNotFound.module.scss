@@ -1,0 +1,17 @@
+@import '../../styles/constants.scss';
+
+.pageNotFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: $max-height;
+}
+
+.title {
+  text-shadow: $textShadow;
+}
+
+.subtitle {
+  text-shadow: $textShadow;
+}

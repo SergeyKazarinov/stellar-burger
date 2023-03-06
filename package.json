@@ -1,6 +1,7 @@
 {
   "name": "stellar-burger",
   "version": "0.1.0",
+  "homepage": "https://stellar-burger.ru/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
@@ -11,6 +12,8 @@
     "@types/react-router-dom": "^5.3.3",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.14.0",
     "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^5.2.1",
@@ -20,13 +23,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "lint": "eslint . -c .eslintrc",
+    "lint:fix": "npm run lint -- --fix"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100
   },
   "browserslist": {
     "production": [
@@ -39,5 +42,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.4"
   }
 }

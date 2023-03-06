@@ -1,33 +1,48 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IData } from "../../types/interface/IData";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { IIngredient } from '../../types/interfaces/IIngredient';
+import { IFeedOrder } from '../../types/interfaces/IOrder';
+import { TLocationState } from '../../types/types/types';
 
 interface IPortalSliceInitialState {
-  ingredient: IData;
-  isOpenOrderDetails: boolean;
-  isOpenIngredientDetail: boolean;
+  orderForModal: IFeedOrder | null;
+  ingredientForModal: IIngredient | null;
+  isOpenModalWithMessage: string | null;
+  location: TLocationState | null;
 }
+
 const portalSlice = createSlice({
   name: 'portalSlice',
   initialState: {
-    ingredient: {},
-    isOpenOrderDetails: false,
-    isOpenIngredientDetail: false
+    orderForModal: null,
+    ingredientForModal: null,
+    isOpenModalWithMessage: null,
+    location: null,
   } as IPortalSliceInitialState,
   reducers: {
-    setIsOpenOrderDetails(state, action: PayloadAction<boolean>) {
-      state.isOpenOrderDetails = action.payload
+    setIsOpenModalWithOrderDetails(
+      state,
+      action: PayloadAction<IFeedOrder>,
+    ) {
+      state.orderForModal = action.payload;
+
     },
-    setIsOpenIngredientDetail(state, action: PayloadAction<{isOpen: boolean, ingredient: IData}>) {
-      state.isOpenIngredientDetail = action.payload.isOpen;
-      state.ingredient = action.payload.ingredient;
+    setIsOpenIngredientDetail(
+      state, action: PayloadAction<IIngredient>,
+    ) {
+      state.ingredientForModal = action.payload;
+    },
+    setIsOpenModalWithMessage(state, action: PayloadAction<string>) {
+      state.isOpenModalWithMessage = action.payload;
     },
 
     closeAllModal(state) {
-      state.isOpenIngredientDetail = false;
-      state.isOpenOrderDetails = false;
-    }
-  }
+      state.ingredientForModal = null;
+      state.orderForModal = null;
+      state.isOpenModalWithMessage = '';
+    },
+  },
 });
 
 export default portalSlice.reducer;
-export const { setIsOpenOrderDetails, setIsOpenIngredientDetail, closeAllModal } = portalSlice.actions;
+export const modalActions = portalSlice.actions;

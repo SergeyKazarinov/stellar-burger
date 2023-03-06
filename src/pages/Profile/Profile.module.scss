@@ -1,0 +1,9 @@
+@import '../../styles/mixins.scss';
+
+.profile {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  gap: 60px;
+}

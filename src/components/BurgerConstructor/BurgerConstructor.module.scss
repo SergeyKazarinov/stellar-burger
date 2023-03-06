@@ -1,12 +1,32 @@
 @import '../../styles/mixins.scss';
 
+@keyframes text {
+  0% {
+    content: 'Заказ готовится';
+  }
+
+  25% {
+    content: 'Заказ готовится.';
+  }
+
+  50% {
+    content: 'Заказ готовится..';
+  }
+
+  75% {
+    content: 'Заказ готовится...';
+  }
+}
+
 .burgerConstructor {
-  @include scrollbar();
   width: 600px;
   display: flex;
   flex-direction: column;
-  // gap: 10px;
   position: relative;
+
+  &_hover {
+    background-color: #ffffff05;
+  }
 
   &__ingredients {
     max-height: calc(100vh - 324px - 200px);
@@ -16,11 +36,36 @@
     overflow-y: auto;
   }
 
-  &__item {
-    max-width: 584px;
-    width: 100%;
+  &__total {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  &__flex {
+    display: flex;
+    gap: 9.5px;
     align-items: center;
   }
+}
+
+.button {
+  width: 213px;
+  height: 64px;
+
+  position: relative;
+}
+
+.button::after {
+  position: absolute;
+  content: 'Заказ готовится';
+  padding: 20px 0;
+  top: 0;
+  left: 1.5em;
+  margin: auto;
+  animation: text 2s infinite;
 }

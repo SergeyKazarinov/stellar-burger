@@ -1,0 +1,9 @@
+@import '../../styles/constants.scss';
+
+.ingredientPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: $height-without-header;
+}

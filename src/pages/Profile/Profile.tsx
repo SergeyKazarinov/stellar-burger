@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
@@ -9,12 +9,7 @@ import ProfileContainer from './ProfileContainer/ProfileContainer';
 import ProfileNavigation from './ProfileNavigation/ProfileNavigation';
 import ProfileOrders from './ProfileOrders/ProfileOrders';
 
-
-interface IProfileProps {
-
-}
-
-const Profile: FC<IProfileProps> = () => {
+const Profile: FC = () => {
   const { path } = useRouteMatch();
 
   return (

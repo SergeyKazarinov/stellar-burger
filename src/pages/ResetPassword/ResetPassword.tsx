@@ -1,5 +1,5 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {FormEvent, useEffect, useState} from 'react';
+import {FormEvent, useEffect, useState} from 'react';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
@@ -37,7 +37,6 @@ const ResetPassword = ({history}: RouteComponentProps): JSX.Element => {
 
   useEffect(() => {
     if(message) {
-      console.log(message);
       dispatch(modalActions.setIsOpenModalWithMessage(message));
       history.push('/login');
       dispatch(profileActions.setMessage(''));

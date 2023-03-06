@@ -8,6 +8,7 @@ const Tabs: FC = () => {
   const [current, setCurrent] = useState<string>(BUNS);
   const scrollValue = useAppSelector(state => state.scroll.scrollValue);
 
+
   useEffect(() => {
     scrollValue <= 290
       ? setCurrent(BUNS)

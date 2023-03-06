@@ -1,4 +1,4 @@
-import React, {FC, MouseEvent, useEffect} from 'react';
+import {FC, MouseEvent, useEffect} from 'react';
 
 import { useHistory } from 'react-router-dom';
 

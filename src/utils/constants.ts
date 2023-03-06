@@ -15,10 +15,8 @@ export const WSS_FOR_PROFILE_ORDERS = 'wss://norma.nomoreparties.space/orders';
 
 //LINKS
 export const URL_FOR_PROFILE_NAVIGATION: string[] = ['/profile', '/profile/orders'];
-export const URL_FOR_HEADER: string[] = ['/', '/feed', '/profile', '/profile/orders/', '/feed/'];
 
 export const EMAIL_PATTERN = '^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$';
-
 
 export const ACCESS_TOKEN = 'accessToken';
 export const REFRESH_TOKEN = 'refreshToken';
@@ -31,3 +29,5 @@ export const ORDER_SERVER_ERROR_MESSAGE = 'При заказе бургера п
 export const SERVER_ERROR_MESSAGE = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 export const REGISTER_ERROR_MESSAGE = 'При регистрации пользователя произошла ошибка.';
 export const USER_UPDATE_MESSAGE = 'Данные успешно обновлены!';
+export const FORGOT_PASSWORD_MESSAGE = 'Письмо с дальнейшей инструкцией отправлено Вам на почту!';
+export const RESET_PASSWORD_MESSAGE = 'Ваш пароль успешно обновлен!';

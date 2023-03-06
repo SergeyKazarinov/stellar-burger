@@ -1,4 +1,4 @@
-import React, {FC, UIEvent, memo, useCallback, useMemo} from 'react';
+import {FC, UIEvent, memo, useCallback, useMemo} from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
 import { setScrollValue } from '../../services/slices/scrollSlice';

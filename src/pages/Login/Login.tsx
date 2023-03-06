@@ -1,5 +1,5 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {FormEvent, useEffect, useState} from 'react';
+import {FormEvent, useEffect, useState} from 'react';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
@@ -9,9 +9,7 @@ import { profileActions } from '../../services/slices/profileSlice';
 import { TLocation } from '../../types/types/types';
 import { EMAIL_PATTERN } from '../../utils/constants';
 
-import login from './Login.module.scss';
-
-
+import s from './Login.module.scss';
 
 const Login = ({history}: RouteComponentProps): JSX.Element => {
   const isLogin = useAppSelector(store => store.profile.isLogin);
@@ -58,10 +56,10 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
   }
 
   return (
-    <section className={login.login}>
-      <div className={login.container}>
-        <h2 className={`text text_type_main-medium ${login.title}`}>Вход</h2>
-        <form className={login.form} onSubmit={handleSubmit}>
+    <section className={s.login}>
+      <div className={s.container}>
+        <h2 className={`text text_type_main-medium ${s.title}`}>Вход</h2>
+        <form className={s.form} onSubmit={handleSubmit}>
           <Input
             type={'email'}
             placeholder={'E-mail'}
@@ -99,7 +97,7 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
           >
             {profilePending ? 'Выполняется вход' : 'Войти'}
           </Button>
-          <span className={`text  text_type_main-default ${login.errorMessage}`}>
+          <span className={`text  text_type_main-default ${s.errorMessage}`}>
             {errorMessage}
           </span>
         </form>
@@ -109,7 +107,7 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
             htmlType="button"
             type="secondary"
             size="medium"
-            extraClass={login.button}
+            extraClass={s.button}
             onClick={handleMoveToRegister}
           >
             Зарегистрироваться
@@ -120,7 +118,7 @@ const Login = ({history}: RouteComponentProps): JSX.Element => {
           <Button
             htmlType="button" type="secondary"
             size="medium"
-            extraClass={login.button}
+            extraClass={s.button}
             onClick={handleMoveToForgotPassword}
           >
             Восстановить пароль

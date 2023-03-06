@@ -1,6 +1,6 @@
-import React, { FC, memo, useEffect, useMemo } from 'react';
+import { FC, memo, useMemo } from 'react';
 
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import IngredientDetails from '../../components/UI/Modal/IngredientDetails/IngredientDetails';
 import { useAppSelector } from '../../hooks/useTypedSelector';
@@ -9,11 +9,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 
 import s from './IngredientPage.module.scss';
 
-interface IngredientPageProps {
-}
-
-const IngredientPage: FC<IngredientPageProps> = () => {
-  const history = useHistory();
+const IngredientPage: FC = () => {
   const params: {id: string} = useParams();
   const ingredients = useAppSelector(store => store.ingredients.ingredients);
 

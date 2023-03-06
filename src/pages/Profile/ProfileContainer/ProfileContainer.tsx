@@ -1,5 +1,5 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {ChangeEvent, FC, FormEvent, MutableRefObject, useEffect, useMemo, useState} from 'react';
+import { FC, FormEvent, MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
@@ -9,11 +9,7 @@ import { EMAIL_PATTERN } from '../../../utils/constants';
 
 import s from './ProfileContainer.module.scss';
 
-interface IProfileContainerProps {
-
-}
-
-const ProfileContainer: FC<IProfileContainerProps> = () => {
+const ProfileContainer: FC = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(store => store.profile.email);
   const name = useAppSelector(store => store.profile.name);
@@ -21,9 +17,9 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
   const errorMessage = useAppSelector(store => store.profile.errorMessage);
   const {values, handleChange, isValid, resetForm, setValues} = useFormWithValidation();
   const [isEdit, setIsEdit] = useState({name: true, email: true, password: true});
-  const inputNameRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
-  const inputLoginRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
-  const inputPasswordRef: MutableRefObject<HTMLInputElement | null> = React.useRef(null);
+  const inputNameRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
+  const inputLoginRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
+  const inputPasswordRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
   const sameValues = (name !== values.name || email !== values.email || values.password.length >= 8);
 
   const isButtonActive = useMemo(
@@ -82,7 +78,6 @@ const ProfileContainer: FC<IProfileContainerProps> = () => {
       }));
     }
   };
-
 
   return (
     <form className={s.profileContainer} onSubmit={handleSubmit}>

@@ -1,4 +1,4 @@
-import React, {FC, useMemo} from 'react';
+import {FC, useMemo} from 'react';
 
 import { IFeedOrder } from '../../types/interfaces/IOrder';
 import Order from '../Order/Order';
@@ -12,8 +12,8 @@ interface IOrdersProps {
 const Orders: FC<IOrdersProps> = ({feedOrders}) => {
 
   const orders = useMemo(
-    () => feedOrders?.map((item) => <li key={item._id}><Order order={item} /> </li>)
-    , [feedOrders]);
+    () => feedOrders?.map((item) => <li key={item._id}><Order order={item} /> </li>),
+    [feedOrders]);
 
   return (
     orders?.length

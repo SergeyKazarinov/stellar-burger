@@ -1,4 +1,4 @@
-import React, {FC, ReactNode} from 'react';
+import {FC, ReactNode} from 'react';
 import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
 
 import { useAppSelector } from '../../hooks/useTypedSelector';

@@ -3,8 +3,6 @@ import { useRef } from 'react';
 import { fetchGetUser } from '../services/asyncThunk/profileThunk';
 import { wsActions } from '../services/slices/wsSlice';
 
-import { ACCESS_TOKEN, WSS_FOR_PROFILE_ORDERS } from '../utils/constants';
-
 import { useAppDispatch } from './useTypedSelector';
 
 
@@ -36,7 +34,6 @@ export const useWebSocket = () => {
 
     ws.current.onclose = (e: CloseEvent) => {
       if(e.wasClean) {
-        console.log(e);
         dispatch(wsActions.setWSMessage(null));
       }
       dispatch(wsActions.setWsConnected(false));

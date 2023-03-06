@@ -15,10 +15,7 @@ import IngredientElement from '../UI/IngredientElement/IngredientElement';
 
 import s from './BurgerConstructor.module.scss';
 
-interface IBurgerConstructorProps {
-
-}
-const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
+const BurgerConstructor: FC = () => {
   const {
     bunsForTheBurgerConstructor,
     ingredientsForTheBurgerConstructor,
@@ -69,7 +66,9 @@ const BurgerConstructor: FC<IBurgerConstructorProps> = () => {
       className={`pt-25 pl-4 ${s.burgerConstructor} ${isHover && s.burgerConstructor_hover}`}
       ref={dropTarget}
     >
-      {bunsForTheBurgerConstructor.length === 0 && ingredientsForTheBurgerConstructor.length === 0 && !errorMessage
+      {(bunsForTheBurgerConstructor.length === 0
+      && ingredientsForTheBurgerConstructor.length === 0
+      && !errorMessage)
         ? (
           <p className={'text text_type_main-medium'}>
             Перетащите ингредиенты и булки для составления бургера

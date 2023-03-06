@@ -8,10 +8,7 @@ import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredie
 
 import s from './ConstructorPage.module.scss';
 
-interface IConstructorProps {
-
-}
-const Constructor: FC<IConstructorProps> = () => {
+const Constructor: FC = () => {
   return(
     <section className={`pb-10 ${s.constructorContainer}`}>
       <DndProvider backend={HTML5Backend}>

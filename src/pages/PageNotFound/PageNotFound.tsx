@@ -5,11 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import s from './PageNotFound.module.scss';
 
-interface IPageNotFoundProps {
-
-}
-
-const PageNotFound: FC<IPageNotFoundProps> = () => {
+const PageNotFound: FC = () => {
   const history = useHistory();
 
   const handleMovePageOnMain = () => {

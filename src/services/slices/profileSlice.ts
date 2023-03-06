@@ -9,8 +9,10 @@ import {
 import {
   ACCESS_TOKEN,
   EXIST_EMAIL_MESSAGE,
+  FORGOT_PASSWORD_MESSAGE,
   LOGIN_ERROR_MESSAGE,
   REFRESH_TOKEN,
+  RESET_PASSWORD_MESSAGE,
   USER_UPDATE_ERROR_MESSAGE,
 } from '../../utils/constants';
 import {
@@ -73,7 +75,6 @@ const profileSlice = createSlice({
         localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken);
       })
       .addCase(fetchRegister.rejected.type, (state, action: PayloadAction<IMessageResponse>) => {
-
         state.profilePending = false;
         if (action.payload.message === 'User already exists') {
           state.errorMessage = EXIST_EMAIL_MESSAGE;
@@ -81,10 +82,6 @@ const profileSlice = createSlice({
           console.log(action.payload);
           state.errorMessage = action.payload.message;
         }
-
-        setTimeout(() => {
-          state.errorMessage = '';
-        }, 3000);
       })
 
       .addCase(fetchLogin.pending, (state) => {
@@ -109,7 +106,6 @@ const profileSlice = createSlice({
         } else {
           state.errorMessage = action.payload.message;
         }
-
       })
 
       .addCase(fetchLogout.pending, (state) => {
@@ -170,7 +166,7 @@ const profileSlice = createSlice({
       })
       .addCase(fetchForgotPassword.fulfilled, (state, action: PayloadAction<IMessageResponse>) => {
         state.isSentEmailForResetPassword = true;
-        state.message = action.payload.message;
+        state.message = FORGOT_PASSWORD_MESSAGE;
         state.profilePending = false;
       })
       .addCase(fetchForgotPassword.rejected, (state, action) => {
@@ -184,7 +180,7 @@ const profileSlice = createSlice({
       .addCase(fetchResetPassword.fulfilled, (state, action: PayloadAction<IMessageResponse>) => {
         state.profilePending = false;
         state.isSentEmailForResetPassword = false;
-        state.message = action.payload.message;
+        state.message = RESET_PASSWORD_MESSAGE;
       })
       .addCase(fetchResetPassword.rejected, (state, action) => {
         state.profilePending = false;

@@ -15,7 +15,6 @@ import ModalOverlay from './ModalOverlay/ModalOverlay';
 
 interface IModalProps {
   children: React.ReactNode;
-  onClose?: () => void;
 }
 
 const Modal: FC<IModalProps> = ({children}) => {
@@ -36,7 +35,7 @@ const Modal: FC<IModalProps> = ({children}) => {
 
   return ReactDOM.createPortal((
 
-    <section className={s.modal}>
+    <div className={s.modal}>
       <ModalOverlay />
       <div className={`p-10 ${s.modal__container}`}>
         <header className={`${s.modal__header} ${ingredientForModal && s.modal__title}`}>
@@ -47,7 +46,7 @@ const Modal: FC<IModalProps> = ({children}) => {
         </header>
         {children}
       </div>
-    </section>
+    </div>
   ), divPortal);
 };
 

@@ -16,8 +16,6 @@ import s from './Order.module.scss';
 
 import OrderStatus from './OrderStatus/OrderStatus';
 
-
-
 interface IOrderProps {
   order: IFeedOrder;
 }
@@ -28,14 +26,15 @@ const Order: FC<IOrderProps> = ({order}) => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const date = new Date(order.createdAt);
-  const ingredientsOfTheOrders: IIngredient[] = order.ingredients.map((i) => {
+
+  const ingredientsOfTheOrders = order.ingredients.map((i) => {
     const item = ingredients.find(item => item._id === i);
-    return item ? item : ingredients[0];//исправить
+    return item;
   });
 
   const ingredientsOrder = useMemo(
-    () => {
-      return order.ingredients.slice(0, 6).map((item, index) => {
+    () => (
+      order.ingredients.slice(0, 6).map((item, index) => {
         const ingredientsItem = ingredients.find((i) => i._id === item);
         return ingredientsItem &&
         <li
@@ -45,8 +44,8 @@ const Order: FC<IOrderProps> = ({order}) => {
             index={index}
             leftIngredients={order.ingredients.slice(6).length}
           /></li>;
-      });
-    }, [order, ingredients]);
+      })
+    ), [order, ingredients]);
 
   const handleOpenOrderDetails = () => {
     dispatch(modalActions.setIsOpenModalWithOrderDetails(order));
@@ -67,12 +66,14 @@ const Order: FC<IOrderProps> = ({order}) => {
         </span> */}
       </div>
       <h3 className={`mt-6 text text_type_main-medium ${s.titleBurger}`}>{order.name}</h3>
+
       {location.pathname.includes('profile') && <OrderStatus orderStatus={order.status}/>}
+
       <div className={`mt-4 ${s.ingredientsContainer}`}>
         <ul className={`list ${s.items}`}>
           {ingredientsOrder}
         </ul>
-        <TotalPrice totalPrice={checkTotalPrice(ingredientsOfTheOrders)} />
+        <TotalPrice totalPrice={checkTotalPrice(ingredientsOfTheOrders as IIngredient[])} />
       </div>
     </button>
   );

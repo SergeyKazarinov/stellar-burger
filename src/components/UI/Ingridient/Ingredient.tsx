@@ -25,12 +25,12 @@ const Ingredient: FC<IIngredientProps> = ({ingredient}) => {
     item: ingredient,
   });
 
-  const counter = useMemo(() => {
-    return ingredientsForTheOrder.reduce((value, item) => {
+  const counter = useMemo(() => (
+    ingredientsForTheOrder.reduce((value, item) => {
       ingredient._id === item && (value += 1);
       return value;
-    }, 0);
-  }, [ingredientsForTheOrder]);
+    }, 0)
+  ), [ingredientsForTheOrder]);
 
   const handleOpenIngredientDetails = () => {
     dispatch(modalActions.setIsOpenIngredientDetail(ingredient));

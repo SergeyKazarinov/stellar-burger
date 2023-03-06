@@ -15,7 +15,6 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import { fetchIngredients } from '../../services/asyncThunk/ingredientsThunk';
 import { fetchGetUser } from '../../services/asyncThunk/profileThunk';
 import { Location, TLocationState } from '../../types/types/types';
-import { URL_FOR_HEADER } from '../../utils/constants';
 import { Header } from '../Header/Header';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';

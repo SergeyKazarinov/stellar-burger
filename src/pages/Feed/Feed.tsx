@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import {FC, useEffect} from 'react';
 
 import OrderStatistics from '../../components/OrderStatistics/OrderStatistics';
 import Orders from '../../components/Orders/Orders';
@@ -9,11 +9,7 @@ import { WSS_FOR_ALL_ORDERS } from '../../utils/constants';
 
 import s from './Feed.module.scss';
 
-interface IFeedProps {
-
-}
-
-const Feed: FC<IFeedProps> = () => {
+const Feed: FC = () => {
   const { connect, closeWs } = useWebSocket();
   const feedOrders = useAppSelector(store => store.wsReducers.wsMessage?.orders);
 

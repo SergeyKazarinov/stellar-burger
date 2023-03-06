@@ -36,11 +36,7 @@ const burgerConstructorSlice = createSlice({
   } as IBurgerConstructorSlice,
   reducers: {
     setBunsForTheBurgerConstructor(state, action: PayloadAction<IIngredient>) {
-      if (state.bunsForTheBurgerConstructor.length !== 0 && state.bunsForTheBurgerConstructor[0]._id !== action.payload._id) {
-        state.bunsForTheBurgerConstructor = [action.payload];
-      } else {
-        state.bunsForTheBurgerConstructor = [action.payload];
-      }
+      state.bunsForTheBurgerConstructor = [action.payload];
     },
     addIngredientsForTheBurgerConstructor(state, action: PayloadAction<IIngredient>) {
       state.ingredientsForTheBurgerConstructor = [action.payload, ...state.ingredientsForTheBurgerConstructor ];
@@ -72,7 +68,7 @@ const burgerConstructorSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(sendOrderThunk.pending, (state, action) => {
+      .addCase(sendOrderThunk.pending, (state) => {
         state.isLoaderOrder = true;
       })
       .addCase(sendOrderThunk.fulfilled, (state, action: PayloadAction<IOrder>) => {

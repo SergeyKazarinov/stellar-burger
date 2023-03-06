@@ -1,4 +1,4 @@
-import {FC, useEffect, useMemo} from 'react';
+import {FC, useEffect} from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -10,11 +10,7 @@ import { useWebSocket } from '../../../hooks/useWebSocket';
 import { WSS_FOR_PROFILE_ORDERS } from '../../../utils/constants';
 import OrderDetailsPage from '../../OrderDetailsPage/OrderDetailsPage';
 
-interface IProfileOrdersProps {
-
-}
-
-const ProfileOrders: FC<IProfileOrdersProps> = () => {
+const ProfileOrders: FC = () => {
   const { connect, closeWs } = useWebSocket();
   const feedOrders = useAppSelector(store => store.wsReducers.wsMessage?.orders);
   const accessToken = useAppSelector(store => store.profile.accessToken);

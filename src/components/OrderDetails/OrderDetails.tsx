@@ -23,9 +23,9 @@ const OrderDetails: FC<IOrderDetailsProps> = ({order}) => {
   const date = new Date(order.createdAt);
 
   const ingredientList = sortArray.map(
-    (item, index) => {
-      return <li key={index}><OrderIngredientItem ingredient={item}/></li>;
-    },
+    (item, index) => (
+      <li key={index}><OrderIngredientItem ingredient={item}/></li>
+    ),
   );
 
   return (

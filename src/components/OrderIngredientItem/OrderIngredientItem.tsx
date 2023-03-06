@@ -16,7 +16,9 @@ const OrderIngredientItem: FC<IOrderIngredientItemProps> = ({ingredient}) => {
       <FeedIngredientOrder item={ingredient}/>
       <p className={`text text_type_main-default ${s.title}`}>{ingredient.name}</p>
       <div className={s.price}>
-        <p className={'text text_type_digits-default'}>{ingredient.quantity}&#160;x&#160;{ingredient.price}</p>
+        <p className={'text text_type_digits-default'}>
+          {ingredient.quantity}&#160;x&#160;{ingredient.price}
+        </p>
         <CurrencyIcon type="primary"/>
       </div>
     </div>

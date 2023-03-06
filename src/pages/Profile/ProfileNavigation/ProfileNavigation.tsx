@@ -1,17 +1,13 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
+import { useAppDispatch } from '../../../hooks/useTypedSelector';
 import { fetchLogout } from '../../../services/asyncThunk/profileThunk';
 
 import profile from './ProfileNavigation.module.scss';
 
-interface IProfileNavigationProps {
-
-}
-
-const ProfileNavigation: FC<IProfileNavigationProps> = () => {
+const ProfileNavigation: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {

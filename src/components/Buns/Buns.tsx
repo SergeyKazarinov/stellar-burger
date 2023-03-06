@@ -1,5 +1,5 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { useAppSelector } from '../../hooks/useTypedSelector';
 

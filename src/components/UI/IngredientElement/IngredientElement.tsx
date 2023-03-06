@@ -1,5 +1,5 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {FC} from 'react';
+import {FC} from 'react';
 
 import { useDrag, useDrop } from 'react-dnd';
 
@@ -50,8 +50,14 @@ const IngredientElement: FC<IngredientElementProps> = ({item, index}) => {
   };
 
   return (
-    <li className={`pr-2 ${s.ingredientElement} ${isDrag && s.ingredientElement_dragging}`} ref={refDrag}>
-      <div className={`${s.ingredientElement__flex} ${isHover && s.ingredientElement__flex_hover}`} ref={refDrop}>
+    <li
+      className={`pr-2 ${s.ingredientElement} ${isDrag && s.ingredientElement_dragging}`}
+      ref={refDrag}
+    >
+      <div
+        className={`${s.ingredientElement__flex} ${isHover && s.ingredientElement__flex_hover}`}
+        ref={refDrop}
+      >
         <DragIcon type="primary"/>
         <ConstructorElement
           text={item.name}

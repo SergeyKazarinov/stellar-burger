@@ -22,7 +22,7 @@ const ingredientsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchIngredients.pending, (state, action) => {
+      .addCase(fetchIngredients.pending, (state) => {
         state.fetchIngredientsPending = true;
       })
       .addCase(fetchIngredients.fulfilled, (state, action: PayloadAction<IIngredient[]>) => {

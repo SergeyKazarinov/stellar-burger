@@ -1,5 +1,5 @@
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {FC, useMemo} from 'react';
+import React, { FC, useMemo } from 'react';
 
 import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom';
@@ -17,10 +17,10 @@ interface IModalProps {
   children: React.ReactNode;
 }
 
-const Modal: FC<IModalProps> = ({children}) => {
+const Modal: FC<IModalProps> = ({ children }) => {
   const divPortal = useMemo(() => document.getElementById('modal'), []) as Element;
-  const ingredientForModal = useAppSelector(store => store.modal.ingredientForModal);
-  const orderForModal = useAppSelector(store => store.modal.orderForModal);
+  const ingredientForModal = useAppSelector((store) => store.modal.ingredientForModal);
+  const orderForModal = useAppSelector((store) => store.modal.orderForModal);
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { state } = history.location as TLocation;
@@ -30,11 +30,11 @@ const Modal: FC<IModalProps> = ({children}) => {
     dispatch(burgerConstructorActions.setOrder(null));
     dispatch(burgerConstructorActions.clearErrorMessage());
 
-    ingredientForModal || orderForModal && history.replace({...state?.background, state: {background: null}});
+    (ingredientForModal || orderForModal) &&
+      history.replace({ ...state?.background, state: { background: null } });
   };
 
-  return ReactDOM.createPortal((
-
+  return ReactDOM.createPortal(
     <div className={s.modal}>
       <ModalOverlay />
       <div className={`p-10 ${s.modal__container}`}>
@@ -42,12 +42,13 @@ const Modal: FC<IModalProps> = ({children}) => {
           <h2 className={'text text_type_main-large'}>
             {ingredientForModal && 'Детали ингредиента'}
           </h2>
-          <CloseIcon type='primary' onClick={handleClose}/>
+          <CloseIcon type="primary" onClick={handleClose} />
         </header>
         {children}
       </div>
-    </div>
-  ), divPortal);
+    </div>,
+    divPortal
+  );
 };
 
 export default Modal;

@@ -1,12 +1,11 @@
 @import '../../styles/constants.scss';
 @import '../../styles/mixins.scss';
 
-
 .burgerIngredients {
   width: 600px;
 
   &__ingredients {
-    max-height: $max-height;
+    max-height: calc($max-height - 10px);
     overflow-y: auto;
   }
 }

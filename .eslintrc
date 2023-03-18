@@ -1,22 +1,25 @@
 {
-  "extends": [
-    "react-app",
-    "react-app/jest"
-  ],
-  "plugins": [
-    "react",
-    "prettier"
-],
+  "extends": ["react-app", "react-app/jest"],
+  "plugins": ["react"],
   "rules": {
     "no-console": "warn",
     "quotes": ["error", "single"],
     "indent": ["error", 2],
-    "comma-dangle": ["error", "always-multiline"],
+    "comma-dangle": ["error", "only-multiline"],
     "semi": ["error", "always"],
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ],
         "newlines-between": "always-and-inside-groups",
         "alphabetize": {
           "order": "asc"

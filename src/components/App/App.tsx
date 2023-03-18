@@ -25,15 +25,12 @@ import ModalWithMessage from '../UI/Modal/ModalWithMessage/ModalWithMessage';
 import ModalWithOrder from '../UI/Modal/ModalWithOrder/ModalWithOrder';
 
 const App: FC = () => {
-  const {
-    ingredientForModal,
-    isOpenModalWithMessage,
-  } = useAppSelector((store) => store.modal);
-  const order = useAppSelector(store => store.burgerConstructor.order);
-  const errorMessage = useAppSelector(store => store.burgerConstructor.errorMessage);
-  const isLoaderPage = useAppSelector(store => store.profile.isLoaderPage);
+  const { ingredientForModal, isOpenModalWithMessage } = useAppSelector((store) => store.modal);
+  const order = useAppSelector((store) => store.burgerConstructor.order);
+  const errorMessage = useAppSelector((store) => store.burgerConstructor.errorMessage);
+  const isLoaderPage = useAppSelector((store) => store.profile.isLoaderPage);
   const { ingredients, fetchIngredientsPending } = useAppSelector((store) => store.ingredients);
-  const orderForModal = useAppSelector(store => store.modal.orderForModal);
+  const orderForModal = useAppSelector((store) => store.modal.orderForModal);
   const dispatch = useAppDispatch();
   const location = useLocation<TLocationState>();
   const background = ingredientForModal || orderForModal ? location.state.background : null;
@@ -43,73 +40,76 @@ const App: FC = () => {
     dispatch(fetchGetUser());
   }, []);
 
-  return (
-    isLoaderPage
-      ? <Loader />
-      : <>
-        <Header />
-        <main>
-          <Switch location={background as Location || location}>
-            <Route exact path='/'>
-              {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
-            </Route>
-            <Route path='/login'>
-              <Login />
-            </Route>
-            <Route path='/register'>
-              <Register />
-            </Route>
-            <Route path='/forgot-password'>
-              <ForgotPassword />
-            </Route>
-            <Route path='/reset-password'>
-              <ResetPassword />
-            </Route>
-            <ProtectedRoute path='/profile'>
-              <Profile />
-            </ProtectedRoute>
-            <Route exact path='/feed'>
-              <Feed />
-            </Route>
-            <Route path='/feed/:orderId'>
-              <OrderDetailsPage />
-            </Route>
-            <Route path='/ingredients/:id' >
-              <IngredientPage />
-            </Route>
-            <Route path='*'>
-              <PageNotFound />
-            </Route>
-          </Switch>
-        </main>
+  return isLoaderPage ? (
+    <Loader />
+  ) : (
+    <>
+      <Header />
+      <main>
+        <Switch location={(background as Location) || location}>
+          <Route exact path="/">
+            {ingredients.length > 0 && !fetchIngredientsPending && <Constructor />}
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+          <Route path="/reset-password">
+            <ResetPassword />
+          </Route>
+          <ProtectedRoute path="/profile">
+            <Profile />
+          </ProtectedRoute>
+          <Route exact path="/feed">
+            <Feed />
+          </Route>
+          <Route path="/feed/:orderId">
+            <OrderDetailsPage />
+          </Route>
+          <Route path="/ingredients/:id">
+            <IngredientPage />
+          </Route>
+          <Route path="*">
+            <PageNotFound />
+          </Route>
+        </Switch>
+      </main>
 
-        {ingredientForModal && (
-          <Modal>
-            <IngredientDetails ingredient={ingredientForModal}/>
-          </Modal>)}
+      {ingredientForModal && (
+        <Modal>
+          <IngredientDetails ingredient={ingredientForModal} />
+        </Modal>
+      )}
 
-        {order && (
-          <Modal>
-            <ModalWithOrder />
-          </Modal>)}
+      {order && (
+        <Modal>
+          <ModalWithOrder />
+        </Modal>
+      )}
 
-        {orderForModal && (
-          <Modal>
-            <OrderDetails order={orderForModal!}/>
-          </Modal>)}
+      {orderForModal && (
+        <Modal>
+          <OrderDetails order={orderForModal!} />
+        </Modal>
+      )}
 
-        {isOpenModalWithMessage && (
-          <Modal>
-            <ModalWithMessage message={isOpenModalWithMessage} />
-          </Modal>
-        )}
+      {isOpenModalWithMessage && (
+        <Modal>
+          <ModalWithMessage message={isOpenModalWithMessage} />
+        </Modal>
+      )}
 
-        {errorMessage && (
-          <Modal>
-            <ModalWithMessage message={errorMessage} />
-          </Modal>
-        )}
-      </>
+      {errorMessage && (
+        <Modal>
+          <ModalWithMessage message={errorMessage} />
+        </Modal>
+      )}
+    </>
   );
 };
 

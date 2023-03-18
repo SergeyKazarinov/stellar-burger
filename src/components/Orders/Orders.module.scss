@@ -3,7 +3,7 @@
 
 .orders {
   width: 600px;
-  max-height: 825px;
+  max-height: calc($max-height + 120px);
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -14,5 +14,5 @@
 .subtitle {
   width: 100%;
   text-align: center;
-  margin: auto
+  margin: auto;
 }
